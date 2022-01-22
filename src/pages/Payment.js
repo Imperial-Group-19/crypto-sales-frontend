@@ -12,9 +12,3 @@ const Payment = () => {
 };
 
 export default Payment;
-
-// user's crypto address ()
-// seller's crypto address (unmodifiable field)
-// coin (unmodifiable)
-// amount (not modifiable)
-// max gas spend
