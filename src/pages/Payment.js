@@ -1,14 +1,11 @@
 import React from "react";
+import PaymentForm from "../components/PaymentForm";
 
 const Payment = () => {
     return (
         <>
             <h1>Payment page</h1>
-            <form>
-                <label>Enter your name:
-                    <input type="text" />
-                </label>
-            </form>
+            <PaymentForm />
         </>
         
     );
