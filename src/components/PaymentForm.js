@@ -4,12 +4,29 @@ import { Form, Button } from "react-bootstrap";
 
 
 export default function PaymentForm() {
-    const [inputs, setInputs] = useState({});
+    const [inputs, setInputs] = useState({
+        customerWalletAddress: '',
+        privateKey: '',
+        merchantWalletAddress: '0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6',
+        coinType:'Polygon (MATIC)',
+        amount: Number(15.34),
+        gasSpend: Number(0),
+    });
+    // const [customerWalletAddress, setCustomerWalletAddress] = useState('');
+    // const [privateKey, setPrivateKey] = useState('');
+    // const [merchantWalletAddress, setMerchantWalletAddress] = useState('');
+    // const [amount, setAmount] = useState(15);
+    // const [gasSpend, setGasSpend] = useState(0);
+    const [totalAmount, setTotalAmount] = useState(Number(inputs.amount) + Number(inputs.gasSpend));
+
+
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setInputs(values => ({...values, [name]: value }))
+        setInputs(values => ({...values, [name]: value }));
+        setTotalAmount(Number(this.amount + this.gasSpend));
     }
+
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -24,7 +41,7 @@ export default function PaymentForm() {
                     type="text"
                     name="customerWalletAddress"
                     placeholder="Enter wallet address" 
-                    value={inputs.customerWalletAddress || ""}
+                    value={inputs.customerWalletAddress}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -34,7 +51,7 @@ export default function PaymentForm() {
                     type="text" 
                     name="privateKey"
                     placeholder="Enter private key"
-                    value={inputs.privateKey || ""}
+                    value={inputs.privateKey}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -54,27 +71,26 @@ export default function PaymentForm() {
                     type="text"
                     name="coinType" 
                     placeholder="Polygon (MATIC)"
-                    value="Polygon (MATIC)"
+                    value={inputs.coinType}
                     disabled
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formamount">
                 <Form.Label>Amount</Form.Label>
                 <Form.Control 
-                    type="text" 
-                    name="Amount"
-                    placeholder="19.954382929"
-                    value="19.954382929"
+                    type="number" 
+                    name="amount"
+                    value={inputs.amount}
                     disabled 
                 />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formgasSpend">
                 <Form.Label>Gas Spend</Form.Label>
                 <Form.Control 
-                    type="text" 
+                    type="number" 
                     name="gasSpend"
-                    placeholder="0.15"
-                    value={inputs.gasSpend || ""}
+                    placeholder="Please enter your maximum gas spend"
+                    value={inputs.gasSpend}
                     onChange={handleChange}
                 />
             </Form.Group>
@@ -83,12 +99,11 @@ export default function PaymentForm() {
                 <Form.Control 
                     type="number" 
                     name="totalAmount"
-                    placeholder="0.15" 
-                    value={inputs.totalAmount || 0.0 }
-                    onChange={handleChange}
+                    value={Number(inputs.amount) + Number(inputs.gasSpend)}
+                    disabled
                     />
             </Form.Group>
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" onClick={handleSubmit}>
                 Pay
             </Button>
 
