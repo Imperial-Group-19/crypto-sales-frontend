@@ -14,6 +14,7 @@ export default function Headline() {
             </ul>
             <Button variant="outline-success" href="products">See our Courses</Button>
         </Container>
+        
 
     )
 }
