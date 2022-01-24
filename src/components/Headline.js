@@ -16,7 +16,7 @@ export default function Headline() {
                     <details>
                         <summary>
                             <div className="fw-bold">
-                                C++
+                                C++ course
                             </div>
                         </summary>
                         What a beast this language is. Full of fun and unexpected memory errors. 
@@ -34,7 +34,7 @@ export default function Headline() {
                     <details>
                         <summary>
                             <div className="fw-bold">
-                                Java
+                                Java course
                             </div>
                         </summary>
                             Your code will run on every system. Compile once and run anywhere.
@@ -52,7 +52,7 @@ export default function Headline() {
                     <details>
                         <summary>
                             <div className="fw-bold">
-                                Python
+                                Python course
                             </div>
                         </summary>
                         Scared of snakes? Worry no more. Pythons are not venomous, 
