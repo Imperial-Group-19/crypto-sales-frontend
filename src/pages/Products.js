@@ -32,7 +32,9 @@ export default function Products() {
                                         <ListGroupItem>Memory Management Tips</ListGroupItem>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="outline-dark" href="payment">Buy Now</Button>
+                                        <div className="d-grid gap-2">
+                                            <Button variant="outline-dark" href="payment" size="lg">Buy Now</Button>
+                                        </div>
                                     </Card.Body>
                                 </Card>
                                 <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light">
@@ -47,12 +49,14 @@ export default function Products() {
                                         </Card.Text>
                                     </Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        <ListGroupItem>Full Algorithms Course in C++</ListGroupItem>
-                                        <ListGroupItem>Object Oriented Design Tips</ListGroupItem>
-                                        <ListGroupItem>Memory Management Tips</ListGroupItem>
+                                        <ListGroupItem>Full Algorithms Course in Java</ListGroupItem>
+                                        <ListGroupItem>OODP Cheat Sheet</ListGroupItem>
+                                        <ListGroupItem>Design conventions tips</ListGroupItem>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="outline-dark" href="payment">Buy Now</Button>
+                                        <div className="d-grid gap-2">
+                                            <Button variant="outline-dark" href="payment" size="lg">Buy Now</Button>
+                                        </div>
                                     </Card.Body>
                                 </Card>
                                 <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light">
@@ -60,19 +64,21 @@ export default function Products() {
                                     <Card.Body>
                                         <Card.Title>Algorithms in Python</Card.Title>
                                         <Card.Text>
-                                        80 MATIC
+                                        95 MATIC
                                         </Card.Text>
                                         <Card.Text>
                                         Try out our newest course in Python and impress your interviewers.
                                         </Card.Text>
                                     </Card.Body>
                                     <ListGroup className="list-group-flush">
-                                        <ListGroupItem>Full Algorithms Course in C++</ListGroupItem>
+                                        <ListGroupItem>Full Algo Course in Python</ListGroupItem>
                                         <ListGroupItem>Data Structures Cheat Sheet</ListGroupItem>
-                                        <ListGroupItem>Memory Management Tips</ListGroupItem>
+                                        <ListGroupItem>List comprehension Tips</ListGroupItem>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="outline-dark" href="payment">Buy Now</Button>
+                                        <div className="d-grid gap-2">
+                                            <Button variant="outline-dark" href="payment" size="lg">Buy Now</Button>
+                                        </div>
                                     </Card.Body>
                                 </Card>
                             </Row>
