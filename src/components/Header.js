@@ -8,7 +8,7 @@ export default function Header() {
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand href="landing">Super Algorithms Course Maker inc.</Navbar.Brand>
-                    <Button variant="outline-secondary" href="products">See our Courses</Button>
+                    <Button variant="outline-secondary" href="products">See Our Courses</Button>
                 </Container>
             </Navbar>
         </Container>
