@@ -2,7 +2,7 @@ import React from "react";
 import PaymentForm from "../components/PaymentForm";
 import { Container, Row, Col } from "react-bootstrap";
 
-const Payment = () => {
+export default function Payment() {
     return (
         <Container>
             <Row>
@@ -14,5 +14,3 @@ const Payment = () => {
         </Container>
     );
 };
-
-export default Payment;

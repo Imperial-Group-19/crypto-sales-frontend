@@ -5,12 +5,14 @@ import './App.css';
 
 import Landing from './pages/Landing';
 import Payment from './pages/Payment';
+import Products from './pages/Products';
 
 export default function App() {
   return (
     <Router>
       <Routes>
         <Route path="/landing" element={<Landing />} />
+        <Route path="/products" element={<Products />} />
         <Route path="/payment" element={<Payment />} />
       </Routes>
     </Router>
