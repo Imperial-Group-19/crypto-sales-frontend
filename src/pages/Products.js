@@ -12,7 +12,7 @@ export default function Products() {
                     <Col>
                         <Container>
                             <Row>
-                                <h1>Our courses</h1>
+                                <h1 className="display-1">Our courses</h1>
                             </Row>
                             <Row>
                                 <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light" >
@@ -32,7 +32,7 @@ export default function Products() {
                                         <ListGroupItem>Memory Management Tips</ListGroupItem>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="outline-success" href="payment">Buy Now</Button>
+                                        <Button variant="outline-dark" href="payment">Buy Now</Button>
                                     </Card.Body>
                                 </Card>
                                 <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light">
@@ -52,7 +52,7 @@ export default function Products() {
                                         <ListGroupItem>Memory Management Tips</ListGroupItem>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="outline-success" href="payment">Buy Now</Button>
+                                        <Button variant="outline-dark" href="payment">Buy Now</Button>
                                     </Card.Body>
                                 </Card>
                                 <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light">
@@ -60,7 +60,7 @@ export default function Products() {
                                     <Card.Body>
                                         <Card.Title>Algorithms in Python</Card.Title>
                                         <Card.Text>
-                                        25 MATIC
+                                        80 MATIC
                                         </Card.Text>
                                         <Card.Text>
                                         Try out our newest course in Python and impress your interviewers.
@@ -72,7 +72,7 @@ export default function Products() {
                                         <ListGroupItem>Memory Management Tips</ListGroupItem>
                                     </ListGroup>
                                     <Card.Body>
-                                        <Button variant="outline-success" href="payment">Buy Now</Button>
+                                        <Button variant="outline-dark" href="payment">Buy Now</Button>
                                     </Card.Body>
                                 </Card>
                             </Row>

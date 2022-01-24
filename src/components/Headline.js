@@ -4,10 +4,10 @@ import { Container, Navbar, Button, ListGroup, Badge } from "react-bootstrap";
 
 export default function Headline() {
     return (
-        <Container>
+        <Container style={{ width: '50rem' }}>
             <h1 className="display-1">Having problems with your coding interviews?</h1>
             <p className="lead">Try our new algorithms course. Now available in 3 programming languages</p>
-            <ListGroup as="ol" numbered>
+            <ListGroup as="ol" numbered >
             <ListGroup.Item
                 as="li"
                 className="d-flex justify-content-between align-items-start"
@@ -39,6 +39,10 @@ export default function Headline() {
             </ListGroup.Item>
             </ListGroup>
             {/* <Button variant="light" href="products">See our Courses</Button> */}
+            <br></br>
+            <div className="d-grid gap-2">
+            <Button variant="outline-secondary" href="products" size="lg">See our Courses</Button>
+            </div>
         </Container>
     )
 }
