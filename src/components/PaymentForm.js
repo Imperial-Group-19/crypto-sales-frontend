@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Modal } from "react-bootstrap";
 
-import Web3 from "web3";
+import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import funnelABI from "../config/abi/funnelContract.js";
 
@@ -13,23 +13,46 @@ import funnelABI from "../config/abi/funnelContract.js";
 export default function PaymentForm() {
     const [connected, setConnected] = useState(false);
     const [address, setAddress] = useState("");
+    const [provider, setProvider] = useState();
+    const [signer, setSigner] = useState()
+
+    const [showModal, setShowModal] = useState(false);
 
     const contractAddress = "0xd617D99F40B254F4614F5B9cc0090Ca1383551a5";
-    const web3 = new Web3(Web3.givenProvider);
-    const funnelContract = new web3.eth.Contract(funnelABI, contractAddress);
-
-    const makePayment = async() => {
+ 
+    const makePayment = async () => {
         // TODO: write function to fetch price of products from smart contract
-        const price = 0.0001 * 10e18;
-        let result = await funnelContract.methods.makePayment(0,0).send({
-            value: price,
-            from: address,
-            gas: 50000
-        }).on('confirmation', function(confirmationNumber, receipt) {
-            console.log(confirmationNumber);
+
+        const funnelContract = new ethers.Contract(
+            contractAddress,
+            ['function makePayment(uint StoreId, uint productId ) external payable returns (bool)'],
+            signer
+        )
+
+        const txInfo = {
+            gasLimit: 250000,
+            value: ethers.utils.parseEther('0.0001')
+        };
+
+        try{
+            setShowModal(true);
+            const tx = await funnelContract.makePayment(0,0, txInfo);
+    
+            const receipt = await tx.wait(); 
+            console.log('Transaction receipt');
             console.log(receipt);
-            alert("Thank you");
-        })
+    
+            if(receipt) {
+                alert("Thank you for your purchase!")
+                setShowModal(false);
+            }
+
+        } catch (error) {
+            console.error(error);
+            setShowModal(false);
+            alert("Transaction failed :(")
+        }
+
     }
     
 
@@ -75,10 +98,14 @@ export default function PaymentForm() {
 
     const handleConnectWallet = async()  => {
         const connection = await web3modal.connect();
-        const web3 = new Web3(connection);
-        const accounts = await web3.eth.getAccounts();
-        console.log(accounts);
-        setAddress(accounts[0]);
+        const provider = new ethers.providers.Web3Provider(connection);
+        const signer = provider.getSigner();
+
+        setAddress(connection.selectedAddress);
+        setSigner(signer)
+        setProvider(provider);
+        // console.log(accounts);
+        // setAddress(accounts[0]);
         setConnected(true);
     }
 
@@ -140,11 +167,14 @@ export default function PaymentForm() {
                         disabled 
                     />
                 </Form.Group>
-                <Button variant="primary" type="submit" onClick={makePayment}>
+                <Button variant="primary" onClick={makePayment}>
                     Pay
                 </Button>
 
             </Form>
+            <Modal show={showModal} backdrop="static">
+                <Modal.Body>Mining your transaction...</Modal.Body>
+            </Modal>
         </>
     );
 };
