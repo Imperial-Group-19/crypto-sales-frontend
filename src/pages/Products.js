@@ -15,7 +15,7 @@ export default function Products() {
                                 <h1 className="display-1">Our courses</h1>
                             </Row>
                             <Row>
-                                <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light" >
+                                <Card style={{ width: '18rem' }} className="m-2" bg="secondary" border="light" >
                                     {/* <Card.Img variant="top" src="https://picsum.photos/180/100" /> */}
                                     <Card.Body>
                                         <Card.Title>Algorithms in C++</Card.Title>
@@ -37,7 +37,7 @@ export default function Products() {
                                         </div>
                                     </Card.Body>
                                 </Card>
-                                <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light">
+                                <Card style={{ width: '18rem' }} className="m-2" bg="secondary" border="light">
                                     {/* <Card.Img variant="top" src="https://picsum.photos/180/100" /> */}
                                     <Card.Body>
                                         <Card.Title>Algorithms in Java</Card.Title>
@@ -59,7 +59,7 @@ export default function Products() {
                                         </div>
                                     </Card.Body>
                                 </Card>
-                                <Card style={{ width: '18rem' }} className="m-2" bg="warning" border="light">
+                                <Card style={{ width: '18rem' }} className="m-2" bg="secondary" border="light">
                                     {/* <Card.Img variant="top" src="https://picsum.photos/180/100" /> */}
                                     <Card.Body>
                                         <Card.Title>Algorithms in Python</Card.Title>
