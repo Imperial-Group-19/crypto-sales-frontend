@@ -11,6 +11,8 @@ import funnelABI from "../config/abi/funnelContract.js";
 
 
 export default function PaymentForm() {
+
+    const [price, setPrice] = useState("0.0001");
     const [connected, setConnected] = useState(false);
     const [address, setAddress] = useState("");
     const [provider, setProvider] = useState();
@@ -31,7 +33,7 @@ export default function PaymentForm() {
 
         const txInfo = {
             gasLimit: 250000,
-            value: ethers.utils.parseEther('0.0001')
+            value: ethers.utils.parseEther(price)
         };
 
         try{
@@ -132,7 +134,7 @@ export default function PaymentForm() {
                     <Form.Control 
                         type="text"
                         name="customerWalletAddress"
-                        placeholder="Enter wallet address" 
+                        placeholder="Wallet address" 
                         value={address}
                         onChange={handleChange}
                         disabled
@@ -163,7 +165,7 @@ export default function PaymentForm() {
                     <Form.Control 
                         type="number" 
                         name="amount"
-                        value={inputs.amount}
+                        value={price}
                         disabled 
                     />
                 </Form.Group>

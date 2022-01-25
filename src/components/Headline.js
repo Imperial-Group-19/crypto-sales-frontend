@@ -20,7 +20,7 @@ export default function Headline() {
                             </div>
                         </summary>
                         What a beast this language is. Full of fun and unexpected memory errors. 
-                        But, don't worry! With this course, you will be able to say segfaults goodbye! 
+                        But, don't worry! With this course, you will be able to say goodbye to segfaults! 
                         Learn to implement algorithms in this language in no time. This is a C-rious course.
                         Money back money kind of quarantined unless you run out of memory and forget to return.
                     </details>
@@ -38,7 +38,7 @@ export default function Headline() {
                             </div>
                         </summary>
                             Your code will run on every system. Compile once and run anywhere.
-                            What more to wish for? By the way, Java is not single. So make sure you don't propose 
+                            What more can you wish for? By the way, Java is not single. So make sure you don't propose 
                             a Date, or you will be told 'I am not your type'. You can buy her though ;) 
                             Only here on this website!
                     </details>
@@ -58,7 +58,7 @@ export default function Headline() {
                         Scared of snakes? Worry no more. Pythons are not venomous, 
                         they kill their prey by slowly squeezing it to death. 
                         Just remember, as you are coding your algorithms that speed is a factor! 
-                        Or be ready to be squeezed to death.
+                        Or get ready to be squeezed to death.
                     </details>
                 </div>
             </ListGroup.Item>
