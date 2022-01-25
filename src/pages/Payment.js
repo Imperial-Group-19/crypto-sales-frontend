@@ -7,7 +7,7 @@ export default function Payment() {
         <Container>
             <Row>
                 <Col>
-                    <h1>Payment page</h1>
+                    <h1 className="display-1">Payment page</h1>
                     <PaymentForm />  
                 </Col>
             </Row>

@@ -126,8 +126,11 @@ export default function PaymentForm() {
     return (
         <>
             {connected? 
-            <Button className='disconnect' variant="secondary" type="submit" onClick={handleDisconnectWallet}>Disconnect Wallet</Button>:
-            <Button className='connect' variant="primary" type="submit" onClick={handleConnectWallet}>Connect Wallet</Button>}
+            <Button className='disconnect' variant="outline-danger" type="submit" onClick={handleDisconnectWallet}>Disconnect Wallet</Button>:
+            <Button className='connect' variant="outline-success" type="submit" onClick={handleConnectWallet}>Connect Wallet</Button>}
+            
+            <hr></hr>
+            
             <Form>
                 <Form.Group className="mb-3" controlId="formcustomerWalletAddress">
                     <Form.Label>Your Wallet Address</Form.Label>
@@ -169,7 +172,7 @@ export default function PaymentForm() {
                         disabled 
                     />
                 </Form.Group>
-                <Button variant="primary" onClick={makePayment}>
+                <Button variant="success" onClick={makePayment}>
                     Pay
                 </Button>
 
