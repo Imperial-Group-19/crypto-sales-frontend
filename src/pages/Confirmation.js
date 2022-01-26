@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../components/Header";
-import Headline from "../components/Headline";
+import ThankYou from "../components/ThankYou"
 
-export default function Landing() {
+export default function Confirmation() {
     return (
         <>
             <Header />
-            <Headline />
+            <ThankYou />
             {/* <Footer /> */}
             
         </>

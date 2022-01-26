@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
 
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
-import funnelABI from "../config/abi/funnelContract.js";
-
-// const funnelABI = [ { "anonymous": false, "inputs": [ { "indexed": false, "internalType": "address", "name": "from", "type": "address" }, { "indexed": false, "internalType": "uint256", "name": "storeId", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "productId", "type": "uint256" } ], "name": "PaymentMade", "type": "event" }, { "inputs": [ { "internalType": "uint256", "name": "storeId", "type": "uint256" }, { "internalType": "uint256", "name": "price", "type": "uint256" } ], "name": "createProduct", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "storeId", "type": "uint256" }, { "internalType": "uint256", "name": "productId", "type": "uint256" } ], "name": "makePayment", "outputs": [ { "internalType": "bool", "name": "", "type": "bool" } ], "stateMutability": "payable", "type": "function" }, { "inputs": [ { "internalType": "address payable", "name": "storeAddress", "type": "address" } ], "name": "registerStore", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "storeAddresses", "outputs": [ { "internalType": "address payable", "name": "", "type": "address" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "storeProductAmount", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "storeProducts", "outputs": [ { "internalType": "uint256", "name": "productId", "type": "uint256" }, { "internalType": "uint256", "name": "price", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "name": "storeVolume", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [ { "internalType": "uint256", "name": "storeId", "type": "uint256" } ], "name": "totalProducts", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalStores", "outputs": [ { "internalType": "uint256", "name": "", "type": "uint256" } ], "stateMutability": "view", "type": "function" } ];
-
 
 
 export default function PaymentForm() {
@@ -21,6 +17,8 @@ export default function PaymentForm() {
     const [showModal, setShowModal] = useState(false);
 
     const contractAddress = "0xd617D99F40B254F4614F5B9cc0090Ca1383551a5";
+
+    let navigate = useNavigate();
  
     const makePayment = async () => {
         // TODO: write function to fetch price of products from smart contract
@@ -45,8 +43,9 @@ export default function PaymentForm() {
             console.log(receipt);
     
             if(receipt) {
-                alert("Thank you for your purchase!")
+                // alert("Thank you for your purchase!")
                 setShowModal(false);
+                navigate("/confirmation")
             }
 
         } catch (error) {
@@ -57,8 +56,6 @@ export default function PaymentForm() {
 
     }
     
-
-
     const providerOptions = {
         // Injected providers
         injected: {
@@ -77,8 +74,6 @@ export default function PaymentForm() {
         providerOptions
     });
     
-
-
     const [inputs, setInputs] = useState({
         customerWalletAddress: '',
         merchantWalletAddress: '0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6',
@@ -86,11 +81,6 @@ export default function PaymentForm() {
         amount: Number(15.34),
         gasSpend: Number(0),
     });
-    // const [customerWalletAddress, setCustomerWalletAddress] = useState('');
-    // const [merchantWalletAddress, setMerchantWalletAddress] = useState('');
-    // const [amount, setAmount] = useState(15);
-
-
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -106,8 +96,6 @@ export default function PaymentForm() {
         setAddress(connection.selectedAddress);
         setSigner(signer)
         setProvider(provider);
-        // console.log(accounts);
-        // setAddress(accounts[0]);
         setConnected(true);
     }
 
