@@ -5,12 +5,12 @@ import { Form, Button, Modal } from "react-bootstrap";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-import BackendCommunication from "BackendCommunication";
+// import BackendCommunication from "BackendCommunication";
 
 
 export default function PaymentForm() {
 
-    <BackendCommunication /> // javascript to communicate with the backend (websocket)
+    // <BackendCommunication /> // javascript to communicate with the backend (websocket)
 
     const [price, setPrice] = useState("0.0001");
     const [connected, setConnected] = useState(false);
