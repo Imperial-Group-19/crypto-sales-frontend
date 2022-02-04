@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; 
 import { Container, Navbar, Button } from "react-bootstrap";
 
 
@@ -8,7 +9,7 @@ export default function Header() {
             <Navbar bg="light">
                 <Container>
                     <Navbar.Brand href="landing">Super Algorithms Course Maker Inc.</Navbar.Brand>
-                    <Button variant="outline-secondary" href="products">See Our Courses</Button>
+                    <Link to="/payment"><Button variant="outline-secondary">Shopping Cart</Button></Link>
                 </Container>
             </Navbar>
         </Container>

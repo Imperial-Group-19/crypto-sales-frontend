@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-import BackendCommunication from "BackendCommunication";
+// import BackendCommunication from "BackendCommunication";
 
 
 export default function PaymentForm() {
 
-    <BackendCommunication /> // javascript to communicate with the backend (websocket)
-
-    const [price, setPrice] = useState("0.0001");
+    // <BackendCommunication /> // javascript to communicate with the backend (websocket)
+    const price = useSelector((state) => state.shop.total);
+    // const [price, setPrice] = useState("0.0001");
     const [connected, setConnected] = useState(false);
     const [address, setAddress] = useState("");
     const [provider, setProvider] = useState();
-    const [signer, setSigner] = useState()
+    const [signer, setSigner] = useState();
 
     const [showModal, setShowModal] = useState(false);
 
@@ -35,7 +36,7 @@ export default function PaymentForm() {
 
         const txInfo = {
             gasLimit: 250000,
-            value: ethers.utils.parseEther(price)
+            value: ethers.utils.parseEther(String(price))
         };
 
         try{
@@ -117,6 +118,7 @@ export default function PaymentForm() {
 
     return (
         <>
+            {console.log(useSelector((state) => state.shop.total))}
             {connected? 
             <Button className='disconnect' variant="outline-danger" type="submit" onClick={handleDisconnectWallet}>Disconnect Wallet</Button>:
             <Button className='connect' variant="outline-success" type="submit" onClick={handleConnectWallet}>Connect Wallet</Button>}
@@ -158,9 +160,9 @@ export default function PaymentForm() {
                 <Form.Group className="mb-3" controlId="formamount">
                     <Form.Label>Amount</Form.Label>
                     <Form.Control 
-                        type="number" 
+                        type="string" 
                         name="amount"
-                        value={price}
+                        value={String(price)}
                         disabled 
                     />
                 </Form.Group>
