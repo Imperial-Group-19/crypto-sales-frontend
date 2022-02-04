@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; 
 import { Container, Navbar, Button, ListGroup, Badge } from "react-bootstrap";
 
 
@@ -66,7 +67,7 @@ export default function Headline() {
             {/* <Button variant="light" href="products">See our Courses</Button> */}
             <br></br>
             <div className="d-grid gap-2">
-            <Button variant="outline-secondary" href="products" size="lg">See Our Courses</Button>
+                <Link to="/products"><Button variant="outline-secondary" size="lg">See Our Courses</Button></Link>
             </div>
         </Container>
     )
