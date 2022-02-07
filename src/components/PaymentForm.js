@@ -13,6 +13,8 @@ export default function PaymentForm() {
 
     // <BackendCommunication /> // javascript to communicate with the backend (websocket)
     const price = useSelector((state) => state.shop.total);
+    const products = useSelector((state) => state.shop.addedProducts);
+    const ids = products.map(product => product.id);
     // const [price, setPrice] = useState("0.0001");
     const [connected, setConnected] = useState(false);
     const [address, setAddress] = useState("");
@@ -21,7 +23,7 @@ export default function PaymentForm() {
 
     const [showModal, setShowModal] = useState(false);
 
-    const contractAddress = "0xd617D99F40B254F4614F5B9cc0090Ca1383551a5";
+    const contractAddress = "0xd1a831348b69a37c75540ac3af58b6e37224fe64";
 
     let navigate = useNavigate();
  
@@ -30,7 +32,7 @@ export default function PaymentForm() {
 
         const funnelContract = new ethers.Contract(
             contractAddress,
-            ['function makePayment(uint StoreId, uint productId ) external payable returns (bool)'],
+            ['function makePayment(address payable storeAddress, string[] memory productNames) external payable'],
             signer
         )
 
@@ -41,7 +43,7 @@ export default function PaymentForm() {
 
         try{
             setShowModal(true);
-            const tx = await funnelContract.makePayment(0,0, txInfo);
+            const tx = await funnelContract.makePayment("0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",ids, txInfo);
     
             const receipt = await tx.wait(); 
             console.log('Transaction receipt');
@@ -166,7 +168,7 @@ export default function PaymentForm() {
                         disabled 
                     />
                 </Form.Group>
-                <Button variant="success" onClick={makePayment}>
+                <Button variant="success" onClick={makePayment} disabled={!connected}>
                     Pay
                 </Button>
 

@@ -5,9 +5,9 @@ export const shopSlice = createSlice({
   initialState: {
     products: [
       {
-          id: "001", 
+          id: "C++", 
           title:"C++ course", 
-          price: 0.035, 
+          price: 0.0035, 
           description: "Try out our original course in C++ and impress your interviewers.",
           features: [
               "Full algorithms course in C++",
@@ -16,9 +16,9 @@ export const shopSlice = createSlice({
           ]
       },
       {
-          id: "002", 
+          id: "Java", 
           title:"Java course", 
-          price: 0.025, 
+          price: 0.0025, 
           description: "Try out our updated course in Java and impress your interviewers.",
           features: [
               "Full algorithms course in Java",
@@ -27,9 +27,9 @@ export const shopSlice = createSlice({
           ]
       },
       {
-          id: "003", 
+          id: "Python", 
           title:"Python course", 
-          price: 0.095, 
+          price: 0.0045, 
           description: "Try out our newest course in Python and impress your interviewers.",
           features: [
               "Full algorithms course in Python",
