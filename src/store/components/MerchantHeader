@@ -1,0 +1,18 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom"; 
+import { Container, Navbar, Button } from "react-bootstrap";
+
+
+export default function MerchantHeader() {
+    return (
+        <Container fluid>
+            <Navbar bg="light">
+                <Container>
+                    <Navbar.Brand href="landing">Crypto Sales Funnel</Navbar.Brand>
+                    <Link to="/merchant/login"><Button variant="outline-secondary">Switch to Login</Button></Link>
+                </Container>
+            </Navbar>
+        </Container>
+
+    )
+}
