@@ -39,9 +39,7 @@ export default function Products() {
                         </Card>
                     ))}
                 </Col>
-                <Col xs={3}>
-                    <ShoppingCart/>
-                </Col>
+                
             </Row>
         )
     }
@@ -60,6 +58,9 @@ export default function Products() {
                                 {productList(products, addedProducts)}
                             </Row>
                         </Container>
+                    </Col>
+                    <Col xs={3}>
+                        <ShoppingCart/>
                     </Col>
                 </Row>
             </Container>

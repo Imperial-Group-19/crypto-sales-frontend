@@ -1,19 +1,37 @@
-import { current, createSlice } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 
-// export const merchantSlice = createSlice({
-//     name: "merchant",
-//     initialState: {
-//         login: {
-//             logged_in: false,
-//             user: {}
+export const merchantSlice = createSlice({
+    name: "merchant",
+    initialState: {
+        logged_in: false,
+        user: {
+            email: "",
+            stores: [
+                {
+                    id: "super-algorithms",
+                    name: "Super Algorithms Inc.",
+                    description: "We help you prepare for Tech Interviews",
+                    products: []
 
-//         }
-//     },
-//     reducers: {
+                },
+                {
+                    id: "jasons-poetry",
+                    name: "Jason's Poetry",
+                    description: "There's a poem for every season",
+                    products: []
 
-//     }
-// })
+                }
+            ]
+        }
+    },
+    reducers: {
+        loginUser: (state, action) => {
+            state.logged_in = true;
+            state.user.email = action.payload;
+        }
+    }
+})
 
-// export const { } = merchantSlice.actions
+export const { loginUser } = merchantSlice.actions
 
-// export default merchantSlice.reducer
+export default merchantSlice.reducer
