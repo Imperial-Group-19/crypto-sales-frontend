@@ -31,7 +31,7 @@ export default function Register() {
                                     placeholder="Must have at least 6 characters"
                                 />
                             </Form.Group>
-                            <Link to="/merchant/dashboard">
+                            <Link to="/merchant/new-store">
                                 <Button variant="outline-secondary">Register</Button>
                             </Link>
                         </Form>
