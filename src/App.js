@@ -8,10 +8,12 @@ import Landing from './pages/Landing';
 import Payment from './pages/Payment';
 import Products from './pages/Products';
 import Confirmation from './pages/Confirmation';
-import Register from "./store/pages/Register";
-import Login from "./store/pages/Login";
+import Register from "./merchant/pages/Register";
+import Login from "./merchant/pages/Login";
 import MerchantDashboard from "./pages/MerchantDashboard";
-import Stores from "./store/pages/Stores";
+import Stores from "./merchant/pages/Stores";
+import NewStore from "./merchant/pages/NewStore";
+import StoreProducts from "./merchant/pages/StoreProducts";
 
 
 // Web sockets
@@ -31,8 +33,8 @@ export default function App() {
         <Route path="/merchant/register" element={<Register />}/>
         <Route path="/merchant/login" element={<Login />} />
         <Route path="/merchant/stores" element={<Stores />}/>
-        {/* <Route path="/merchant/new-store" element={<NewStore />}></Route> */} 
-        {/* <Route path="/merchant/:storeID" element={<StoreDashboard />}></Route> */}
+        <Route path="/merchant/new-store" element={<NewStore />}></Route> 
+        <Route path="/merchant/:storeID/products" element={<StoreProducts />}/>
         {/* <Route path="/merchant/:storeID/products" element={<NewProduct />}></Route> */} 
         {/* <Route path="/merchant/:storeID/new-product" element={<NewProduct />}></Route> */} 
 
