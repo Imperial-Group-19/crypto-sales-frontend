@@ -6,16 +6,18 @@ import { addToCart, removeFromCart } from "../features/shopSlice";
 import ShoppingCart from "../components/ShoppingCart";
 
 export default function Products() {
-    const products = useSelector((state) => state.shop.products)
-    const addedProducts = useSelector((state) => state.shop.addedProducts)
-    const dispatch = useDispatch()
+    const products = useSelector((state) => state.shop.products);
+    const addedProducts = useSelector((state) => state.shop.addedProducts);
+    const total = useSelector((state) => state.shop.total);
+    const shop = useSelector((state) => state.shop);
+    const dispatch = useDispatch();
 
     const productList = (products, addedProducts) => {
         return(
             <Row>
                 <Col>
                     {products.map(product => (
-                        <Card id = {product.id} key={product.id} style={{ width: '20rem' }} className="m-2" text="light" bg="secondary" border="light" >
+                        <Card id = {product.product_id} key={product.product_id} style={{ width: '20rem' }} className="m-2" text="light" bg="secondary" border="light" >
                             <Card.Body>
                                 <Card.Title>{product.title}</Card.Title>
                                 <Card.Text>
@@ -30,9 +32,9 @@ export default function Products() {
                             </ListGroup>
                             <Card.Body>
                                 <div className="d-grid gap-2">
-                                    {addedProducts.length === 0 || !addedProducts.find(added => added.id === product.id) ?
-                                        <Button variant="outline-light" size="lg" onClick={() => dispatch(addToCart(product.id))}>Add To Cart</Button> :
-                                        <Button variant="outline-dark" size="lg" onClick={() => dispatch(removeFromCart(product.id))}>Remove From Cart</Button>
+                                    {addedProducts.length === 0 || !addedProducts.find(added => added.product_id === product.product_id) ?
+                                        <Button variant="outline-light" size="lg" onClick={() => dispatch(addToCart(product.product_id))}>Add To Cart</Button> :
+                                        <Button variant="outline-dark" size="lg" onClick={() => dispatch(removeFromCart(product.product_id))}>Remove From Cart</Button>
                                     }
                                 </div>
                             </Card.Body>
@@ -55,6 +57,7 @@ export default function Products() {
                                 <h1 className="display-1">Our courses</h1>
                             </Row>
                             <Row>
+
                                 {productList(products, addedProducts)}
                             </Row>
                         </Container>

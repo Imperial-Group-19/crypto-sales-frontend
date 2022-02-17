@@ -1,29 +1,33 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch } from "react-redux";
-// import { createStore } from "../features/merchantSlice";
+// import { createProduct } from "../features/merchantSlice";
 
 
-export default function NewStore() {
+export default function NewProduct() {
+    const params = useParams();
+    const store_id = params.storeID;
     const dispatch = useDispatch();
 
-    const [newStore, setNewStore] = useState({
+    const [newProduct, setNewProduct] = useState({
         id: '',
-        name: '',
+        title: '',
         description: '',
-        wallet: '',
+        price: '',
+        features: [],
+        store_id: params.storeID
     });
 
     const handleChange = (event) => {
         const name = event.target.name;
         const value = event.target.value;
-        setNewStore(values => ({...values, [name]: value }));
+        setNewProduct(values => ({...values, [name]: value }));
     };
 
-    const createStore = store => {
-        
+    const createProduct = product => {
+
     }
 
     return (
@@ -31,53 +35,63 @@ export default function NewStore() {
             <MerchantHeader button="Logout" link="/logout"/>
             <Container>
                 <Row>
-                    <h1>Your new store</h1>
+                    <h1>Your new product</h1>
                 </Row>
                 <Row>
                     <Col>
                         <Form>
                             <Form.Group>    
-                                <Form.Label>A unique identifier for your store</Form.Label>
+                                <Form.Label>A unique identifier for your product</Form.Label>
                                 <Form.Control 
                                     type="string"
                                     name="id"
-                                    placeholder="digital-products-store"
-                                    value={newStore.id}
+                                    placeholder="digital-product"
+                                    value={newProduct.id}
                                     onChange={handleChange}
                                 />
                             </Form.Group>
                             <Form.Group>    
-                                <Form.Label>Name of store</Form.Label>
+                                <Form.Label>Title of product</Form.Label>
                                 <Form.Control 
                                     type="string"
                                     name="name"
-                                    placeholder="Imperial Digital Products Store"
-                                    value={newStore.name}
+                                    placeholder="Ebook"
+                                    value={newProduct.name}
                                     onChange={handleChange}
                                 />
                             </Form.Group>
                             <Form.Group>    
-                                <Form.Label>Description of store</Form.Label>
+                                <Form.Label>Description of product</Form.Label>
                                 <Form.Control 
                                     type="string"
                                     name="description"
                                     placeholder="Best prices for digital products in Imperial"
-                                    value={newStore.description}
+                                    value={newProduct.description}
                                     onChange={handleChange}
                                 />
                             </Form.Group>
                             <Form.Group>    
-                                <Form.Label>Store Wallet</Form.Label>
+                                <Form.Label>Price in MATIC</Form.Label>
+                                <Form.Control 
+                                    type="number"
+                                    name="wallet"
+                                    placeholder="0.35"
+                                    value={newProduct.price}
+                                    onChange={handleChange}
+                                />
+                            </Form.Group>
+                            <Form.Group>    
+                                <Form.Label>Product Feature</Form.Label>
                                 <Form.Control 
                                     type="string"
                                     name="wallet"
-                                    placeholder="Please input your store's MATIC Wallet address"
-                                    value={newStore.wallet}
+                                    placeholder="Some feature"
+                                    value={newProduct.features[0]}
                                     onChange={handleChange}
                                 />
                             </Form.Group>
                             <Link to="/merchant/stores">
-                                <Button variant="primary" onClick={() => dispatch(createStore(newStore))}>Create store</Button>
+                                <Button variant="primary" onClick={() => dispatch(createProduct(newProduct))}>Create store</Button>
                             </Link>
                         </Form>
                     </Col>
