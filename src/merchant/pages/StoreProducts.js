@@ -21,7 +21,7 @@ export default function StoreProducts() {
                         <Col></Col>
                     </Row>
                     {store.products.map(product => (
-                                <Row id={product.id} className="m-3">
+                                <Row id={product.id} key={product.id} className="m-3">
                                     <Col>{product.title}</Col>
                                     <Col>{product.price}</Col>
                                     <Col>
@@ -33,7 +33,7 @@ export default function StoreProducts() {
                 </Container>
                 <Card>
                     <Card.Body>
-                        <Link to={"/merchant/" + params.storeID + "/new_product"}><Button variant="secondary">Add a new product</Button></Link>
+                        <Link to={"/merchant/" + params.storeID + "/new-product"}><Button variant="secondary">Add a new product</Button></Link>
                     </Card.Body>
                 </Card>
             </Container>
