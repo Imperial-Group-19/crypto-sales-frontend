@@ -1,4 +1,5 @@
 import React from "react";
+import {Helmet} from "react-helmet";
 import Header from "../components/Header";
 import { Container, Row, Col, Card, ListGroup, ListGroupItem, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,8 +15,12 @@ export default function Products() {
 
     const productList = (products, addedProducts) => {
         return(
-
             <>
+            <Helmet>
+                <title>Products - detailed information</title>
+                <meta name="description" content="See a detailed information about the products, including their price and buy option." />
+            </Helmet>
+
                 {products.map(product => (
                     <Card id = {product.product_id} key={product.product_id} style={{ width: '20rem' }} className="m-2" text="light" bg="secondary" border="light" >
                         <Card.Body>
