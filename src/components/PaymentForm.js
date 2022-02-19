@@ -6,12 +6,9 @@ import { useSelector } from "react-redux";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-// import BackendCommunication from "BackendCommunication";
-
 
 export default function PaymentForm() {
 
-    // <BackendCommunication /> // javascript to communicate with the backend (websocket)
     const price = useSelector((state) => state.shop.total);
     const products = useSelector((state) => state.shop.addedProducts);
     const ids = products.map(product => product.id);
