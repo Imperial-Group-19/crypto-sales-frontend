@@ -21,7 +21,7 @@ export default function PaymentForm() {
     const [showModal, setShowModal] = useState(false);
 
     const contractAddress = "0xd1a831348b69a37c75540ac3af58b6e37224fe64";
-
+    
     let navigate = useNavigate();
  
     const makePayment = async () => {

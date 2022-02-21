@@ -18,7 +18,7 @@ export default function Products() {
             <>
             <Helmet>
                 <title>Products - detailed information</title>
-                <meta name="description" content="See a detailed information about the products, including their price and buy option." />
+                <meta name="description" content="See a detailed information about the products, including their price and buy" />
             </Helmet>
 
                 {products.map(product => (
