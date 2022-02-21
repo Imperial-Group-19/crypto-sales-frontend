@@ -71,7 +71,7 @@ export const merchantSlice = createSlice({
         loadStores(state, action) {
             console.log("Store: ");
             state.stores = action.payload;
-        }
+        },
         // createStore: (state, action) => {
         //     console.log(action.payload);
         //     let newStore = {
@@ -83,12 +83,12 @@ export const merchantSlice = createSlice({
         //     };
         //     state.user.stores.push(newStore);
         // },
-        // createProduct: (state, action) => {
-        //     let store_id = action.payload.store_id;
-        //     let product = action.payload;
-        //     delete product[store_id];
-        //     state.user.stores.find(store => store.id === store_id).products.push(product);
-        // }
+        createProduct: (state, action) => {
+            let store_id = action.payload.store_id;
+            let product = action.payload;
+            delete product[store_id];
+            state.user.stores.find(store => store.id === store_id).products.push(product);
+        }
     }
 })
 
