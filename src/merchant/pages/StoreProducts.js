@@ -13,7 +13,6 @@ export default function StoreProducts() {
             <MerchantHeader button="Logout" link="/logout" />
             <Container>
                 <h1>{store.name}</h1>
-
                 <Container >
                     <Row className="m-3">
                         <Col>Title</Col>
