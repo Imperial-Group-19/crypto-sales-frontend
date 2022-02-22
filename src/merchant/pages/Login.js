@@ -15,19 +15,11 @@ export default function Login() {
           <Col>
             <Form>
               <Form.Group>
-                <Form.Label>Email Address</Form.Label>
+                <Form.Label>Wallet Address</Form.Label>
                 <Form.Control
                   type="string"
                   name="email"
-                  placeholder="john@cryptofunnel.com"
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Must have at least 6 characters"
+                  placeholder="0x7823yfgf7238gf2729g84ffg88326"
                 />
               </Form.Group>
               <Link to="/merchant/stores">

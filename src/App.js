@@ -14,11 +14,11 @@ import Products from './pages/Products';
 import Confirmation from './pages/Confirmation';
 import Register from "./merchant/pages/Register";
 import Login from "./merchant/pages/Login";
-import MerchantDashboard from "./pages/MerchantDashboard";
 import Stores from "./merchant/pages/Stores";
 import NewStore from "./merchant/pages/NewStore";
 import StoreProducts from "./merchant/pages/StoreProducts";
 import NewProduct from "./merchant/pages/NewProduct";
+import Product from "./pages/Product";
 
 
 // Web sockets
@@ -63,18 +63,22 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/merchant/register" element={<Register />}/>
+        {/* Affiliate pages*/}
+
+        {/* Merchant pages*/}
+        {/* <Route path="/merchant/register" element={<Register />}/> */}
         <Route path="/merchant/login" element={<Login />} />
-        <Route path="/merchant/stores" element={<Stores />}/>
+        {/* <Route path="/merchant/stores" element={<Stores />}/> */}
         <Route path="/merchant/new-store" element={<NewStore />}/>
         <Route path="/merchant/:storeID/products" element={<StoreProducts />}/>
         <Route path="/merchant/:storeID/new-product" element={<NewProduct />}/>
 
+        {/* Sales Funnel pages*/}
         <Route path="/landing" element={<Landing />} />
+        <Route path="/products/:productID" element={<Product />} />
         <Route path="/products" element={<Products />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
-        <Route path="/store/:shopId" element={<MerchantDashboard/>} />
         <Route path="/" element={<Landing />} />
       </Routes>
     </Router>

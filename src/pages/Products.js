@@ -58,8 +58,6 @@ export default function Products() {
                 </Row>
                 <Row>
                     {productList(products, addedProducts)}
-
-
                     {/* <Col xs={3}>
                         <ShoppingCart/>
                     </Col> */}
