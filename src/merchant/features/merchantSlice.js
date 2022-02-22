@@ -5,9 +5,7 @@ export const merchantSlice = createSlice({
     initialState: {
         logged_in: false,
         user: {
-            name: "John",
-            email: "john@crypto.com",
-            status: ""
+            
             // stores: [
             //     {
             //         id: "super-algorithms",
@@ -66,7 +64,8 @@ export const merchantSlice = createSlice({
     reducers: {
         loginUser(state, action) {
             state.logged_in = true;
-            state.user.email = action.payload;
+            state.user = action.payload;
+            
         },
         loadStores(state, action) {
             console.log("Store: ");

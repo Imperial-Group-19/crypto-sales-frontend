@@ -11,6 +11,9 @@ export default function PaymentForm() {
 
     const price = useSelector((state) => state.shop.total);
     const products = useSelector((state) => state.shop.addedProducts);
+    const storeAddress = useSelector((state) => state.shop.storeAddress);
+
+
     const ids = products.map(product => product.id);
     // const [price, setPrice] = useState("0.0001");
     const [connected, setConnected] = useState(false);

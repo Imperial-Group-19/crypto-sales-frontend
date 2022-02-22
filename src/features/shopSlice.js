@@ -4,6 +4,7 @@ const initialState = {
   // products: [],
   // addedProducts: [],
   // total: 0,
+  
   products: [
     {
      product_id: "C++ course",
