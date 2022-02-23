@@ -1,0 +1,77 @@
+.body_404 {
+  background-color: rgba(153, 153, 153, 0.3);
+  min-height: 100vh;
+}
+
+.centered {
+  text-align: center;
+}
+
+.width_60 {
+  width: 60%;
+}
+
+.width_50 {
+  width: 50%;
+}
+
+.font_404 {
+  color: #545454;
+  font-family: "Monoton", sans-serif;
+  font-size: 40px;
+}
+
+.font {
+  color: #545454;
+  font-family: "Audiowide", sans-serif;
+  font-size: 35px;
+}
+
+.font_go_back {
+  color: #545454;
+  font-family: "Anton", sans-serif;
+  font-size: 15px;
+  box-shadow: 0 4px 8px 0 #ccc;
+}
+
+.buy_button_big {
+  color: #545454;
+  font-family: "Rancho", sans-serif;
+  box-shadow: 0 4px 8px 0 #ccc; 
+  font-size: 90px;
+  padding: 70px;
+  margin: 10px;
+  border: none;
+}
+
+.buy_button_small {
+  color: #545454;
+  font-family: "Rancho", sans-serif;
+  box-shadow: 0 4px 8px 0 #ccc; 
+  font-size: 30px;
+  padding: 40px;
+  margin: 5px;
+  border: none;
+}
+
+p {
+  color: #545454;
+  font-family: "Lora", sans-serif;
+}
+
+h1 {
+  color: #545454;
+  font-family: "Roboto", sans-serif;
+}
+
+.normal_text {
+  color: #545454;
+  font-family: "Lora", sans-serif;
+}
+
+.hand_written {
+  color: #545454;
+  font-family: "Rancho";
+  font-size: 22px;
+}
+

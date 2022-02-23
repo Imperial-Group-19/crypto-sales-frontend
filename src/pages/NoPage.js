@@ -1,7 +1,7 @@
 import { Container, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import NotFoundPic from "../components/components_graphics/error_404_head_hit.gif";
-import "../CSS_styles/Page_404.css";
+import "../App.css";
 
 export default function NoPage() {
   return (
@@ -21,3 +21,4 @@ export default function NoPage() {
     </div>
   );
 }
+
