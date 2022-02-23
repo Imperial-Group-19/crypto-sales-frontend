@@ -1,12 +1,27 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { Link, useParams } from "react-router-dom";
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch } from "react-redux";
 // import { createProduct } from "../features/merchantSlice";
+import { useWeb3Context } from "../features/Web3Context";
+
+import ConnectButton from "../../components/ConnectButton";
+
+import { ethers } from "ethers";
+
 
 
 export default function NewProduct() {
+
+    const { address, contract } = useWeb3Context();
+
+    const [showModal, setShowModal] = useState(false);
+
+    const navigate = useNavigate();
+
+    // console.log(contract)
+
     const params = useParams();
     const store_id = params.storeID;
     const dispatch = useDispatch();
@@ -26,13 +41,35 @@ export default function NewProduct() {
         setNewProduct(values => ({...values, [name]: value }));
     };
 
-    const createProduct = product => {
+    const createProduct = async (product) => {        
 
+        try{
+            setShowModal(true);
+            
+            const tx = await contract.createProduct(store_id, newProduct.id, ethers.utils.parseEther(newProduct.price));
+            const receipt = await tx.wait(); 
+            console.log('Transaction receipt');
+            console.log(receipt);
+    
+            if(receipt) {
+                // alert("Thank you for your purchase!")
+                setShowModal(false);
+                navigate(`/merchant/${store_id}/products`)
+            }
+    
+        } catch (error) {
+            console.error(error);
+            setShowModal(false);
+            alert("Transaction failed :(")
+        }
     }
 
     return (
-        <>
+        <>  
             <MerchantHeader button="Logout" link="/logout"/>
+            {!address ? (
+            <ConnectButton />
+            ) : (
             <Container>
                 <Row>
                     <h1>Your new product</h1>
@@ -74,7 +111,7 @@ export default function NewProduct() {
                                 <Form.Label>Price in MATIC</Form.Label>
                                 <Form.Control 
                                     type="number"
-                                    name="wallet"
+                                    name="price"
                                     placeholder="0.35"
                                     value={newProduct.price}
                                     onChange={handleChange}
@@ -90,15 +127,18 @@ export default function NewProduct() {
                                     onChange={handleChange}
                                 />
                             </Form.Group>
-                            <Link to="/merchant/stores">
-                                <Button variant="primary" onClick={() => dispatch(createProduct(newProduct))}>Create store</Button>
-                            </Link>
+                            {/* <Button variant="primary" onClick={() => dispatch(createProduct(newProduct))}>Create store</Button> */}
+                            <Button variant="primary" onClick={() => createProduct(newProduct)}>Create Product</Button>
+
                         </Form>
                     </Col>
                 </Row>
+                <Modal show={showModal} backdrop="static">
+                    <Modal.Body>Adding your product...</Modal.Body>
+                </Modal>
                 
             </Container>
-            
+            )}
         </>
     );
 };

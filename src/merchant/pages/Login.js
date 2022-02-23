@@ -4,10 +4,15 @@ import { Link } from "react-router-dom";
 import MerchantHeader from "../components/MerchantHeader";
 import { useSelector, useDispatch } from "react-redux";
 
+import { Navigate } from "react-router-dom";
+
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 import { loginUser } from "../features/merchantSlice";
 import { useWeb3Context } from "../features/Web3Context";
+
+import ConnectButton from "../../components/ConnectButton";
+
 export default function Login() {
 
 // const dispatch = useDispatch();
@@ -54,32 +59,27 @@ export default function Login() {
 // }
   // const handleConnect = () => {
   // }
-  
-  const { handleConnectWallet } = useWeb3Context();
+  const { address } = useWeb3Context();
 
+  console.log(address)
+  
   return (
     <>
       <MerchantHeader button="Switch to Register" link="/merchant/register" />
+      {address ? ( 
+       <Navigate to='/merchant/new-store'/>
+       ) : (
       <Container>
         <Row>
           <h1>Login</h1>
         </Row>
         <Row>
           <Col>
-            <Form>
-              <Form.Group>
-                <Form.Label>Wallet Address</Form.Label>
-                <Form.Control
-                  type="string"
-                  name="email"
-                  placeholder="0x7823yfgf7238gf2729g84ffg88326"
-                />
-              </Form.Group>
-                <Button variant="outline-secondary" onClick={handleConnectWallet}>Login</Button>
-            </Form>
+                <ConnectButton/>
           </Col>
         </Row>
       </Container>
+       )}
     </>
   );
 }

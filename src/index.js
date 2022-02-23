@@ -9,8 +9,8 @@ import store from './store';
 ReactDOM.render(
     <Web3ContextProvider>
       <Provider store={store}>
-      <App />
-    </Provider>
+        <App />
+      </Provider>
     </Web3ContextProvider>,
   document.getElementById('root')
 );

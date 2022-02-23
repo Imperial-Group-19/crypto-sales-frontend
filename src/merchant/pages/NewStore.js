@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Container, Row, Col, Modal } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch } from "react-redux";
 // import { createStore } from "../features/merchantSlice";
+import { useNavigate } from "react-router-dom";
+
+import { useWeb3Context } from "../features/Web3Context";
+
+import ConnectButton from "../../components/ConnectButton";
 
 
 export default function NewStore() {
+
+    const [showModal, setShowModal] = useState(false);
+
+    const { address, contract } = useWeb3Context();
+
     const dispatch = useDispatch();
+
+    let navigate = useNavigate();
+
 
     const [newStore, setNewStore] = useState({
         id: '',
@@ -22,13 +35,35 @@ export default function NewStore() {
         setNewStore(values => ({...values, [name]: value }));
     };
 
-    const createStore = store => {
-        
+    const createStore = async (storeAddress) => {
+        try{
+            setShowModal(true);
+            
+            const tx = await contract.registerStore(newStore.wallet);
+            const receipt = await tx.wait(); 
+            console.log('Transaction receipt');
+            console.log(receipt);
+    
+            if(receipt) {
+                // alert("Thank you for your purchase!")
+                setShowModal(false);
+                navigate(`/merchant/${newStore.wallet}/new-product`)
+            }
+    
+        } catch (error) {
+            console.error(error);
+            setShowModal(false);
+            alert("Transaction failed :(")
+        }
     }
+
 
     return (
         <>
             <MerchantHeader button="Logout" link="/logout"/>
+            {!address ? (
+            <ConnectButton />
+            ) : (
             <Container>
                 <Row>
                     <h1>Your new store</h1>
@@ -76,15 +111,17 @@ export default function NewStore() {
                                     onChange={handleChange}
                                 />
                             </Form.Group>
-                            <Link to="/merchant/stores">
-                                <Button variant="primary" onClick={() => dispatch(createStore(newStore))}>Create store</Button>
-                            </Link>
+                            <Button variant="primary" onClick={() => createStore(newStore)}>Create store</Button>
                         </Form>
                     </Col>
                 </Row>
+                <Modal show={showModal} backdrop="static">
+                    <Modal.Body>Creating your store...</Modal.Body>
+                </Modal>
                 
             </Container>
             
+            )}
         </>
     );
 };
