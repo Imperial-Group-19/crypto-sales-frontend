@@ -5,9 +5,11 @@ import Headline from "../components/Headline";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { Card, Button, Container, Row, ListGroup, ListGroupItem, Modal } from "react-bootstrap";
+import { addToCart } from "../features/shopSlice";
 
 export default function Product() {
     const params = useParams();
+    const dispatch = useDispatch();
     const products = useSelector((state) => state.shop.products.filter(
         (product) => product.type !== "crosssell")
     );
@@ -69,13 +71,16 @@ export default function Product() {
                             <div className="d-grid gap-2">
                                 {currentProduct.type === "main" ? 
                                     <Button variant="success" size="lg" onClick={handleOpen}>Buy Now</Button> :
-                                    <Link to={"/" + params.storeID + "/products/"}><Button variant="success" size="lg">Buy Now</Button></Link>
+                                    <Link to={"/" + params.storeID + "/products/"}>
+                                        <Button variant="success" size="lg" onClick={() => dispatch(addToCart(currentProduct.product_id))}>Buy Now</Button>
+                                    </Link>
                                 }
                                 {currentProduct.type === "downsell" ?
                                     null : currentProduct.type === "upsell" ?
                                     <Button variant="link" >Not interested, check out for {mainProduct.title} instead</Button> :
-                                    <Link><Button variant="link" >Show me something cheaper</Button></Link>
-
+                                    <Link to={"/" + params.storeID + "/products/" + downsellProduct.product_id}>
+                                        <Button variant="link" >Show me something cheaper</Button>
+                                    </Link>
                                 }
                                 
                             </div>
@@ -98,7 +103,7 @@ export default function Product() {
                         </Button>
                     </Link>
                     <Link to={"/" + params.storeID + "/products/"}>
-                        <Button variant="link" >
+                        <Button variant="link" onClick={() => dispatch(addToCart(currentProduct.product_id))}>
                             I'm not interested
                         </Button>
                     </Link>

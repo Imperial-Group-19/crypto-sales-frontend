@@ -25,6 +25,10 @@ export default function Products() {
     (product) => product.type === "crosssell"
   );
 
+  const selectedProduct = addedProducts.find(
+    (product) => product.type !== "crosssell"
+  );
+
   const productList = (products, addedProducts) => {
     return (
       <>
@@ -96,9 +100,9 @@ export default function Products() {
           <Card>
             <Card.Header as="h3">Your current selection</Card.Header>
             <Card.Body>
-              <Card.Title>C++ Deluxe</Card.Title>
+              <Card.Title>{selectedProduct.title}</Card.Title>
               <Card.Text>
-                100000 MATIC
+                {selectedProduct.price}
               </Card.Text>
               <Button variant="primary">Go somewhere</Button>
             </Card.Body>
@@ -109,9 +113,6 @@ export default function Products() {
         </Row>
         <Row>
           {productList(products, addedProducts)}
-          {/* <Col xs={3}>
-                        <ShoppingCart/>
-                    </Col> */}
         </Row>
       </Container>
     </>
