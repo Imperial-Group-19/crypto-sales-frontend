@@ -92,12 +92,11 @@ export default function App() {
 
         {/* Sales Funnel pages*/}
         <Route path="/landing" element={<Landing />} />
-        <Route path="/products/:productID" element={<Product />} />
-        {/* :storeID/products/:productID */}
-        <Route path="/products" element={<Products />} />
-        {/* :storeID/products */}
+
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/:storeID/products/:productID" element={<Product />} />
+        <Route path="/:storeID/products" element={<Products />} />
         <Route path="/" element={<Landing />} />
 
         {/* 404 page */}
