@@ -7,10 +7,11 @@ export default function Headline() {
     <Container style={{ width: "60%" }}>
       <br></br>
       <h1 className="display-1" style={{ textAlign: "center" }}>
-        Product name: C++ Course
+        C++ Course
       </h1>
       <br></br>
-      <br></br>
+      <hr></hr>
+      {/* <br></br>
       <Link to="/payment" style={{ textDecoration: "none" }}>
         <div className="centered">
           <Button variant="outline-secondary" className="buy_button_big font-effect-fire-animation">
@@ -20,9 +21,9 @@ export default function Headline() {
             Haven't decided yet? Not Sure if the product is perfect fit for you? No worries, keep reading.
           </p>
         </div>
-      </Link>
+      </Link> */}
       <br></br>
-      <h1 className="display-2" style={{ textAlign: "center" }}>
+      <h1 className="display-2" style={{ textAlign: "center", fontSize: "40px" }}>
         Description
       </h1>
       <br></br>
