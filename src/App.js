@@ -19,6 +19,7 @@ import NewStore from "./merchant/pages/NewStore";
 import StoreProducts from "./merchant/pages/StoreProducts";
 import NewProduct from "./merchant/pages/NewProduct";
 import Product from "./pages/Product";
+import NoPage from "./pages/NoPage";
 
 
 // Web sockets
@@ -83,6 +84,9 @@ export default function App() {
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/" element={<Landing />} />
+
+        {/* 404 page */}
+        <Route path="*" element={<NoPage />} />
       </Routes>
     </Router>
   );
