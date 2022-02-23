@@ -19,7 +19,6 @@ export const Web3ContextProvider = ({ children }) => {
   const [provider, setProvider] = useState();
   const [signer, setSigner] = useState();
   const [contract, setContract] = useState();
-  const [tester, setTester] = useState("yo");
 
   const contractAddress = "0xaE7b635D1C9832Ee9c4ede4C5b261c61b79BD728";
 
@@ -43,7 +42,6 @@ export const Web3ContextProvider = ({ children }) => {
 
   const handleConnectWallet = async () => {
 
-    // console.log("hi")
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
@@ -65,14 +63,26 @@ export const Web3ContextProvider = ({ children }) => {
     setContract(funnelContract);
   };
 
+  const handleDisconnectWallet = async() => {
+      const clear = web3modal.clearCachedProvider();
+      setConnected(false);
+      setAddress("");
+  }
+
+  // if(!web3modal.cachedProvider)
+  // {
+  //   web3modal.connect();
+  //   setConnected(true);
+  // }
+
   const web3Data = {
     handleConnectWallet,
+    handleDisconnectWallet,
     connected,
     address,
     provider,
     signer,
-    contract,
-    tester
+    contract
   };
 
   return (

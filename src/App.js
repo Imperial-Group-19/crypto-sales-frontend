@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,12 +21,16 @@ import NewProduct from "./merchant/pages/NewProduct";
 import Product from "./pages/Product";
 import NoPage from "./pages/NoPage";
 
+import { useWeb3Context } from "./merchant/features/Web3Context";
 
 // Web sockets
 const client = new W3CWebSocket("ws://127.0.0.1:5000");
 client.binaryType = "arraybuffer";
 
 export default function App() {
+
+  const { connected, handleConnectWallet } = useWeb3Context();
+
   // Dispatch for redux
   const dispatch = useDispatch();
 
@@ -61,6 +65,17 @@ export default function App() {
     
   };
 
+  // check if user has already connected wallet
+  const checkWeb3Status = async () => {
+    if(!connected){
+      handleConnectWallet();
+    }
+  }
+
+  useEffect(() => {
+    checkWeb3Status();
+  }, []);
+
   return (
     
     <Router>
@@ -70,7 +85,7 @@ export default function App() {
         {/* Merchant pages*/}
         {/* <Route path="/merchant/register" element={<Register />}/> */}
         <Route path="/merchant/login" element={<Login />} />
-        {/* <Route path="/merchant/stores" element={<Stores />}/> */}
+        <Route path="/merchant/stores" element={<Stores />}/>
         <Route path="/merchant/new-store" element={<NewStore />}/>
         <Route path="/merchant/:storeID/products" element={<StoreProducts />}/>
         <Route path="/merchant/:storeID/new-product" element={<NewProduct />}/>
