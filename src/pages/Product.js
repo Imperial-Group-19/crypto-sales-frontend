@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import {Helmet} from "react-helmet";
 import Header from "../components/Header";
 import Headline from "../components/Headline";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { Card, Button, Container, Row, ListGroup, ListGroupItem } from "react-bootstrap";
+import { Card, Button, Container, Row, ListGroup, ListGroupItem, Modal } from "react-bootstrap";
 
 export default function Product() {
     const params = useParams();
@@ -12,6 +12,22 @@ export default function Product() {
         (product) => product.type !== "crosssell")
     );
     const currentProduct = products.find((product) => product.product_id === params.productID);
+    const upsellProduct = products.find((product) => product.type === "upsell");
+    const downsellProduct = products.find((product) => product.type === "downsell");
+    const mainProduct = products.find((product) => product.type === "main");
+    
+    // Hook for displaying modal
+    const [show, setShow] = useState(false);
+    const handleClose = () => {
+        setShow(false);
+    }
+        
+    const handleOpen = () => {
+        if (currentProduct.type === "main") {
+            setShow(true);
+        }
+    }
+    
 
     return (
         <>
@@ -20,7 +36,7 @@ export default function Product() {
                 <meta name="description" content="Product" />
             </Helmet>
             <Header />
-            <Container>
+            <Container style={{ width: "60%" }}>
                 <Row>
                     <h1 className="display-1">
                         Having problems with C++?
@@ -37,8 +53,9 @@ export default function Product() {
                         <Card.Body>
                             <Card.Title>{currentProduct.title}</Card.Title>
                             <Card.Text>
-                            {currentProduct.description}
+                                {currentProduct.description}
                             </Card.Text>
+                            
                             </Card.Body>
                             <ListGroup variant="flush">
                                 {currentProduct.features.map((feature, index) => 
@@ -46,17 +63,47 @@ export default function Product() {
                                 )}
                             </ListGroup>
                         <Card.Body>
+                            <Card.Text>
+                                {currentProduct.price + " MATIC"}
+                            </Card.Text>
                             <div className="d-grid gap-2">
-                                <Button variant="success" size="lg">Buy Now</Button>
-                                <Button variant="link" >Show me something cheaper</Button>
+                                {currentProduct.type === "main" ? 
+                                    <Button variant="success" size="lg" onClick={handleOpen}>Buy Now</Button> :
+                                    <Link to={"/" + params.storeID + "/products/"}><Button variant="success" size="lg">Buy Now</Button></Link>
+                                }
+                                {currentProduct.type === "downsell" ?
+                                    null : currentProduct.type === "upsell" ?
+                                    <Button variant="link" >Not interested, check out for {mainProduct.title} instead</Button> :
+                                    <Link><Button variant="link" >Show me something cheaper</Button></Link>
+
+                                }
+                                
                             </div>
                         </Card.Body>
-                        <Card.Footer className="text-muted">2 days ago</Card.Footer>
+                        {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
                     </Card>
                 </Row>
 
             </Container>
             {/* <Headline /> */}
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Special Offer</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Since you're interested in our C++ course, we have a special offer for you!</Modal.Body>
+                <Modal.Footer>
+                    <Link to={"/" + params.storeID + "/products/" + upsellProduct.product_id}>
+                        <Button variant="primary" onClick={handleClose}>
+                            Show me more!
+                        </Button>
+                    </Link>
+                    <Link to={"/" + params.storeID + "/products/"}>
+                        <Button variant="link" >
+                            I'm not interested
+                        </Button>
+                    </Link>
+                </Modal.Footer>
+            </Modal>
             
             
             
