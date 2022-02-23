@@ -10,7 +10,7 @@ export default function Headline() {
         Product name: C++ Course
       </h1>
       <br></br>
-      <hr></hr>
+      <br></br>
       <Link to="/payment" style={{ textDecoration: "none" }}>
         <div className="centered">
           <Button variant="outline-secondary" className="buy_button_big font-effect-fire-animation">
@@ -21,7 +21,7 @@ export default function Headline() {
           </p>
         </div>
       </Link>
-      <hr></hr>
+      <br></br>
       <h1 className="display-2" style={{ textAlign: "center" }}>
         Description
       </h1>
