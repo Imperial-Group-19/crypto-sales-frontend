@@ -7,7 +7,7 @@ const initialState = {
   
   products: [
     {
-     product_id: "C++ course",
+     product_id: "cpp-course",
      title: "C++ course",
      description: "The original C++ course",
      features: ["Feature A", "Feature B", "Feature C"],
@@ -15,7 +15,7 @@ const initialState = {
      type: "main" 
     },
     {
-      product_id: "C++ deluxe course",
+      product_id: "cpp-course-deluxe",
       title: "C++ deluxe course",
       description: "The upgraded C++ course",
       features: ["Feature D", "Feature E", "Feature F"],
@@ -23,7 +23,7 @@ const initialState = {
       type: "upsell" 
     },
     {
-      product_id: "C++ lite course",
+      product_id: "cpp-course-lite",
       title: "C++ lite course",
       description: "The essential C++ course",
       features: ["Feature G", "Feature H", "Feature I"],
@@ -31,7 +31,7 @@ const initialState = {
       type: "downsell" 
     },
     {
-      product_id: "Pointers cheatsheet",
+      product_id: "pointers-cheatsheet",
       title: "Pointers cheatsheet",
       description: "Your quick guide to demystifying pointers",
       features: ["Feature J", "Feature K", "Feature L"],
@@ -39,7 +39,7 @@ const initialState = {
       type: "crosssell" 
     },
     {
-      product_id: "STL guide",
+      product_id: "stl-guide",
       title: "STL guide",
       description: "Your guide to the Standard Template Library",
       features: ["Feature M", "Feature N", "Feature O"],
