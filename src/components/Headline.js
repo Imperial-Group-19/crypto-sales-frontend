@@ -11,7 +11,7 @@ export default function Headline() {
     <Container style={{ width: "60%" }}>
       <br></br>
       <h1 className="display-1" style={{ textAlign: "center" }}>
-        C++ Course
+        C++ Course Basic
       </h1>
       <br></br>
       <hr></hr>
@@ -155,21 +155,21 @@ export default function Headline() {
       <br></br>
       <Modal show={showModalBuy} backdrop="static">
         <Modal.Body>
-          <p>You are currently buying basic C++ course for 15 Matic</p>
+          <p>You are currently buying the basic C++ course for 15 Matic</p>
           <p>
             Are you interested in an updated version of this product? It is
-            called C++ course Delux and for just 35 Matic, you get extra 2
+            called C++ Course Delux and for just 35 Matic, you get extra 2
             features.
           </p>
           <Link to="/payment" style={{ textDecoration: "none" }}>
             <div className="centered">
-              <Button variant="outline-secondary">Buy C++ course Delux for 35 Matic</Button>
+              <Button variant="outline-secondary">Yes, buy C++ Course Delux for 35 Matic</Button>
             </div>
           </Link>
           <br></br>
           <Link to="/payment" style={{ textDecoration: "none" }}>
             <div className="centered">
-              <Button variant="outline-secondary">No, Buy the basic C++ course for 15 Matic</Button>
+              <Button variant="outline-secondary">No, buy C++ Course Basic for 15 Matic</Button>
             </div>
           </Link>
         </Modal.Body>
