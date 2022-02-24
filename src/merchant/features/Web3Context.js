@@ -5,7 +5,6 @@ import Web3Modal from "web3modal";
 const Web3Context = createContext(null);
 
 export const useWeb3Context = () => {
-
   const web3Context = useContext(Web3Context);
 
   const { web3Data } = web3Context;
@@ -41,7 +40,6 @@ export const Web3ContextProvider = ({ children }) => {
   });
 
   const handleConnectWallet = async () => {
-
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
@@ -52,7 +50,7 @@ export const Web3ContextProvider = ({ children }) => {
         "function makePayment(address payable storeAddress, string[] memory productNames) external payable",
         "function createProduct( address storeAddress, string memory productName, uint256 price ) external",
         "function registerStore(address payable storeAddress) external returns (uint256)",
-        "function updateProductPrice( address storeAddress, string memory productName, uint256 price ) external"
+        "function updateProductPrice( address storeAddress, string memory productName, uint256 price ) external",
       ],
       signer
     );
@@ -64,11 +62,11 @@ export const Web3ContextProvider = ({ children }) => {
     setContract(funnelContract);
   };
 
-  const handleDisconnectWallet = async() => {
-      const clear = web3modal.clearCachedProvider();
-      setConnected(false);
-      setAddress("");
-  }
+  const handleDisconnectWallet = async () => {
+    const clear = web3modal.clearCachedProvider();
+    setConnected(false);
+    setAddress("");
+  };
 
   // if(!web3modal.cachedProvider)
   // {
@@ -83,7 +81,7 @@ export const Web3ContextProvider = ({ children }) => {
     address,
     provider,
     signer,
-    contract
+    contract,
   };
 
   return (

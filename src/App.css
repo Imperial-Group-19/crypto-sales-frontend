@@ -37,7 +37,7 @@
 .buy_button_big {
   color: #545454;
   font-family: "Anton", sans-serif;
-  box-shadow: 0 4px 8px 0 #ccc; 
+  box-shadow: 0 4px 8px 0 #ccc;
   font-size: 90px;
   padding: 70px;
   margin: 10px;
@@ -47,7 +47,7 @@
 .buy_button_small {
   color: #545454;
   font-family: "Rancho", sans-serif;
-  box-shadow: 0 4px 8px 0 #ccc; 
+  box-shadow: 0 4px 8px 0 #ccc;
   font-size: 30px;
   padding: 40px;
   margin: 5px;
@@ -74,4 +74,3 @@ h1 {
   font-family: "Rancho";
   font-size: 22px;
 }
-

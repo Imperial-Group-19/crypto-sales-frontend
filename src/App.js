@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
 
 import { useDispatch } from "react-redux";
 import { loadStores } from "./merchant/features/merchantSlice";
 import { loadProducts } from "./features/shopSlice";
 
-import Landing from './pages/Landing';
-import Payment from './pages/Payment';
-import Products from './pages/Products';
-import Confirmation from './pages/Confirmation';
+import Landing from "./pages/Landing";
+import Payment from "./pages/Payment";
+import Products from "./pages/Products";
+import Confirmation from "./pages/Confirmation";
 import Login from "./merchant/pages/Login";
 import Stores from "./merchant/pages/Stores";
 import NewStore from "./merchant/pages/NewStore";
@@ -28,14 +28,18 @@ const client = new W3CWebSocket("ws://127.0.0.1:5001");
 client.binaryType = "arraybuffer";
 
 export default function App() {
-
   const { connected, handleConnectWallet } = useWeb3Context();
 
   // Dispatch for redux
   const dispatch = useDispatch();
 
   // Set subscription type
-  const apiCall = {"id":0,"jsonrpc":"2.0","method":"subscribe","params":["products", "stores"]};
+  const apiCall = {
+    id: 0,
+    jsonrpc: "2.0",
+    method: "subscribe",
+    params: ["products", "stores"],
+  };
 
   // Send subscription type for initial handshake
   client.onopen = () => {
@@ -62,15 +66,14 @@ export default function App() {
         dispatch(loadStores(stores));
       }
     }
-    
   };
 
   // check if user has already connected wallet
   const checkWeb3Status = async () => {
-    if(!connected){
+    if (!connected) {
       handleConnectWallet();
     }
-  }
+  };
 
   useEffect(() => {
     checkWeb3Status();
@@ -82,11 +85,17 @@ export default function App() {
         {/* Affiliate pages*/}
         {/* Merchant pages*/}
         <Route path="/merchant/login" element={<Login />} />
-        <Route path="/merchant/stores" element={<Stores />}/>
-        <Route path="/merchant/new-store" element={<NewStore client={client}/>}/>
-        <Route path="/merchant/products" element={<StoreProducts />}/>
-        <Route path="/merchant/products/:productID" element={<EditProduct />}/>
-        <Route path="/merchant/new-product/:productType" element={<NewProduct />}/>
+        <Route path="/merchant/stores" element={<Stores />} />
+        <Route
+          path="/merchant/new-store"
+          element={<NewStore client={client} />}
+        />
+        <Route path="/merchant/products" element={<StoreProducts />} />
+        <Route path="/merchant/products/:productID" element={<EditProduct />} />
+        <Route
+          path="/merchant/new-product/:productType"
+          element={<NewProduct />}
+        />
 
         {/* Sales Funnel pages*/}
         <Route path="/landing" element={<Landing />} />
@@ -102,4 +111,3 @@ export default function App() {
     </Router>
   );
 }
-

@@ -14,28 +14,27 @@ import { useWeb3Context } from "../features/Web3Context";
 import ConnectButton from "../../components/ConnectButton";
 
 export default function Login() {
-
   const { address } = useWeb3Context();
 
-  console.log(address)
-  
+  console.log(address);
+
   return (
     <>
       <MerchantHeader button="Switch to Register" link="/merchant/register" />
-      {address ? ( 
-       <Navigate to='/merchant/stores'/>
-       ) : (
-      <Container>
-        <Row>
-          <h1>Login</h1>
-        </Row>
-        <Row>
-          <Col>
-            <ConnectButton/>
-          </Col>
-        </Row>
-      </Container>
-       )}
+      {address ? (
+        <Navigate to="/merchant/stores" />
+      ) : (
+        <Container>
+          <Row>
+            <h1>Login</h1>
+          </Row>
+          <Row>
+            <Col>
+              <ConnectButton />
+            </Col>
+          </Row>
+        </Container>
+      )}
     </>
   );
 }

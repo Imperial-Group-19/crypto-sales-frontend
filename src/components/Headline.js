@@ -163,13 +163,17 @@ export default function Headline() {
           </p>
           <Link to="/payment" style={{ textDecoration: "none" }}>
             <div className="centered">
-              <Button variant="outline-secondary">Yes, buy C++ Course Delux for 35 Matic</Button>
+              <Button variant="outline-secondary">
+                Yes, buy C++ Course Delux for 35 Matic
+              </Button>
             </div>
           </Link>
           <br></br>
           <Link to="/payment" style={{ textDecoration: "none" }}>
             <div className="centered">
-              <Button variant="outline-secondary">No, buy C++ Course Basic for 15 Matic</Button>
+              <Button variant="outline-secondary">
+                No, buy C++ Course Basic for 15 Matic
+              </Button>
             </div>
           </Link>
         </Modal.Body>

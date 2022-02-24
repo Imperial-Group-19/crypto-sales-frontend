@@ -7,5 +7,3 @@ https://icon-icons.com/icon/funnel-filter/53295
 
 Animated gifs taken from https://lordicon.com/
 https://lordicon.com/icons/wired/outline?categoryId=21&premium=0
-
-

@@ -98,39 +98,29 @@ export default function Products() {
       <div className="d-flex ml-5">
         <Container>
           <Row>
-            <h3 >Our recommended add-ons</h3>
+            <h3>Our recommended add-ons</h3>
           </Row>
-          <Row>
-            {productList(products, addedProducts)}
-          </Row>
+          <Row>{productList(products, addedProducts)}</Row>
         </Container>
         <Container className="ml-auto">
-          <Card style={{ width: '18rem' }}>
+          <Card style={{ width: "18rem" }}>
             <Card.Header as="h3">Your current selection</Card.Header>
             <Card.Body>
               <ListGroup>
-                {addedProducts.map(product => (
+                {addedProducts.map((product) => (
                   <ListGroupItem>
                     <Row key={product.id}>
-                      <Col>
-                        {product.title}
-                      </Col>
-                      <Col>
-                        {product.price}
-                      </Col>
+                      <Col>{product.title}</Col>
+                      <Col>{product.price}</Col>
                     </Row>
                   </ListGroupItem>
                 ))}
-                  <ListGroupItem>
-                    <Row>
-                      <Col>
-                        Total:
-                      </Col>
-                      <Col>
-                        {total}
-                      </Col>
-                    </Row>
-                  </ListGroupItem>
+                <ListGroupItem>
+                  <Row>
+                    <Col>Total:</Col>
+                    <Col>{total}</Col>
+                  </Row>
+                </ListGroupItem>
               </ListGroup>
               <Link to={"/" + params.productID + "/payment"}>
                 <Button variant="primary">Payment</Button>
@@ -138,7 +128,6 @@ export default function Products() {
             </Card.Body>
           </Card>
         </Container>
-
       </div>
     </>
   );
