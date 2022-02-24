@@ -17,7 +17,7 @@ export default function NewStore(props) {
 
   const [storeCreated, setStoreCreated] = useState(false);
 
-  const { address, contract } = useWeb3Context();
+  const { connected, contract } = useWeb3Context();
 
   const dispatch = useDispatch();
 
@@ -72,7 +72,7 @@ export default function NewStore(props) {
   return (
     <>
       <MerchantHeader button="Logout" link="/logout" />
-      {!address ? (
+      {!connected ? (
         <ConnectButton />
       ) : (
         <Container>

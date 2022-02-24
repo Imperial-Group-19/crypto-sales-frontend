@@ -122,7 +122,7 @@ export default function Products() {
                   </Row>
                 </ListGroupItem>
               </ListGroup>
-              <Link to={"/" + params.productID + "/payment"}>
+              <Link to={"/payment"}>
                 <Button variant="primary">Payment</Button>
               </Link>
             </Card.Body>

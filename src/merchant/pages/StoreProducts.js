@@ -5,12 +5,17 @@ import { useSelector } from "react-redux";
 import MerchantHeader from "../components/MerchantHeader";
 import { string } from "prop-types";
 
+import ConnectButton from "../../components/ConnectButton";
+import { useWeb3Context } from "../features/Web3Context";
+
 export default function StoreProducts() {
   const params = useParams();
   // const store = useSelector((state) => state.merchant.user.stores.find(store => store.id === params.storeID));
   const store = useSelector((state) => state.merchant.user.stores[0]);
 
   const products = store.products;
+
+  const { connected } = useWeb3Context();
 
   const hasMainProduct = products.find((product) => product.type === "main");
   const hasUpsellProduct = products.find(
@@ -23,72 +28,76 @@ export default function StoreProducts() {
   return (
     <>
       <MerchantHeader button="Logout" link="/logout" />
-      <Container>
-        <h1>{store.name}</h1>
+      {!connected ? (
+        <ConnectButton />
+      ) : (
         <Container>
-          <Row className="m-3">
-            <Col>Title</Col>
-            <Col>Price</Col>
-            <Col>Type</Col>
-            <Col></Col>
-          </Row>
-          {store.products.map((product) => (
-            <Row id={product.id} key={product.id} className="m-3">
-              <Col>{product.title}</Col>
-              <Col>{product.price}</Col>
-              <Col>
-                {product.type.charAt(0).toUpperCase() + product.type.slice(1)}
-              </Col>
-              <Col>
-                <Link to={"/merchant/products/" + product.id}>
-                  <Button>Edit Product</Button>
-                </Link>
-              </Col>
+          <h1>{store.name}</h1>
+          <Container>
+            <Row className="m-3">
+              <Col>Title</Col>
+              <Col>Price</Col>
+              <Col>Type</Col>
+              <Col></Col>
             </Row>
-          ))}
-        </Container>
+            {store.products.map((product) => (
+              <Row id={product.id} key={product.id} className="m-3">
+                <Col>{product.title}</Col>
+                <Col>{product.price}</Col>
+                <Col>
+                  {product.type.charAt(0).toUpperCase() + product.type.slice(1)}
+                </Col>
+                <Col>
+                  <Link to={"/merchant/products/" + product.id}>
+                    <Button>Edit Product</Button>
+                  </Link>
+                </Col>
+              </Row>
+            ))}
+          </Container>
 
-        {!hasMainProduct ? (
-          <>
-            <Link to={"/merchant/new-product/main"}>
-              <Button variant="secondary" className="m-2">
-                Add main product
-              </Button>
-            </Link>
-            <br />
-          </>
-        ) : (
-          <>
-            {!hasUpsellProduct && (
-              <>
-                <Link to={"/merchant/new-product/upsell"}>
-                  <Button variant="secondary" className="m-2">
-                    Add upsell product
-                  </Button>
-                </Link>
-                <br />
-              </>
-            )}
-            {!hasDownsellProduct && (
-              <>
-                <Link to={"/merchant/new-product/downsell"}>
-                  <Button variant="secondary" className="m-2">
-                    Add downsell product
-                  </Button>
-                </Link>
-                <br />
-              </>
-            )}
+          {!hasMainProduct ? (
             <>
-              <Link to={"/merchant/new-product/cross-sell"}>
+              <Link to={"/merchant/new-product/main"}>
                 <Button variant="secondary" className="m-2">
-                  Add cross-sell product
+                  Add main product
                 </Button>
               </Link>
+              <br />
             </>
-          </>
-        )}
-      </Container>
+          ) : (
+            <>
+              {!hasUpsellProduct && (
+                <>
+                  <Link to={"/merchant/new-product/upsell"}>
+                    <Button variant="secondary" className="m-2">
+                      Add upsell product
+                    </Button>
+                  </Link>
+                  <br />
+                </>
+              )}
+              {!hasDownsellProduct && (
+                <>
+                  <Link to={"/merchant/new-product/downsell"}>
+                    <Button variant="secondary" className="m-2">
+                      Add downsell product
+                    </Button>
+                  </Link>
+                  <br />
+                </>
+              )}
+              <>
+                <Link to={"/merchant/new-product/cross-sell"}>
+                  <Button variant="secondary" className="m-2">
+                    Add cross-sell product
+                  </Button>
+                </Link>
+              </>
+            </>
+          )}
+        </Container>
+      )}
     </>
   );
 }
