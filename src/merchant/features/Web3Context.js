@@ -51,7 +51,8 @@ export const Web3ContextProvider = ({ children }) => {
       [
         "function makePayment(address payable storeAddress, string[] memory productNames) external payable",
         "function createProduct( address storeAddress, string memory productName, uint256 price ) external",
-        "function registerStore(address payable storeAddress) external returns (uint256)"
+        "function registerStore(address payable storeAddress) external returns (uint256)",
+        "function updateProductPrice( address storeAddress, string memory productName, uint256 price ) external"
       ],
       signer
     );

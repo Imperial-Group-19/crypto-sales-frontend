@@ -1,96 +1,101 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const merchantSlice = createSlice({
-    name: "merchant",
-    initialState: {
-        logged_in: false,
-        user: {
-            
-            stores: [
-                {
-                    id: "super-algorithms",
-                    name: "Super Algorithms Inc.",
-                    description: "We help you prepare for Tech Interviews",
-                    wallet: "0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6",
-                    products: [
-                        {
-                            id: "C++", 
-                            title:"C++ course", 
-                            price: 0.0035, 
-                            description: "Try out our original course in C++ and impress your interviewers.",
-                            features: [
-                                "Full algorithms course in C++",
-                                "Pointers Cheat Sheet",
-                                "Memory Management Tips"
-                            ]
-                        },
-                        {
-                            id: "Java", 
-                            title:"Java course", 
-                            price: 0.0025, 
-                            description: "Try out our updated course in Java and impress your interviewers.",
-                            features: [
-                                "Full algorithms course in Java",
-                                "OODP Cheat Sheet",
-                                "Design Convention Tips"
-                            ]
-                        },
-                        {
-                            id: "Python", 
-                            title:"Python course", 
-                            price: 0.0045, 
-                            description: "Try out our newest course in Python and impress your interviewers.",
-                            features: [
-                                "Full algorithms course in Python",
-                                "Data Structures Cheat Sheet",
-                                "List comprehension Tips"
-                            ]
-                        },
-                    ]
-
-                },
-                {
-                    id: "jasons-poetry",
-                    name: "Jason's Poetry",
-                    description: "There's a poem for every season",
-                    wallet: "0x972CdCBBD82c934fe32322b423bD8fBd30b4EEB6",
-                    products: []
-
-                }
-            ]
+  name: "merchant",
+  initialState: {
+    logged_in: false,
+    user: {
+      stores: [
+        {
+          id: "super-algorithms",
+          name: "Super Algorithms Inc.",
+          description: "We help you prepare for Tech Interviews",
+          wallet: "0x5A318793C3238820ef46da7C7804E7E74B540421",
+          products: [
+            {
+              id: "cpp-course",
+              title: "C++ course",
+              description: "The original C++ course",
+              features: ["Feature A", "Feature B", "Feature C"],
+              price: 50000,
+              type: "main",
+            },
+            {
+              id: "cpp-course-deluxe",
+              title: "C++ deluxe course",
+              description: "The upgraded C++ course",
+              features: ["Feature D", "Feature E", "Feature F"],
+              price: 100000,
+              type: "upsell",
+            },
+            {
+              id: "cpp-course-lite",
+              title: "C++ lite course",
+              description: "The essential C++ course",
+              features: ["Feature G", "Feature H", "Feature I"],
+              price: 25000,
+              type: "downsell",
+            },
+            {
+              id: "pointers-cheatsheet",
+              title: "Pointers cheatsheet",
+              description: "Your quick guide to demystifying pointers",
+              features: ["Feature J", "Feature K", "Feature L"],
+              price: 10000,
+              type: "cross-sell",
+            },
+            {
+              id: "stl-guide",
+              title: "STL guide",
+              description: "Your guide to the Standard Template Library",
+              features: ["Feature M", "Feature N", "Feature O"],
+              price: 10000,
+              type: "cross-sell",
+            },
+          ],
         },
-        stores: []
-    },
-    reducers: {
-        loginUser(state, action) {
-            state.logged_in = true;
-            state.user = action.payload;
-            
-        },
-        loadStores(state, action) {
-            console.log("Store: ");
-            state.stores = action.payload;
-        },
-        // createStore: (state, action) => {
-        //     console.log(action.payload);
-        //     let newStore = {
-        //         id: action.payload.id,
-        //         name: action.payload.name,
-        //         description: action.payload.description,
-        //         wallet: action.payload.wallet,
-        //         products: []
-        //     };
-        //     state.user.stores.push(newStore);
+        // {
+        //   id: "jasons-poetry",
+        //   name: "Jason's Poetry",
+        //   description: "There's a poem for every season",
+        //   wallet: "0x972CdCBBD82c934fe32322b423bD8fBd30b4EEB6",
+        //   products: [],
         // },
-        createProduct: (state, action) => {
-            let store_id = action.payload.store_id;
-            let product = action.payload;
-            delete product[store_id];
-            state.user.stores.find(store => store.id === store_id).products.push(product);
-        }
-    }
-})
+      ],
+    },
+    stores: [],
+  },
+  reducers: {
+    loginUser(state, action) {
+      state.logged_in = true;
+      state.user = action.payload;
+    },
+    loadStores(state, action) {
+      console.log("Store: ");
+      state.stores = action.payload;
+    },
+    // createStore: (state, action) => {
+    //     console.log(action.payload);
+    //     let newStore = {
+    //         id: action.payload.id,
+    //         name: action.payload.name,
+    //         description: action.payload.description,
+    //         wallet: action.payload.wallet,
+    //         products: []
+    //     };
+    //     state.user.stores.push(newStore);
+    // },
+    createProduct: (state, action) => {
+      let store_id = action.payload.store_id;
+      let product = action.payload;
+      delete product[store_id];
+      state.user.stores
+        .find((store) => store.id === store_id)
+        .products.push(product);
+    },
+  },
+});
 
-export const { loginUser, loadStores } = merchantSlice.actions
+export const { loginUser, loadStores } = merchantSlice.actions;
 
-export default merchantSlice.reducer
+export default merchantSlice.reducer;

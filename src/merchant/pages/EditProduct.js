@@ -12,31 +12,30 @@ import { ethers } from "ethers";
 
 
 
-export default function NewProduct() {
+export default function EditProduct() {
+
+    const params = useParams();
+    const product_id = params.productID;
+    const dispatch = useDispatch();
 
     const store_id = useSelector((state) => state.merchant.user.stores[0].wallet);
+
+    const product = useSelector((state) => state.merchant.user.stores[0].products.find(product => product.id === product_id));
 
     const { address, contract } = useWeb3Context();
 
     const [showModal, setShowModal] = useState(false);
 
-    const [productCreated, setProductCreated] = useState(false);
-
     const navigate = useNavigate();
 
     // console.log(contract)
 
-    const params = useParams();
-    const productType = params.productType;
-    
-    const dispatch = useDispatch();
-
     const [newProduct, setNewProduct] = useState({
-        id: '',
-        title: '',
-        description: '',
-        price: '',
-        features: [],
+        id: product.id,
+        title: product.title,
+        description: product.description,
+        price: product.price,
+        features: product.features[0],
         store_id: store_id
     });
 
@@ -46,24 +45,21 @@ export default function NewProduct() {
         setNewProduct(values => ({...values, [name]: value }));
     };
 
-    const createProduct = async (product) => {        
+    const editProduct = async (product) => {        
 
         try{
             setShowModal(true);
-
-            console.log(store_id, newProduct.id, ethers.utils.parseEther(newProduct.price))
             
-            // const tx = await contract.createProduct(store_id, newProduct.id, ethers.utils.parseEther(newProduct.price));
-            // const receipt = await tx.wait(); 
-            // console.log('Transaction receipt');
-            // console.log(receipt);
+            const tx = await contract.updateProductPrice(store_id, newProduct.id, ethers.utils.parseEther(newProduct.price));
+            const receipt = await tx.wait(); 
+            console.log('Transaction receipt');
+            console.log(receipt);
     
-            // if(receipt) {
+            if(receipt) {
                 // alert("Thank you for your purchase!")
                 setShowModal(false);
-                setProductCreated(true);
-                // navigate(`/merchant/${store_id}/products`)
-            // }
+                navigate(`/merchant/products`)
+            }
     
         } catch (error) {
             console.error(error);
@@ -72,11 +68,6 @@ export default function NewProduct() {
         }
     }
 
-    const addProductDeatils = (newProduct) => {
-        // send product details to backend
-        console.log(newProduct)
-        navigate(`/merchant/products`)
-    }
 
     return (
         <>  
@@ -99,7 +90,6 @@ export default function NewProduct() {
                                     placeholder="digital-product"
                                     value={newProduct.id}
                                     onChange={handleChange}
-                                    disabled={productCreated}
                                 />
                             </Form.Group>
                             <Form.Group>    
@@ -110,12 +100,9 @@ export default function NewProduct() {
                                     placeholder="0.35"
                                     value={newProduct.price}
                                     onChange={handleChange}
-                                    disabled={productCreated}
                                 />
                             </Form.Group>
-                            {productCreated ? 
-                            (
-                            <div>
+
 
                             <Form.Group>    
                                 <Form.Label>Title of product</Form.Label>
@@ -144,19 +131,12 @@ export default function NewProduct() {
                                     type="string"
                                     name="features"
                                     placeholder="Some feature"
-                                    value={newProduct.features[0]}
+                                    value={newProduct.features}
                                     onChange={handleChange}
                                 />
                             </Form.Group>
-                            </div>
-                            ) : null}
-                            {!productCreated ? (
-                            <Button variant="primary" onClick={() => createProduct(newProduct)}>Next</Button>
-                            ) : (
-                            <Button variant="primary" onClick={() => addProductDeatils(newProduct)}>Create Product</Button>
-                            )}
-                            {/* <Button variant="primary" onClick={() => dispatch(createProduct(newProduct))}>Create store</Button> */}
 
+                            <Button variant="primary" onClick={() => editProduct(newProduct)}>Edit Product</Button>
                         </Form>
                     </Col>
                 </Row>

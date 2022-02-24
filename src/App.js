@@ -17,13 +17,14 @@ import Stores from "./merchant/pages/Stores";
 import NewStore from "./merchant/pages/NewStore";
 import StoreProducts from "./merchant/pages/StoreProducts";
 import NewProduct from "./merchant/pages/NewProduct";
+import EditProduct from "./merchant/pages/EditProduct";
 import Product from "./pages/Product";
 import NoPage from "./pages/NoPage";
 
 import { useWeb3Context } from "./merchant/features/Web3Context";
 
 // Web sockets
-const client = new W3CWebSocket("ws://127.0.0.1:5000");
+const client = new W3CWebSocket("ws://127.0.0.1:5001");
 client.binaryType = "arraybuffer";
 
 export default function App() {
@@ -82,9 +83,10 @@ export default function App() {
         {/* Merchant pages*/}
         <Route path="/merchant/login" element={<Login />} />
         <Route path="/merchant/stores" element={<Stores />}/>
-        <Route path="/merchant/new-store" element={<NewStore />}/>
-        <Route path="/merchant/:storeID/products" element={<StoreProducts />}/>
-        <Route path="/merchant/:storeID/new-product" element={<NewProduct />}/>
+        <Route path="/merchant/new-store" element={<NewStore client={client}/>}/>
+        <Route path="/merchant/products" element={<StoreProducts />}/>
+        <Route path="/merchant/products/:productID" element={<EditProduct />}/>
+        <Route path="/merchant/new-product/:productType" element={<NewProduct />}/>
 
         {/* Sales Funnel pages*/}
         <Route path="/landing" element={<Landing />} />

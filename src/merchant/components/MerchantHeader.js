@@ -13,7 +13,7 @@ export default function MerchantHeader(props) {
         <Container fluid>
             <Navbar bg="light">
                 <Container>
-                    <Navbar.Brand href="landing">Crypto Sales Funnel</Navbar.Brand>
+                    <Navbar.Brand href="/merchant/stores">Crypto Sales Funnel</Navbar.Brand>
                     <Button variant="outline-secondary" onClick={handleDisconnectWallet}>{props.button}</Button>
                 </Container>
             </Navbar>
