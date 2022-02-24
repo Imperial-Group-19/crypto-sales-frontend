@@ -30,7 +30,6 @@ export default function Product() {
         }
     }
     
-
     return (
         <>
             <Helmet>
@@ -77,7 +76,9 @@ export default function Product() {
                                 }
                                 {currentProduct.type === "downsell" ?
                                     null : currentProduct.type === "upsell" ?
-                                    <Button variant="link" >Not interested, check out for {mainProduct.title} instead</Button> :
+                                    <Link to={"/" + params.storeID + "/products"}>
+                                        <Button variant="link" onClick={() => dispatch(addToCart(mainProduct.product_id))} >Not interested, check out for {mainProduct.title} instead</Button>
+                                    </Link> :
                                     <Link to={"/" + params.storeID + "/products/" + downsellProduct.product_id}>
                                         <Button variant="link" >Show me something cheaper</Button>
                                     </Link>

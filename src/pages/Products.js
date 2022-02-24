@@ -13,6 +13,7 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../features/shopSlice";
 import ShoppingCart from "../components/ShoppingCart";
+import { Link, useParams } from "react-router-dom";
 
 export default function Products() {
   const allProducts = useSelector((state) => state.shop.products);
@@ -20,6 +21,8 @@ export default function Products() {
   const total = useSelector((state) => state.shop.total);
   const shop = useSelector((state) => state.shop);
   const dispatch = useDispatch();
+
+  const params = useParams();
 
   const products = allProducts.filter(
     (product) => product.type === "crosssell"
@@ -92,29 +95,51 @@ export default function Products() {
         />
       </Helmet>
       <Header />
-      <Container>
-        {/* <Row>
-          <h1 className="display-1">Your current selection</h1>
-        </Row> */}
-        <Row>
-          <Card>
+      <div className="d-flex ml-5">
+        <Container>
+          <Row>
+            <h3 >Our recommended add-ons</h3>
+          </Row>
+          <Row>
+            {productList(products, addedProducts)}
+          </Row>
+        </Container>
+        <Container className="ml-auto">
+          <Card style={{ width: '18rem' }}>
             <Card.Header as="h3">Your current selection</Card.Header>
             <Card.Body>
-              <Card.Title>{selectedProduct.title}</Card.Title>
-              <Card.Text>
-                {selectedProduct.price}
-              </Card.Text>
-              <Button variant="primary">Go somewhere</Button>
+              <ListGroup>
+                {addedProducts.map(product => (
+                  <ListGroupItem>
+                    <Row key={product.id}>
+                      <Col>
+                        {product.title}
+                      </Col>
+                      <Col>
+                        {product.price}
+                      </Col>
+                    </Row>
+                  </ListGroupItem>
+                ))}
+                  <ListGroupItem>
+                    <Row>
+                      <Col>
+                        Total:
+                      </Col>
+                      <Col>
+                        {total}
+                      </Col>
+                    </Row>
+                  </ListGroupItem>
+              </ListGroup>
+              <Link to={"/" + params.productID + "/payment"}>
+                <Button variant="primary">Payment</Button>
+              </Link>
             </Card.Body>
           </Card>
-        </Row>
-        <Row>
-          <h3 >Our recommended add-ons</h3>
-        </Row>
-        <Row>
-          {productList(products, addedProducts)}
-        </Row>
-      </Container>
+        </Container>
+
+      </div>
     </>
   );
 }
