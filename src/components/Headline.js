@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Container, Navbar, Button, ListGroup, Badge } from "react-bootstrap";
+import { Container, Button, ListGroup, Modal } from "react-bootstrap";
 
 export default function Headline() {
+  // Modal which will become active after clicking Buy Now.
+  // It shows a window with 3 options: upsell, downsell or buy the product that was originally selected:
+  const [showModalBuy, setShowModalBuy] = useState(false);
+
   return (
     <Container style={{ width: "60%" }}>
       <br></br>
@@ -23,7 +27,10 @@ export default function Headline() {
         </div>
       </Link> */}
       <br></br>
-      <h1 className="display-2" style={{ textAlign: "center", fontSize: "40px" }}>
+      <h1
+        className="display-2"
+        style={{ textAlign: "center", fontSize: "40px" }}
+      >
         Description
       </h1>
       <br></br>
@@ -134,14 +141,39 @@ export default function Headline() {
         </ListGroup.Item>
       </ListGroup>
       <br></br>
-      <Link to="/payment" style={{ textDecoration: "none" }}>
-        <div className="centered">
-          <Button variant="outline-secondary" className="buy_button_big font-effect-fire-animation">
-            Buy Now
-          </Button>
-        </div>
-      </Link>
+      {/* <Link to="/payment" style={{ textDecoration: "none" }}> */}
+      <div className="centered">
+        <Button
+          variant="outline-secondary"
+          className="buy_button_big font-effect-fire-animation"
+          onClick={() => setShowModalBuy(true)}
+        >
+          Buy Now
+        </Button>
+      </div>
+      {/* </Link> */}
       <br></br>
+      <Modal show={showModalBuy} backdrop="static">
+        <Modal.Body>
+          <p>You are currently buying basic C++ course for 15 Matic</p>
+          <p>
+            Are you interested in an updated version of this product? It is
+            called C++ course Delux and for just 35 Matic, you get extra 2
+            features.
+          </p>
+          <Link to="/payment" style={{ textDecoration: "none" }}>
+            <div className="centered">
+              <Button variant="outline-secondary">Buy C++ course Delux for 35 Matic</Button>
+            </div>
+          </Link>
+          <br></br>
+          <Link to="/payment" style={{ textDecoration: "none" }}>
+            <div className="centered">
+              <Button variant="outline-secondary">No, Buy the basic C++ course for 15 Matic</Button>
+            </div>
+          </Link>
+        </Modal.Body>
+      </Modal>
     </Container>
   );
 }
