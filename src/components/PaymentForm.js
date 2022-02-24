@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-import { ethers } from "ethers";
-import Web3Modal from "web3modal";
+import { useWeb3Context } from "../merchant/features/Web3Context";
 
 
 export default function PaymentForm() {
@@ -15,35 +14,20 @@ export default function PaymentForm() {
 
 
     const ids = products.map(product => product.id);
-    // const [price, setPrice] = useState("0.0001");
-    const [connected, setConnected] = useState(false);
-    const [address, setAddress] = useState("");
-    const [provider, setProvider] = useState();
-    const [signer, setSigner] = useState();
+
+    const { contract, handleConnectWallet, handleDisconnectWallet, connected, address } = useWeb3Context();
 
     const [showModal, setShowModal] = useState(false);
 
-    const contractAddress = "0xd1a831348b69a37c75540ac3af58b6e37224fe64";
     
     let navigate = useNavigate();
  
     const makePayment = async () => {
         // TODO: write function to fetch price of products from smart contract
 
-        const funnelContract = new ethers.Contract(
-            contractAddress,
-            ['function makePayment(address payable storeAddress, string[] memory productNames) external payable'],
-            signer
-        )
-
-        const txInfo = {
-            gasLimit: 250000,
-            value: ethers.utils.parseEther(String(price))
-        };
-
         try{
             setShowModal(true);
-            const tx = await funnelContract.makePayment("0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",ids, txInfo);
+            const tx = await contract.makePayment("0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",ids);
     
             const receipt = await tx.wait(); 
             console.log('Transaction receipt');
@@ -63,24 +47,6 @@ export default function PaymentForm() {
 
     }
     
-    const providerOptions = {
-        // Injected providers
-        injected: {
-          display: {
-            logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/1024px-MetaMask_Fox.svg.png",
-            name: "Metamask",
-            description: "Connect with the wallet in your browser"
-          },
-          package: null
-        }
-    };
-
-    const web3modal = new Web3Modal({
-        network: "mumbai",
-        cacheProvider: "true",
-        providerOptions
-    });
-    
     const [inputs, setInputs] = useState({
         customerWalletAddress: '',
         merchantWalletAddress: '0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6',
@@ -94,24 +60,6 @@ export default function PaymentForm() {
         const value = event.target.value;
         setInputs(values => ({...values, [name]: value }));
     }
-
-    const handleConnectWallet = async()  => {
-        const connection = await web3modal.connect();
-        const provider = new ethers.providers.Web3Provider(connection);
-        const signer = provider.getSigner();
-
-        setAddress(connection.selectedAddress);
-        setSigner(signer)
-        setProvider(provider);
-        setConnected(true);
-    }
-
-    const handleDisconnectWallet = async() => {
-        const clear = web3modal.clearCachedProvider();
-        setConnected(false);
-        setAddress("");
-    }
-
 
     const handleSubmit = (event) => {
         event.preventDefault();
