@@ -12,7 +12,6 @@ import Landing from './pages/Landing';
 import Payment from './pages/Payment';
 import Products from './pages/Products';
 import Confirmation from './pages/Confirmation';
-import Register from "./merchant/pages/Register";
 import Login from "./merchant/pages/Login";
 import Stores from "./merchant/pages/Stores";
 import NewStore from "./merchant/pages/NewStore";
@@ -77,13 +76,10 @@ export default function App() {
   }, []);
 
   return (
-    
     <Router>
       <Routes>
         {/* Affiliate pages*/}
-
         {/* Merchant pages*/}
-        {/* <Route path="/merchant/register" element={<Register />}/> */}
         <Route path="/merchant/login" element={<Login />} />
         <Route path="/merchant/stores" element={<Stores />}/>
         <Route path="/merchant/new-store" element={<NewStore />}/>
@@ -92,7 +88,6 @@ export default function App() {
 
         {/* Sales Funnel pages*/}
         <Route path="/landing" element={<Landing />} />
-
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/:storeID/products/:productID" element={<Product />} />

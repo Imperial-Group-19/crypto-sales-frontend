@@ -7,8 +7,4 @@ export default configureStore({
       shop: shopReducer,
       merchant: merchantReducer,
   },
-  // preloadedState: {
-  //   shop: {},
-  //   merchant: {},
-  // }
 })
