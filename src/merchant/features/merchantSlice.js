@@ -17,7 +17,7 @@ export const merchantSlice = createSlice({
               title: "C++ course",
               description: "The original C++ course",
               features: ["Feature A", "Feature B", "Feature C"],
-              price: 50000,
+              price: 0.05,
               type: "main",
             },
             {
@@ -25,7 +25,7 @@ export const merchantSlice = createSlice({
               title: "C++ deluxe course",
               description: "The upgraded C++ course",
               features: ["Feature D", "Feature E", "Feature F"],
-              price: 100000,
+              price: 0.1,
               type: "upsell",
             },
             {
@@ -33,7 +33,7 @@ export const merchantSlice = createSlice({
               title: "C++ lite course",
               description: "The essential C++ course",
               features: ["Feature G", "Feature H", "Feature I"],
-              price: 25000,
+              price: 0.025,
               type: "downsell",
             },
             {
@@ -41,7 +41,7 @@ export const merchantSlice = createSlice({
               title: "Pointers cheatsheet",
               description: "Your quick guide to demystifying pointers",
               features: ["Feature J", "Feature K", "Feature L"],
-              price: 10000,
+              price: 0.01,
               type: "cross-sell",
             },
             {
@@ -49,7 +49,7 @@ export const merchantSlice = createSlice({
               title: "STL guide",
               description: "Your guide to the Standard Template Library",
               features: ["Feature M", "Feature N", "Feature O"],
-              price: 10000,
+              price: 0.01,
               type: "cross-sell",
             },
           ],

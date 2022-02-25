@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
+import { ethers } from "ethers";
+
 import { useWeb3Context } from "../merchant/features/Web3Context";
 
 export default function PaymentForm() {
@@ -10,7 +12,7 @@ export default function PaymentForm() {
   const products = useSelector((state) => state.shop.addedProducts);
   const storeAddress = useSelector((state) => state.shop.storeAddress);
 
-  const ids = products.map((product) => product.id);
+  const ids = products.map((product) => product.product_id);
 
   const {
     contract,
@@ -24,14 +26,22 @@ export default function PaymentForm() {
 
   let navigate = useNavigate();
 
+  console.log(ids);
+
   const makePayment = async () => {
     // TODO: write function to fetch price of products from smart contract
+
+    const txInfo = {
+      gasLimit: 250000,
+      value: ethers.utils.parseEther(String(price)),
+    };
 
     try {
       setShowModal(true);
       const tx = await contract.makePayment(
-        "0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",
-        ids
+        "0x5A318793C3238820ef46da7C7804E7E74B540421",
+        ids,
+        txInfo
       );
 
       const receipt = await tx.wait();
