@@ -14,7 +14,7 @@ export default function Landing() {
         />
       </Helmet>
       <Header />
-      <Headline />
+      {/* <Headline /> */}
       {/* <Footer /> */}
     </>
   );

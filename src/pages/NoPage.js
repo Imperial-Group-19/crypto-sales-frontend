@@ -1,27 +1,41 @@
 import { Container, Button } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
-import NotFoundPic from "../components/components_graphics/error_404_head_hit.gif";
-import "../App.css";
+import NotFoundPic from "../assets/error_404_head_hit.gif";
+import { FaArrowCircleRight } from "react-icons/fa";
+import { GoBug } from "react-icons/go";
 
 export default function NoPage() {
   return (
-    <div className="body_404">
-      <Container className="centered width_60">
-        <img
-          className="width_50"
-          src={NotFoundPic}
-          alt="Person hitting is head"
+    <>
+      <Helmet>
+        <title>Page Not Found 404</title>
+        <meta
+          name="description"
+          content="Page has not been found. Page Not Found 404 Error. "
         />
-        <h1 className="font">Page Not Found 404</h1>
-      </Container>
-      <br></br>
-      <Link to="/" style={{ textDecoration: "none" }}>
-        <div className="centered">
-          <Button variant="outline-secondary" className="font_go_back">
-            Go to the main page
-          </Button>
-        </div>
-      </Link>
-    </div>
+      </Helmet>
+
+      <div className="body-404">
+        <Container className="centered width-60">
+          <img
+            className="width-50"
+            src={NotFoundPic}
+            alt="Person hitting is head"
+          />
+          <h1 className="h1-error">
+            Page Not Found 404 
+            {/* <GoBug className="error-icon"></GoBug> */}
+          </h1>
+        </Container>
+        <Link to="/" className="not-underlined">
+          <div className="centered">
+            <Button variant="outline-secondary" className="button-go-back ">
+              <FaArrowCircleRight className="error-icon"></FaArrowCircleRight> Go to the main page
+            </Button>
+          </div>
+        </Link>
+      </div>
+    </>
   );
 }

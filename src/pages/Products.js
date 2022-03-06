@@ -14,6 +14,11 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToCart, removeFromCart } from "../features/shopSlice";
 import ShoppingCart from "../components/ShoppingCart";
 import { Link, useParams } from "react-router-dom";
+import { BiCoin } from "react-icons/bi";
+import { RiHandCoinLine } from "react-icons/ri";
+import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
+import { BsBasket } from "react-icons/bs";
+import { MdOutlineLocalGroceryStore } from "react-icons/md";
 
 export default function Products() {
   const allProducts = useSelector((state) => state.shop.products);
@@ -39,20 +44,20 @@ export default function Products() {
           <Card
             id={product.product_id}
             key={product.product_id}
-            style={{ width: "20rem" }}
-            className="m-2"
-            text="light"
-            bg="secondary"
-            border="light"
+            className="m-4 font-and-color products-border-one"
+            bg="light"
           >
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
-              <Card.Text>{product.price} MATIC</Card.Text>
+              <Card.Text>
+                {product.price} MATIC{" "}
+                <BiCoin className="payment-icons"></BiCoin>
+              </Card.Text>
               <Card.Text>{product.description}</Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
               {product.features.map((feature) => {
-                return <ListGroupItem key={feature}>{feature}</ListGroupItem>;
+                return <ListGroupItem className="font-and-color" key={feature}>{feature}</ListGroupItem>;
               })}
             </ListGroup>
             <Card.Body>
@@ -62,18 +67,20 @@ export default function Products() {
                   (added) => added.product_id === product.product_id
                 ) ? (
                   <Button
-                    variant="outline-light"
-                    size="lg"
+                    className="connect font-and-color button-add-to-basket"
+                    variant="outline-success"
                     onClick={() => dispatch(addToCart(product.product_id))}
                   >
+                    <MdOutlineLocalGroceryStore className="payment-icons"></MdOutlineLocalGroceryStore>{" "}
                     Add To Cart
                   </Button>
                 ) : (
                   <Button
-                    variant="outline-dark"
-                    size="lg"
+                    className="font-and-color button-remove-from-basket"
+                    variant="outline-danger"
                     onClick={() => dispatch(removeFromCart(product.product_id))}
                   >
+                    <AiOutlineClose className="payment-icons"></AiOutlineClose>{" "}
                     Remove From Cart
                   </Button>
                 )}
@@ -96,34 +103,49 @@ export default function Products() {
       </Helmet>
       <Header />
       <div className="d-flex ml-5">
-        <Container>
+        <Container className="products-border-round">
           <Row>
-            <h3>Our recommended add-ons</h3>
+            <h2 className="h1-products-all centered">
+              Our recommended add-ons
+            </h2>
           </Row>
-          <Row>{productList(products, addedProducts)}</Row>
+          <Row className="font">{productList(products, addedProducts)}</Row>
         </Container>
-        <Container className="ml-auto">
-          <Card style={{ width: "18rem" }}>
-            <Card.Header as="h3">Your current selection</Card.Header>
+
+        <Container className="ml-auto basket-border-round">
+          <Row>
+          <h2 className="h1-products-all centered">
+            Your current selection
+              </h2>
+          </Row>
+          <Card className="m-4 font-and-color basket-border-one" bg="light">
+            <Card.Header className="basket-header-background">
+              <h3 className="basket-header centered">
+                <BsBasket className="payment-icons-basket"></BsBasket> Basket
+              </h3>
+            </Card.Header>
             <Card.Body>
               <ListGroup>
                 {addedProducts.map((product) => (
-                  <ListGroupItem>
+                  <ListGroupItem className="font-and-color">
                     <Row key={product.id}>
                       <Col>{product.title}</Col>
-                      <Col>{product.price}</Col>
+                      <Col style={{textAlign: "right"}}>{product.price}</Col>
                     </Row>
                   </ListGroupItem>
                 ))}
-                <ListGroupItem>
+                <ListGroupItem className="font-and-color">
                   <Row>
                     <Col>Total:</Col>
-                    <Col>{total}</Col>
+                    <Col style={{textAlign: "right"}}>{total}</Col>
                   </Row>
                 </ListGroupItem>
               </ListGroup>
               <Link to={"/payment"}>
-                <Button variant="primary">Payment</Button>
+                <Button variant="secondary" className="button-buy-product-2" style={{width: "100%"}}>
+                  <RiHandCoinLine className="payment-icons"></RiHandCoinLine>{" "}
+                  PAYMENT
+                </Button>
               </Link>
             </Card.Body>
           </Card>

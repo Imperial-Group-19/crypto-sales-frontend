@@ -26,7 +26,7 @@ export default function Login() {
       ) : (
         <Container>
           <Row>
-            <h1>Login</h1>
+            <h1 className="h1-merchant centered">Login</h1>
           </Row>
           <Row>
             <Col>

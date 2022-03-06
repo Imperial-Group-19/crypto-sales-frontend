@@ -2,6 +2,14 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import { VscDebugDisconnect } from "react-icons/vsc";
+import {
+  AiOutlineWallet,
+  AiFillWallet,
+  AiOutlineDisconnect,
+} from "react-icons/ai";
+import { BiCoin, BiCoinStack, BiWallet, BiWalletAlt } from "react-icons/bi";
+import { RiHandCoinLine } from "react-icons/ri";
 
 import { ethers } from "ethers";
 
@@ -80,34 +88,42 @@ export default function PaymentForm() {
   };
 
   return (
-    <>
+    <div>
       {console.log(useSelector((state) => state.shop.total))}
-      {connected ? (
-        <Button
-          className="disconnect"
-          variant="outline-danger"
-          type="submit"
-          onClick={handleDisconnectWallet}
-        >
-          Disconnect Wallet
-        </Button>
-      ) : (
-        <Button
-          className="connect"
-          variant="outline-success"
-          type="submit"
-          onClick={handleConnectWallet}
-        >
-          Connect Wallet
-        </Button>
-      )}
+      <div className="d-grid gap-2">
+        {connected ? (
+          <Button
+            className="disconnect font-and-color button-payment-disconnet"
+            variant="outline-danger"
+            type="submit"
+            onClick={handleDisconnectWallet}
+          >
+            <VscDebugDisconnect className="payment-icons"></VscDebugDisconnect>{" "}
+            Disconnect Wallet
+          </Button>
+        ) : (
+          <Button
+            className="connect font-and-color button-payment-connect"
+            variant="outline-success"
+            type="submit"
+            onClick={handleConnectWallet}
+          >
+            <AiOutlineDisconnect className="payment-icons"></AiOutlineDisconnect>{" "}
+            Connect Wallet
+          </Button>
+        )}
+      </div>
 
       <hr></hr>
 
-      <Form>
+      <Form className="font-and-color">
         <Form.Group className="mb-3" controlId="formcustomerWalletAddress">
-          <Form.Label>Your Wallet Address</Form.Label>
+          <Form.Label>
+            <BiWallet className="payment-icons"></BiWallet> Your Wallet
+            Address
+          </Form.Label>
           <Form.Control
+            className="font-and-color"
             type="text"
             name="customerWalletAddress"
             placeholder="Wallet address"
@@ -117,8 +133,12 @@ export default function PaymentForm() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formmerchantWalletAddress">
-          <Form.Label>Merchant's Wallet Address</Form.Label>
+          <Form.Label>
+            <BiWalletAlt className="payment-icons"></BiWalletAlt> Merchant's
+            Wallet Address
+          </Form.Label>
           <Form.Control
+            className="font-and-color"
             type="text"
             name="merchantWalletAddress"
             placeholder="0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6"
@@ -127,8 +147,11 @@ export default function PaymentForm() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formmercoinType">
-          <Form.Label>Coin</Form.Label>
+          <Form.Label>
+            <BiCoin className="payment-icons"></BiCoin> Coin
+          </Form.Label>
           <Form.Control
+            className="font-and-color"
             type="text"
             name="coinType"
             placeholder="Polygon (MATIC)"
@@ -137,21 +160,31 @@ export default function PaymentForm() {
           />
         </Form.Group>
         <Form.Group className="mb-3" controlId="formamount">
-          <Form.Label>Amount</Form.Label>
+          <Form.Label>
+            <BiCoinStack className="payment-icons"></BiCoinStack> Amount
+          </Form.Label>
           <Form.Control
+            className="font-and-color"
             type="string"
             name="amount"
             value={String(price)}
             disabled
           />
         </Form.Group>
-        <Button variant="success" onClick={makePayment} disabled={!connected}>
-          Pay
-        </Button>
+        <div className="d-grid gap-2">
+          <Button
+            variant="outline-danger"
+            className="button-payment-pay"
+            onClick={makePayment}
+            disabled={!connected}
+          >
+            <RiHandCoinLine className="payment-icons"></RiHandCoinLine> Pay
+          </Button>
+        </div>
       </Form>
       <Modal show={showModal} backdrop="static">
         <Modal.Body>Mining your transaction...</Modal.Body>
       </Modal>
-    </>
+    </div>
   );
 }

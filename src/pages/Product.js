@@ -9,11 +9,13 @@ import {
   Button,
   Container,
   Row,
+  Col,
   ListGroup,
   ListGroupItem,
   Modal,
 } from "react-bootstrap";
 import { addToCart } from "../features/shopSlice";
+import { MdOutlineLocalOffer } from "react-icons/md";
 
 export default function Product() {
   const params = useParams();
@@ -49,74 +51,86 @@ export default function Product() {
         <meta name="description" content="Product" />
       </Helmet>
       <Header />
-      <Container style={{ width: "60%" }}>
-        <Row>
-          <h1 className="display-1">Having problems with C++?</h1>
-        </Row>
-        <Row>
-          <p className="lead">Try our new algorithms course. Now in C++!</p>
-        </Row>
-        <Row>
-          <Card className="text-center" style={{ display: "flex" }}>
-            <Card.Header>Limited time offer</Card.Header>
-            <Card.Body>
-              <Card.Title>{currentProduct.title}</Card.Title>
-              <Card.Text>{currentProduct.description}</Card.Text>
-            </Card.Body>
-            <ListGroup variant="flush">
-              {currentProduct.features.map((feature, index) => (
-                <ListGroupItem key={index}>{feature}</ListGroupItem>
-              ))}
-            </ListGroup>
-            <Card.Body>
-              <Card.Text>{currentProduct.price + " MATIC"}</Card.Text>
-              <div className="d-grid gap-2">
-                {currentProduct.type === "main" ? (
-                  <Button variant="success" size="lg" onClick={handleOpen}>
-                    Buy Now
-                  </Button>
-                ) : (
-                  <Link to={"/" + params.storeID + "/products/"}>
-                    <Button
-                      variant="success"
-                      size="lg"
-                      onClick={() =>
-                        dispatch(addToCart(currentProduct.product_id))
-                      }
-                    >
+      <Container className="centered">
+        <Col className="products-border">
+          <Row>
+            <h1 className="h1-products">Having problems with C++?</h1>
+          </Row>
+          <Row className="font-and-color lead margin-bottom">
+            <p>Try our new algorithms course. Now in C++!</p>
+          </Row>
+          <Row className="font-and-color">
+            <Card style={{ display: "flex" }}>
+              <Card.Header className="font-and-color">
+                <MdOutlineLocalOffer></MdOutlineLocalOffer> Limited time offer
+              </Card.Header>
+              <Card.Body>
+                <Card.Title>{currentProduct.title}</Card.Title>
+                <Card.Text>{currentProduct.description}</Card.Text>
+              </Card.Body>
+              <ListGroup variant="flush">
+                {currentProduct.features.map((feature, index) => (
+                  <ListGroupItem key={index} className="font-and-color">
+                    {feature}
+                  </ListGroupItem>
+                ))}
+              </ListGroup>
+              <Card.Body>
+                <Card.Text>{currentProduct.price + " MATIC"}</Card.Text>
+                <div className="d-grid gap-2">
+                  {currentProduct.type === "main" ? (
+                    <Button variant="secondary" className="button-buy-product" onClick={handleOpen}>
                       Buy Now
                     </Button>
-                  </Link>
-                )}
-                {currentProduct.type ===
-                "downsell" ? null : currentProduct.type === "upsell" ? (
-                  <Link to={"/" + params.storeID + "/products"}>
-                    <Button
-                      variant="link"
-                      onClick={() =>
-                        dispatch(addToCart(mainProduct.product_id))
+                  ) : (
+                    <Link to={"/" + params.storeID + "/products/"}>
+                      <Button
+                        variant="secondary" 
+                        className="button-buy-product"
+                        style={{width: "100%"}}
+                        onClick={() =>
+                          dispatch(addToCart(currentProduct.product_id))
+                        }
+                      >
+                        Buy Now
+                      </Button>
+                    </Link>
+                  )}
+                  {currentProduct.type ===
+                  "downsell" ? null : currentProduct.type === "upsell" ? (
+                    <Link to={"/" + params.storeID + "/products"}>
+                      <Button
+                        variant="link"
+                        className="custom-link"
+                        onClick={() =>
+                          dispatch(addToCart(mainProduct.product_id))
+                        }
+                      >
+                        Not interested, check out for {mainProduct.title}{" "}
+                        instead
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Link
+                      to={
+                        "/" +
+                        params.storeID +
+                        "/products/" +
+                        downsellProduct.product_id
                       }
                     >
-                      Not interested, check out for {mainProduct.title} instead
-                    </Button>
-                  </Link>
-                ) : (
-                  <Link
-                    to={
-                      "/" +
-                      params.storeID +
-                      "/products/" +
-                      downsellProduct.product_id
-                    }
-                  >
-                    <Button variant="link">Show me something cheaper</Button>
-                  </Link>
-                )}
-              </div>
-            </Card.Body>
-            {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
-          </Card>
-        </Row>
+                      <Button variant="link" className="custom-link">
+                        Show me something cheaper
+                      </Button>
+                    </Link>
+                  )}
+                </div>
+                
+              </Card.Body>
+              {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
+            </Card>
+          </Row>
+        </Col>
       </Container>
       {/* <Headline /> */}
       <Modal show={show} onHide={handleClose}>

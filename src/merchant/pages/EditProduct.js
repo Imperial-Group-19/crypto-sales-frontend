@@ -5,6 +5,8 @@ import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch, useSelector } from "react-redux";
 // import { createProduct } from "../features/merchantSlice";
 import { useWeb3Context } from "../features/Web3Context";
+import { BiCoin, BiCoinStack, BiWallet, BiWalletAlt } from "react-icons/bi";
+import { BiBarcodeReader, BiCategory, BiChip, BiDetail } from "react-icons/bi";
 
 import ConnectButton from "../../components/ConnectButton";
 
@@ -77,59 +79,68 @@ export default function EditProduct() {
       {!address ? (
         <ConnectButton />
       ) : (
-        <Container>
+        <Container className="width-80">
           <Row>
-            <h1>Your new product</h1>
+            <h1 className="h1-products centered">Your new product</h1>
+            <hr className="margin-top-negative"></hr>
           </Row>
           <Row>
             <Col>
-              <Form>
-                <Form.Group>
-                  <Form.Label>A unique identifier for your product</Form.Label>
+              <Form className="font-and-color">
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    <BiBarcodeReader className="payment-icons"></BiBarcodeReader>{" "}
+                    A unique identifier for your product
+                  </Form.Label>
                   <Form.Control
                     type="string"
                     name="id"
+                    className="font-and-color"
                     placeholder="digital-product"
                     value={newProduct.id}
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group>
-                  <Form.Label>Price in MATIC</Form.Label>
+                <Form.Group className="mb-3">
+                  <Form.Label><BiCoin className="payment-icons"></BiCoin> Price in MATIC</Form.Label>
                   <Form.Control
                     type="number"
                     name="price"
+                    className="font-and-color"
                     placeholder="0.35"
                     value={newProduct.price}
                     onChange={handleChange}
                   />
                 </Form.Group>
 
-                <Form.Group>
-                  <Form.Label>Title of product</Form.Label>
+                <Form.Group className="mb-3">
+                  <Form.Label><BiChip className="payment-icons"></BiChip> Title of product</Form.Label>
                   <Form.Control
                     type="string"
                     name="title"
+                    className="font-and-color"
                     placeholder="Ebook"
                     value={newProduct.title}
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group>
-                  <Form.Label>Description of product</Form.Label>
+                <Form.Group className="mb-3">
+                  <Form.Label><BiDetail className="payment-icons"></BiDetail> Description of product</Form.Label>
                   <Form.Control
                     type="string"
                     name="description"
+                    className="font-and-color"
                     placeholder="Best prices for digital products in Imperial"
                     value={newProduct.description}
                     onChange={handleChange}
                   />
                 </Form.Group>
-                <Form.Group>
-                  <Form.Label>Product Feature</Form.Label>
+                <Form.Group className="mb-3">
+                  <Form.Label><BiCategory className="payment-icons"></BiCategory> Product Feature</Form.Label>
                   <Form.Control
                     type="string"
                     name="features"
+                    className="font-and-color"
                     placeholder="Some feature"
                     value={newProduct.features}
                     onChange={handleChange}
@@ -138,6 +149,7 @@ export default function EditProduct() {
 
                 <Button
                   variant="primary"
+                  className="button-multifunctional"
                   onClick={() => editProduct(newProduct)}
                 >
                   Edit Product

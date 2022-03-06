@@ -15,8 +15,8 @@ export default function Header() {
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
-        <Navbar.Brand href={`/${params.storeID}/products/${mainProduct.id}`}>
-          Super Algorithms Course Maker II. Inc.
+        <Navbar.Brand href={`/${params.storeID}/products/${mainProduct.id}`} className="title-header">
+          <div className="title-header">Super Algorithms Course Maker II. Inc.</div>
         </Navbar.Brand>
       </Container>
     </Navbar>

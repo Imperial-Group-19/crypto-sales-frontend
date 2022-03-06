@@ -13,10 +13,10 @@ export default function Payment() {
           content="Check if the amount is correct and make the payment"
         />
       </Helmet>
-      <Container>
+      <Container className="width-60">
         <Row>
-          <Col>
-            <h1 className="display-1">Payment page</h1>
+          <Col className="payment-border">
+            <h1 className="h1-payment">Payment page</h1>
             <PaymentForm />
           </Col>
         </Row>

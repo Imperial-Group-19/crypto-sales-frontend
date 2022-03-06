@@ -6,6 +6,7 @@ import MerchantHeader from "../components/MerchantHeader";
 
 import ConnectButton from "../../components/ConnectButton";
 import { useWeb3Context } from "../features/Web3Context";
+import { BiStoreAlt } from "react-icons/bi";
 
 export default function Stores() {
   const stores = useSelector((state) => state.merchant.user.stores);
@@ -22,20 +23,22 @@ export default function Stores() {
         <ConnectButton />
       ) : (
         <Container>
-          <h1>Welcome, {name}</h1>
-          <h2>My store</h2>
+          <h1 className="h1-merchant centered">Welcome, {name}</h1>
+          <h3 className="h2-merchant">
+            <BiStoreAlt className="payment-icons"></BiStoreAlt> My Store
+          </h3>
           {stores.map((store) => (
-            <Card key={store.id}>
-              <Card.Body>
+            <Card key={store.id} className="border-merchant">
+              <Card.Body className="font-and-color">
                 <Card.Title>{store.name}</Card.Title>
                 <Card.Text>{store.description}</Card.Text>
                 <Link to={"/merchant/analytics"}>
-                  <Button variant="primary" className="m-2">
+                  <Button className="merchant-button m-2" variant="secondary">
                     View Analytics
                   </Button>
                 </Link>
                 <Link to={"/merchant/products"}>
-                  <Button variant="primary" className="m-2">
+                  <Button className="merchant-button m-2" variant="secondary">
                     View Products
                   </Button>
                 </Link>
@@ -46,7 +49,7 @@ export default function Stores() {
             <Card>
               <Card.Body>
                 <Link to="/merchant/new-store">
-                  <Button variant="secondary">Add a new store</Button>
+                  <Button className="merchant-button" variant="secondary">Add a new store</Button>
                 </Link>
               </Card.Body>
             </Card>

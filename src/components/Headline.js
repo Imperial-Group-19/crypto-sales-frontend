@@ -13,7 +13,6 @@ export default function Headline() {
       <h1 className="display-1" style={{ textAlign: "center" }}>
         C++ Course Basic
       </h1>
-      <br></br>
       <hr></hr>
       {/* <br></br>
       <Link to="/payment" style={{ textDecoration: "none" }}>
