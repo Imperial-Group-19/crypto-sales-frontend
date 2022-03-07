@@ -40,20 +40,20 @@ export default function NewStore(props) {
     try {
       // setShowModal(true);
 
-      // const tx = await contract.registerStore(newStore.wallet);
-      // const receipt = await tx.wait();
-      // console.log('Transaction receipt');
-      // console.log(receipt);
+      const tx = await contract.registerStore(newStore.wallet, 5);
+      const receipt = await tx.wait();
+      console.log("Transaction receipt");
+      console.log(receipt);
 
-      setStoreCreated(true);
+      // setStoreCreated(true);
 
-      // if(receipt) {
-      //     // alert("Thank you for your purchase!")
-      //     setShowModal(false);
-      //     // Wait for backend to confirm
-      //     setStoreCreated(true);
-      //     // navigate(`/merchant/${newStore.wallet}/new-product`)
-      // }
+      if (receipt) {
+        // alert("Thank you for your purchase!")
+        setShowModal(false);
+        // Wait for backend to confirm
+        setStoreCreated(true);
+        // navigate(`/merchant/${newStore.wallet}/new-product`)
+      }
     } catch (error) {
       console.error(error);
       setShowModal(false);
@@ -64,7 +64,7 @@ export default function NewStore(props) {
   const addStoreDetails = (storeAddress) => {
     console.log(newStore);
     // send store details to backend
-    // client.send(newStore);
+    // client.send(apiCall);
 
     navigate(`/merchant/products`);
   };
