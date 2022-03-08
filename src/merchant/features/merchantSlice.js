@@ -10,7 +10,7 @@ export const merchantSlice = createSlice({
           id: "super-algorithms",
           name: "Super Algorithms Inc.",
           description: "We help you prepare for Tech Interviews",
-          wallet: "0x5A318793C3238820ef46da7C7804E7E74B540421",
+          wallet: "0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",
           products: [
             {
               id: "cpp-course",

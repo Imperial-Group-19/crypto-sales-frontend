@@ -47,7 +47,7 @@ export default function PaymentForm() {
     try {
       setShowModal(true);
       const tx = await contract.makePayment(
-        "0x5A318793C3238820ef46da7C7804E7E74B540421",
+        "0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",
         ids,
         txInfo
       );
@@ -119,8 +119,7 @@ export default function PaymentForm() {
       <Form className="font-and-color">
         <Form.Group className="mb-3" controlId="formcustomerWalletAddress">
           <Form.Label>
-            <BiWallet className="payment-icons"></BiWallet> Your Wallet
-            Address
+            <BiWallet className="payment-icons"></BiWallet> Your Wallet Address
           </Form.Label>
           <Form.Control
             className="font-and-color"
