@@ -24,7 +24,7 @@ import NoPage from "./pages/NoPage";
 import { useWeb3Context } from "./merchant/features/Web3Context";
 
 // Web sockets
-const client = new W3CWebSocket("ws://127.0.0.1:5001");
+const client = new W3CWebSocket("ws://127.0.0.1:5000");
 client.binaryType = "arraybuffer";
 
 export default function App() {

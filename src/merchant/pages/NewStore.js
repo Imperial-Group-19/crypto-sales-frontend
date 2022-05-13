@@ -63,8 +63,24 @@ export default function NewStore(props) {
 
   const addStoreDetails = (storeAddress) => {
     console.log(newStore);
+
+    const apiCall = {
+      id: 0,
+      jsonrpc: "2.0",
+      method: "insert",
+      params: [
+        "stores",
+        {
+          id: newStore.id,
+          title: newStore.name,
+          description: newStore.description,
+          storeOwner: newStore.wallet,
+        },
+      ],
+    };
+
     // send store details to backend
-    // client.send(apiCall);
+    client.send(apiCall);
 
     navigate(`/merchant/products`);
   };

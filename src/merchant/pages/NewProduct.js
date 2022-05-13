@@ -12,7 +12,9 @@ import ConnectButton from "../../components/ConnectButton";
 
 import { ethers } from "ethers";
 
-export default function NewProduct() {
+export default function NewProduct(props) {
+  const client = props.client;
+
   const store_id = useSelector((state) => state.merchant.user.stores[0].wallet);
 
   const { address, contract } = useWeb3Context();
@@ -74,7 +76,26 @@ export default function NewProduct() {
   };
 
   const addProductDeatils = (newProduct) => {
+    const apiCall = {
+      id: 0,
+      jsonrpc: "2.0",
+      method: "insert",
+      params: [
+        "products",
+        {
+          productName: newProduct.id,
+          title: newProduct.title,
+          description: newProduct.description,
+          storeAddress: newProduct.store_id,
+          price: newProduct.price,
+          features: newProduct.features,
+          productType: productType,
+        },
+      ],
+    };
+
     // send product details to backend
+    client.send(apiCall);
     console.log(newProduct);
     navigate(`/merchant/products`);
   };
@@ -95,8 +116,8 @@ export default function NewProduct() {
               <Form className="font-and-color">
                 <Form.Group className="mb-3">
                   <Form.Label>
-                    <BiBarcodeReader className="payment-icons"></BiBarcodeReader> A unique
-                    identifier for your product
+                    <BiBarcodeReader className="payment-icons"></BiBarcodeReader>{" "}
+                    A unique identifier for your product
                   </Form.Label>
                   <Form.Control
                     type="string"
@@ -109,7 +130,9 @@ export default function NewProduct() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label><BiCoin className="payment-icons"></BiCoin> Price in MATIC</Form.Label>
+                  <Form.Label>
+                    <BiCoin className="payment-icons"></BiCoin> Price in MATIC
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     name="price"
@@ -123,7 +146,10 @@ export default function NewProduct() {
                 {productCreated ? (
                   <div>
                     <Form.Group className="mb-3">
-                      <Form.Label><BiChip className="payment-icons"></BiChip> Title of product</Form.Label>
+                      <Form.Label>
+                        <BiChip className="payment-icons"></BiChip> Title of
+                        product
+                      </Form.Label>
                       <Form.Control
                         type="string"
                         name="title"
@@ -134,7 +160,10 @@ export default function NewProduct() {
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                      <Form.Label><BiDetail className="payment-icons"></BiDetail> Description of product</Form.Label>
+                      <Form.Label>
+                        <BiDetail className="payment-icons"></BiDetail>{" "}
+                        Description of product
+                      </Form.Label>
                       <Form.Control
                         type="string"
                         name="description"
@@ -145,7 +174,10 @@ export default function NewProduct() {
                       />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                      <Form.Label><BiCategory className="payment-icons"></BiCategory> Product Feature</Form.Label>
+                      <Form.Label>
+                        <BiCategory className="payment-icons"></BiCategory>{" "}
+                        Product Feature
+                      </Form.Label>
                       <Form.Control
                         type="string"
                         name="features"

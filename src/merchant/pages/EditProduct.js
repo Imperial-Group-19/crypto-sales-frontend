@@ -12,9 +12,12 @@ import ConnectButton from "../../components/ConnectButton";
 
 import { ethers } from "ethers";
 
-export default function EditProduct() {
+export default function EditProduct(props) {
+  const client = props.client;
+
   const params = useParams();
   const product_id = params.productID;
+  const productType = params.productType;
   const dispatch = useDispatch();
 
   const store_id = useSelector((state) => state.merchant.user.stores[0].wallet);
@@ -63,6 +66,28 @@ export default function EditProduct() {
 
       if (receipt) {
         // alert("Thank you for your purchase!")
+
+        const apiCall = {
+          id: 0,
+          jsonrpc: "2.0",
+          method: "insert",
+          params: [
+            "products",
+            {
+              productName: newProduct.id,
+              title: newProduct.title,
+              description: newProduct.description,
+              storeAddress: newProduct.store_id,
+              price: newProduct.price,
+              features: newProduct.features,
+              productType: productType,
+            },
+          ],
+        };
+
+        // send product details to backend
+        client.send(apiCall);
+
         setShowModal(false);
         navigate(`/merchant/products`);
       }
@@ -102,7 +127,9 @@ export default function EditProduct() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label><BiCoin className="payment-icons"></BiCoin> Price in MATIC</Form.Label>
+                  <Form.Label>
+                    <BiCoin className="payment-icons"></BiCoin> Price in MATIC
+                  </Form.Label>
                   <Form.Control
                     type="number"
                     name="price"
@@ -114,7 +141,9 @@ export default function EditProduct() {
                 </Form.Group>
 
                 <Form.Group className="mb-3">
-                  <Form.Label><BiChip className="payment-icons"></BiChip> Title of product</Form.Label>
+                  <Form.Label>
+                    <BiChip className="payment-icons"></BiChip> Title of product
+                  </Form.Label>
                   <Form.Control
                     type="string"
                     name="title"
@@ -125,7 +154,10 @@ export default function EditProduct() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label><BiDetail className="payment-icons"></BiDetail> Description of product</Form.Label>
+                  <Form.Label>
+                    <BiDetail className="payment-icons"></BiDetail> Description
+                    of product
+                  </Form.Label>
                   <Form.Control
                     type="string"
                     name="description"
@@ -136,7 +168,10 @@ export default function EditProduct() {
                   />
                 </Form.Group>
                 <Form.Group className="mb-3">
-                  <Form.Label><BiCategory className="payment-icons"></BiCategory> Product Feature</Form.Label>
+                  <Form.Label>
+                    <BiCategory className="payment-icons"></BiCategory> Product
+                    Feature
+                  </Form.Label>
                   <Form.Control
                     type="string"
                     name="features"

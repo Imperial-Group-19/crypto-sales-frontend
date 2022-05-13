@@ -19,7 +19,7 @@ export const Web3ContextProvider = ({ children }) => {
   const [signer, setSigner] = useState();
   const [contract, setContract] = useState();
 
-  const contractAddress = "0xF9cc7D93484Cf2C64e2892d332F820495D2BDC2e";
+  const contractAddress = "0xBAdA7AAF69f5ba7930FE756c7703bcA4A297Fd0e";
 
   const providerOptions = {
     // Injected providers
