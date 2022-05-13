@@ -68,7 +68,7 @@ export default function App() {
     }
   };
 
-  // check if user has already connected wallet
+  // Check if user has already connected wallet
   const checkWeb3Status = async () => {
     if (!connected) {
       handleConnectWallet();
