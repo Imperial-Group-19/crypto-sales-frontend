@@ -9,7 +9,7 @@ const WebSocketContext = createContext(null)
 
 export { WebSocketContext }
 
-export default ({ children }) => {dfg
+export default ({ children }) => {
   let socket;
   let ws;
 
