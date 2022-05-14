@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { w3cwebsocket as W3CWebSocket } from "websocket";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -21,11 +20,10 @@ import EditProduct from "./merchant/pages/EditProduct";
 import Product from "./pages/Product";
 import NoPage from "./pages/NoPage";
 
-import { useWeb3Context } from "./merchant/features/Web3Context";
+//import { useWeb3Context } from "./merchant/features/Web3Context";
 
-// Web sockets
-const client = new W3CWebSocket("ws://127.0.0.1:5000");
-client.binaryType = "arraybuffer";
+import WebSocketProvider, { WebSocketContext } from './WebSocketClient'
+
 
 export default function App() {
   const { connected, handleConnectWallet } = useWeb3Context();
@@ -33,48 +31,12 @@ export default function App() {
   // Dispatch for redux
   const dispatch = useDispatch();
 
-  // Set subscription type
-  const apiCall = {
-    id: 0,
-    jsonrpc: "2.0",
-    method: "subscribe",
-    params: ["products", "stores"],
-  };
-
-  // Send subscription type for initial handshake
-  client.onopen = () => {
-    console.log("WebSocket Client Connected");
-    client.send(JSON.stringify(apiCall));
-  };
-
-  // Handle incoming data from backend (update state)
-  client.onmessage = (event) => {
-    const u8intarray = new Uint8Array(event.data);
-    const string = new TextDecoder().decode(u8intarray);
-    const data = JSON.parse(string);
-    console.log(data);
-
-    if (data.params) {
-      if (data.params[0] === "products") {
-        let products = data.params[1];
-        console.log(products);
-        dispatch(loadProducts(products));
-      }
-      if (data.params[0] === "stores") {
-        let stores = data.params[1];
-        console.log(stores);
-        dispatch(loadStores(stores));
-      }
-    }
-  };
-
   // Check if user has already connected wallet
   const checkWeb3Status = async () => {
     if (!connected) {
       handleConnectWallet();
     }
   };
-
   useEffect(() => {
     checkWeb3Status();
   }, []);
