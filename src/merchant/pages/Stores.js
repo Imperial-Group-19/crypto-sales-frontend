@@ -12,18 +12,20 @@ export default function Stores() {
   const stores = useSelector((state) => state.merchant.user.stores);
   const name = useSelector((state) => state.merchant.user.name);
 
-  const { connected } = useWeb3Context();
+  const { connected, address } = useWeb3Context();
 
   const hasStore = stores.length > 0;
 
   return (
     <>
-      <MerchantHeader button="Logout" link="/logout" />
+      <MerchantHeader button="Logout" link="/logout" x />
       {!connected ? (
         <ConnectButton />
       ) : (
         <Container>
-          <h1 className="h1-merchant centered">Welcome, {name}</h1>
+          <h1 className="h1-merchant centered">
+            Welcome, {address.slice(0, 6)}
+          </h1>
           <h3 className="h2-merchant">
             <BiStoreAlt className="payment-icons"></BiStoreAlt> My Store
           </h3>
@@ -49,7 +51,9 @@ export default function Stores() {
             <Card>
               <Card.Body>
                 <Link to="/merchant/new-store">
-                  <Button className="merchant-button" variant="secondary">Add a new store</Button>
+                  <Button className="merchant-button" variant="secondary">
+                    Add a new store
+                  </Button>
                 </Link>
               </Card.Body>
             </Card>

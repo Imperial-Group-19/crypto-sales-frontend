@@ -6,17 +6,20 @@ import { useSelector } from "react-redux";
 
 export default function Header() {
   const mainProduct = useSelector((state) =>
-    state.merchant.user.stores[0].products.find(
-      (product) => product.type === "main"
-    )
+    state.shop.products.find((product) => product.productType === 0)
   );
   const params = useParams();
 
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
-        <Navbar.Brand href={`/${params.storeID}/products/${mainProduct.id}`} className="title-header">
-          <div className="title-header">Super Algorithms Course Maker II. Inc.</div>
+        <Navbar.Brand
+          href={`/${params.storeID}/products/${mainProduct.productName}`}
+          className="title-header"
+        >
+          <div className="title-header">
+            Super Algorithms Course Maker II. Inc.
+          </div>
         </Navbar.Brand>
       </Container>
     </Navbar>

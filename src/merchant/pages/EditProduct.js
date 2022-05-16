@@ -6,7 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 // import { createProduct } from "../features/merchantSlice";
 import { useWeb3Context } from "../features/Web3Context";
 import { BiCoin, BiCoinStack, BiWallet, BiWalletAlt } from "react-icons/bi";
-import { BiBarcodeReader, BiCategory, BiChip, BiDetail } from "react-icons/bi";
+import {
+  BiBarcodeReader,
+  BiCategory,
+  BiChip,
+  BiDetail,
+  BiLink,
+} from "react-icons/bi";
 
 import ConnectButton from "../../components/ConnectButton";
 
@@ -20,11 +26,13 @@ export default function EditProduct(props) {
   const productType = params.productType;
   const dispatch = useDispatch();
 
-  const store_id = useSelector((state) => state.merchant.user.stores[0].wallet);
+  const store_id = useSelector(
+    (state) => state.merchant.user.stores[0].storeOwner
+  );
 
   const product = useSelector((state) =>
     state.merchant.user.stores[0].products.find(
-      (product) => product.id === product_id
+      (product) => product.productName === product_id
     )
   );
 
@@ -37,13 +45,17 @@ export default function EditProduct(props) {
   // console.log(contract)
 
   const [newProduct, setNewProduct] = useState({
-    id: product.id,
+    id: product.productName,
     title: product.title,
     description: product.description,
     price: product.price,
-    features: product.features[0],
+    features: product.features,
+    productLink: product.productlink,
     store_id: store_id,
+    productType: product.productType,
   });
+
+  // console.log(newProduct);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -55,42 +67,45 @@ export default function EditProduct(props) {
     try {
       setShowModal(true);
 
-      const tx = await contract.updateProductPrice(
-        store_id,
-        newProduct.id,
-        ethers.utils.parseEther(newProduct.price)
-      );
-      const receipt = await tx.wait();
-      console.log("Transaction receipt");
-      console.log(receipt);
+      // const tx = await contract.updateProductPrice(
+      //   store_id,
+      //   newProduct.id,
+      //   ethers.utils.parseEther(newProduct.price.toString())
+      // );
+      // const receipt = await tx.wait();
+      // console.log("Transaction receipt");
+      // console.log(receipt);
 
-      if (receipt) {
-        // alert("Thank you for your purchase!")
+      // if (receipt) {
+      // alert("Thank you for your purchase!")
 
-        const apiCall = {
-          id: 0,
-          jsonrpc: "2.0",
-          method: "insert",
-          params: [
-            "products",
-            {
-              productName: newProduct.id,
-              title: newProduct.title,
-              description: newProduct.description,
-              storeAddress: newProduct.store_id,
-              price: newProduct.price,
-              features: newProduct.features,
-              productType: productType,
-            },
-          ],
-        };
+      const apiCall = {
+        id: 0,
+        jsonrpc: "2.0",
+        method: "updateValue",
+        params: [
+          "products",
+          {
+            productName: newProduct.id,
+            title: newProduct.title,
+            description: newProduct.description,
+            storeAddress: newProduct.store_id,
+            price: newProduct.price,
+            features: [newProduct.features],
+            productType: newProduct.productType,
+            productLink: newProduct.productLink,
+          },
+        ],
+      };
 
-        // send product details to backend
-        client.send(apiCall);
+      console.log(apiCall);
 
-        setShowModal(false);
-        navigate(`/merchant/products`);
-      }
+      // send product details to backend
+      client.send(JSON.stringify(apiCall));
+
+      setShowModal(false);
+      navigate(`/merchant/products`);
+      // }
     } catch (error) {
       console.error(error);
       setShowModal(false);
@@ -178,6 +193,19 @@ export default function EditProduct(props) {
                     className="font-and-color"
                     placeholder="Some feature"
                     value={newProduct.features}
+                    onChange={handleChange}
+                  />
+                </Form.Group>
+                <Form.Group className="mb-3">
+                  <Form.Label>
+                    <BiLink className="payment-icons"></BiLink> Product Link
+                  </Form.Label>
+                  <Form.Control
+                    type="string"
+                    name="productLink"
+                    className="font-and-color"
+                    placeholder="Link to your information product"
+                    value={newProduct.productlink}
                     onChange={handleChange}
                   />
                 </Form.Group>

@@ -6,7 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 // import { createProduct } from "../features/merchantSlice";
 import { useWeb3Context } from "../features/Web3Context";
 import { BiCoin, BiCoinStack, BiWallet, BiWalletAlt } from "react-icons/bi";
-import { BiBarcodeReader, BiCategory, BiChip, BiDetail } from "react-icons/bi";
+import {
+  BiBarcodeReader,
+  BiCategory,
+  BiChip,
+  BiDetail,
+  BiLink,
+} from "react-icons/bi";
 
 import ConnectButton from "../../components/ConnectButton";
 
@@ -15,7 +21,9 @@ import { ethers } from "ethers";
 export default function NewProduct(props) {
   const client = props.client;
 
-  const store_id = useSelector((state) => state.merchant.user.stores[0].wallet);
+  const store_id = useSelector(
+    (state) => state.merchant.user.stores[0].storeOwner
+  );
 
   const { address, contract } = useWeb3Context();
 
@@ -38,6 +46,7 @@ export default function NewProduct(props) {
     description: "",
     price: "",
     features: [],
+    productlink: "",
     store_id: store_id,
   });
 
@@ -90,6 +99,7 @@ export default function NewProduct(props) {
           price: newProduct.price,
           features: newProduct.features,
           productType: productType,
+          productLink: newProduct.productlink,
         },
       ],
     };
@@ -183,7 +193,20 @@ export default function NewProduct(props) {
                         name="features"
                         className="font-and-color"
                         placeholder="Some feature"
-                        value={newProduct.features[0]}
+                        value={newProduct.features}
+                        onChange={handleChange}
+                      />
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                      <Form.Label>
+                        <BiLink className="payment-icons"></BiLink> Product Link
+                      </Form.Label>
+                      <Form.Control
+                        type="string"
+                        name="productlink"
+                        className="font-and-color"
+                        placeholder="Link to your information product"
+                        value={newProduct.productlink}
                         onChange={handleChange}
                       />
                     </Form.Group>

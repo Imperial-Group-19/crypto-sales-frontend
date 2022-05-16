@@ -7,44 +7,49 @@ const initialState = {
 
   products: [
     {
-      product_id: "cpp-course",
+      productName: "cpp-course",
       title: "C++ course",
       description: "The original C++ course",
       features: ["Feature A", "Feature B", "Feature C"],
       price: 0.05,
-      type: "main",
+      productType: 0,
+      productLink: "https://google.com",
     },
     {
-      product_id: "cpp-course-deluxe",
+      productName: "cpp-course-deluxe",
       title: "C++ deluxe course",
       description: "The upgraded C++ course",
       features: ["Feature D", "Feature E", "Feature F"],
       price: 0.1,
-      type: "upsell",
+      productType: 1,
+      productLink: "https://google.com",
     },
     {
-      product_id: "cpp-course-lite",
+      productName: "cpp-course-lite",
       title: "C++ lite course",
       description: "The essential C++ course",
       features: ["Feature G", "Feature H", "Feature I"],
       price: 0.025,
-      type: "downsell",
+      productType: 2,
+      productLink: "https://google.com",
     },
     {
-      product_id: "pointers-cheatsheet",
+      productName: "pointers-cheatsheet",
       title: "Pointers cheatsheet",
       description: "Your quick guide to demystifying pointers",
       features: ["Feature J", "Feature K", "Feature L"],
       price: 0.01,
-      type: "crosssell",
+      productType: 3,
+      productLink: "https://google.com",
     },
     {
-      product_id: "stl-guide",
+      productName: "stl-guide",
       title: "STL guide",
       description: "Your guide to the Standard Template Library",
       features: ["Feature M", "Feature N", "Feature O"],
       price: 0.01,
-      type: "crosssell",
+      productType: 3,
+      productLink: "https://google.com",
     },
   ],
   addedProducts: [],
@@ -58,18 +63,18 @@ export const shopSlice = createSlice({
     loadProducts(state, action) {
       console.log("Products: ");
       console.log(action.payload);
-      console.log(state.addedProducts);
-      console.log(state.total);
-      console.log(state.products);
-      // let products = action.payload;
-      // state.products = [...products];
+      // console.log(state.addedProducts);
+      // console.log(state.total);
+      // console.log(state.products);
+      let products = action.payload;
+      state.products = [...products];
     },
     addToCart(state, action) {
       let addedProduct = state.products.find(
-        (product) => action.payload === product.product_id
+        (product) => action.payload === product.productName
       );
       let productExists = state.addedProducts.find(
-        (product) => action.payload === product.product_id
+        (product) => action.payload === product.productName
       );
       if (!productExists) {
         let newTotal = state.total + addedProduct.price;
@@ -79,10 +84,10 @@ export const shopSlice = createSlice({
     },
     removeFromCart: (state, action) => {
       let removedProduct = state.addedProducts.find(
-        (product) => action.payload === product.product_id
+        (product) => action.payload === product.productName
       );
       let remainingItems = state.addedProducts.filter(
-        (product) => action.payload !== product.product_id
+        (product) => action.payload !== product.productName
       );
       console.log(removedProduct);
       if (removedProduct) {

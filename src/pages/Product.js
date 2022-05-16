@@ -21,16 +21,14 @@ export default function Product() {
   const params = useParams();
   const dispatch = useDispatch();
   const products = useSelector((state) =>
-    state.shop.products.filter((product) => product.type !== "crosssell")
+    state.shop.products.filter((product) => product.productType !== 3)
   );
   const currentProduct = products.find(
-    (product) => product.product_id === params.productID
+    (product) => product.productName === params.productID
   );
-  const upsellProduct = products.find((product) => product.type === "upsell");
-  const downsellProduct = products.find(
-    (product) => product.type === "downsell"
-  );
-  const mainProduct = products.find((product) => product.type === "main");
+  const upsellProduct = products.find((product) => product.productType === 1);
+  const downsellProduct = products.find((product) => product.productType === 2);
+  const mainProduct = products.find((product) => product.productType === 0);
 
   // Hook for displaying modal
   const [show, setShow] = useState(false);
@@ -39,7 +37,7 @@ export default function Product() {
   };
 
   const handleOpen = () => {
-    if (currentProduct.type === "main") {
+    if (currentProduct.productType === 0) {
       setShow(true);
     }
   };
@@ -78,32 +76,36 @@ export default function Product() {
               <Card.Body>
                 <Card.Text>{currentProduct.price + " MATIC"}</Card.Text>
                 <div className="d-grid gap-2">
-                  {currentProduct.type === "main" ? (
-                    <Button variant="secondary" className="button-buy-product" onClick={handleOpen}>
+                  {currentProduct.productType === 0 ? (
+                    <Button
+                      variant="secondary"
+                      className="button-buy-product"
+                      onClick={handleOpen}
+                    >
                       Buy Now
                     </Button>
                   ) : (
                     <Link to={"/" + params.storeID + "/products/"}>
                       <Button
-                        variant="secondary" 
+                        variant="secondary"
                         className="button-buy-product"
-                        style={{width: "100%"}}
+                        style={{ width: "100%" }}
                         onClick={() =>
-                          dispatch(addToCart(currentProduct.product_id))
+                          dispatch(addToCart(currentProduct.productName))
                         }
                       >
                         Buy Now
                       </Button>
                     </Link>
                   )}
-                  {currentProduct.type ===
-                  "downsell" ? null : currentProduct.type === "upsell" ? (
+                  {currentProduct.productType ===
+                  2 ? null : currentProduct.productType === 1 ? (
                     <Link to={"/" + params.storeID + "/products"}>
                       <Button
                         variant="link"
                         className="custom-link"
                         onClick={() =>
-                          dispatch(addToCart(mainProduct.product_id))
+                          dispatch(addToCart(mainProduct.productName))
                         }
                       >
                         Not interested, check out for {mainProduct.title}{" "}
@@ -116,7 +118,7 @@ export default function Product() {
                         "/" +
                         params.storeID +
                         "/products/" +
-                        downsellProduct.product_id
+                        downsellProduct.productName
                       }
                     >
                       <Button variant="link" className="custom-link">
@@ -125,7 +127,6 @@ export default function Product() {
                     </Link>
                   )}
                 </div>
-                
               </Card.Body>
               {/* <Card.Footer className="text-muted">2 days ago</Card.Footer> */}
             </Card>
@@ -143,7 +144,7 @@ export default function Product() {
         </Modal.Body>
         <Modal.Footer>
           <Link
-            to={"/" + params.storeID + "/products/" + upsellProduct.product_id}
+            to={"/" + params.storeID + "/products/" + upsellProduct.productName}
           >
             <Button variant="primary" onClick={handleClose}>
               Show me more!
@@ -152,7 +153,7 @@ export default function Product() {
           <Link to={"/" + params.storeID + "/products/"}>
             <Button
               variant="link"
-              onClick={() => dispatch(addToCart(currentProduct.product_id))}
+              onClick={() => dispatch(addToCart(currentProduct.productName))}
             >
               I'm not interested
             </Button>

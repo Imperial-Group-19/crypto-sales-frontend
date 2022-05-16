@@ -5,7 +5,10 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
 import { useDispatch } from "react-redux";
-import { loadStores } from "./merchant/features/merchantSlice";
+import {
+  loadStores,
+  loadStoreProducts,
+} from "./merchant/features/merchantSlice";
 import { loadProducts } from "./features/shopSlice";
 
 import Landing from "./pages/Landing";
@@ -24,7 +27,7 @@ import NoPage from "./pages/NoPage";
 import { useWeb3Context } from "./merchant/features/Web3Context";
 
 // Web sockets
-const client = new W3CWebSocket("ws://127.0.0.1:5000");
+const client = new W3CWebSocket("ws://35.195.58.180:5000");
 client.binaryType = "arraybuffer";
 
 export default function App() {
@@ -41,6 +44,9 @@ export default function App() {
     params: ["products", "stores"],
   };
 
+  // const connectSocket = async () => {
+
+  // }
   // Send subscription type for initial handshake
   client.onopen = () => {
     console.log("WebSocket Client Connected");
@@ -59,6 +65,7 @@ export default function App() {
         let products = data.params[1];
         console.log(products);
         dispatch(loadProducts(products));
+        dispatch(loadStoreProducts(products));
       }
       if (data.params[0] === "stores") {
         let stores = data.params[1];
@@ -75,6 +82,10 @@ export default function App() {
     }
   };
 
+  // const initSocket = async() => {
+  //   const client = await connectSocket();
+  // }
+
   useEffect(() => {
     checkWeb3Status();
   }, []);
@@ -90,11 +101,17 @@ export default function App() {
           path="/merchant/new-store"
           element={<NewStore client={client} />}
         />
-        <Route path="/merchant/products" element={<StoreProducts />} />
-        <Route path="/merchant/products/:productID" element={<EditProduct />} />
+        <Route
+          path="/merchant/products"
+          element={<StoreProducts client={client} />}
+        />
+        <Route
+          path="/merchant/products/:productID"
+          element={<EditProduct client={client} />}
+        />
         <Route
           path="/merchant/new-product/:productType"
-          element={<NewProduct />}
+          element={<NewProduct client={client} />}
         />
 
         {/* Sales Funnel pages*/}

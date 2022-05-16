@@ -29,12 +29,10 @@ export default function Products() {
 
   const params = useParams();
 
-  const products = allProducts.filter(
-    (product) => product.type === "crosssell"
-  );
+  const products = allProducts.filter((product) => product.productType === 3);
 
   const selectedProduct = addedProducts.find(
-    (product) => product.type !== "crosssell"
+    (product) => product.productType !== 3
   );
 
   const productList = (products, addedProducts) => {
@@ -42,8 +40,8 @@ export default function Products() {
       <>
         {products.map((product) => (
           <Card
-            id={product.product_id}
-            key={product.product_id}
+            id={product.productName}
+            key={product.productName}
             className="m-4 font-and-color products-border-one"
             bg="light"
           >
@@ -57,19 +55,23 @@ export default function Products() {
             </Card.Body>
             <ListGroup className="list-group-flush">
               {product.features.map((feature) => {
-                return <ListGroupItem className="font-and-color" key={feature}>{feature}</ListGroupItem>;
+                return (
+                  <ListGroupItem className="font-and-color" key={feature}>
+                    {feature}
+                  </ListGroupItem>
+                );
               })}
             </ListGroup>
             <Card.Body>
               <div className="d-grid gap-2">
                 {addedProducts.length === 0 ||
                 !addedProducts.find(
-                  (added) => added.product_id === product.product_id
+                  (added) => added.productName === product.productName
                 ) ? (
                   <Button
                     className="connect font-and-color button-add-to-basket"
                     variant="outline-success"
-                    onClick={() => dispatch(addToCart(product.product_id))}
+                    onClick={() => dispatch(addToCart(product.productName))}
                   >
                     <MdOutlineLocalGroceryStore className="payment-icons"></MdOutlineLocalGroceryStore>{" "}
                     Add To Cart
@@ -78,7 +80,9 @@ export default function Products() {
                   <Button
                     className="font-and-color button-remove-from-basket"
                     variant="outline-danger"
-                    onClick={() => dispatch(removeFromCart(product.product_id))}
+                    onClick={() =>
+                      dispatch(removeFromCart(product.productName))
+                    }
                   >
                     <AiOutlineClose className="payment-icons"></AiOutlineClose>{" "}
                     Remove From Cart
@@ -114,9 +118,7 @@ export default function Products() {
 
         <Container className="ml-auto basket-border-round">
           <Row>
-          <h2 className="h1-products-all centered">
-            Your current selection
-              </h2>
+            <h2 className="h1-products-all centered">Your current selection</h2>
           </Row>
           <Card className="m-4 font-and-color basket-border-one" bg="light">
             <Card.Header className="basket-header-background">
@@ -128,21 +130,25 @@ export default function Products() {
               <ListGroup>
                 {addedProducts.map((product) => (
                   <ListGroupItem className="font-and-color">
-                    <Row key={product.id}>
+                    <Row key={product.productName}>
                       <Col>{product.title}</Col>
-                      <Col style={{textAlign: "right"}}>{product.price}</Col>
+                      <Col style={{ textAlign: "right" }}>{product.price}</Col>
                     </Row>
                   </ListGroupItem>
                 ))}
                 <ListGroupItem className="font-and-color">
                   <Row>
                     <Col>Total:</Col>
-                    <Col style={{textAlign: "right"}}>{total}</Col>
+                    <Col style={{ textAlign: "right" }}>{total}</Col>
                   </Row>
                 </ListGroupItem>
               </ListGroup>
               <Link to={"/payment"}>
-                <Button variant="secondary" className="button-buy-product-2" style={{width: "100%"}}>
+                <Button
+                  variant="secondary"
+                  className="button-buy-product-2"
+                  style={{ width: "100%" }}
+                >
                   <RiHandCoinLine className="payment-icons"></RiHandCoinLine>{" "}
                   PAYMENT
                 </Button>

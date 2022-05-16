@@ -20,7 +20,7 @@ export default function PaymentForm() {
   const products = useSelector((state) => state.shop.addedProducts);
   const storeAddress = useSelector((state) => state.shop.storeAddress);
 
-  const ids = products.map((product) => product.product_id);
+  const ids = products.map((product) => product.productName);
 
   const {
     contract,
