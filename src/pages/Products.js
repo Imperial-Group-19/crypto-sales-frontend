@@ -19,6 +19,7 @@ import { RiHandCoinLine } from "react-icons/ri";
 import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import { BsBasket } from "react-icons/bs";
 import { MdOutlineLocalGroceryStore } from "react-icons/md";
+import { ethers } from "ethers";
 
 export default function Products() {
   const allProducts = useSelector((state) => state.shop.products);
@@ -48,7 +49,7 @@ export default function Products() {
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>
-                {product.price} MATIC{" "}
+                {ethers.utils.formatEther(product.price.toString())} MATIC{" "}
                 <BiCoin className="payment-icons"></BiCoin>
               </Card.Text>
               <Card.Text>{product.description}</Card.Text>
@@ -132,14 +133,19 @@ export default function Products() {
                   <ListGroupItem className="font-and-color">
                     <Row key={product.productName}>
                       <Col>{product.title}</Col>
-                      <Col style={{ textAlign: "right" }}>{product.price}</Col>
+                      <Col style={{ textAlign: "right" }}>
+                        {ethers.utils.formatEther(product.price.toString())}{" "}
+                        MATIC
+                      </Col>
                     </Row>
                   </ListGroupItem>
                 ))}
                 <ListGroupItem className="font-and-color">
                   <Row>
                     <Col>Total:</Col>
-                    <Col style={{ textAlign: "right" }}>{total}</Col>
+                    <Col style={{ textAlign: "right" }}>
+                      {ethers.utils.formatEther(total.toString())} MATIC
+                    </Col>
                   </Row>
                 </ListGroupItem>
               </ListGroup>

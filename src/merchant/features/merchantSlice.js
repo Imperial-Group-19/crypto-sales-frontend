@@ -7,57 +7,57 @@ export const merchantSlice = createSlice({
     user: {
       stores: [
         {
-          id: "super-algorithms",
-          title: "Super Algorithms Inc.",
-          description: "We help you prepare for Tech Interviews",
-          storeOwner: "0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",
-          products: [
-            {
-              productName: "cpp-course",
-              title: "C++ course",
-              description: "The original C++ course",
-              features: ["Feature A", "Feature B", "Feature C"],
-              price: 5,
-              productType: 0,
-              productLink: "https://google.com",
-            },
-            {
-              productName: "cpp-course-deluxe",
-              title: "C++ deluxe course",
-              description: "The upgraded C++ course",
-              features: ["Feature D", "Feature E", "Feature F"],
-              price: 1,
-              productType: 1,
-              productLink: "https://google.com",
-            },
-            {
-              productName: "cpp-course-lite",
-              title: "C++ lite course",
-              description: "The essential C++ course",
-              features: ["Feature G", "Feature H", "Feature I"],
-              price: 25,
-              productType: 2,
-              productLink: "https://google.com",
-            },
-            {
-              productName: "pointers-cheatsheet",
-              title: "Pointers cheatsheet",
-              description: "Your quick guide to demystifying pointers",
-              features: ["Feature J", "Feature K", "Feature L"],
-              price: 1,
-              productType: 3,
-              productLink: "https://google.com",
-            },
-            {
-              productName: "stl-guide",
-              title: "STL guide",
-              description: "Your guide to the Standard Template Library",
-              features: ["Feature M", "Feature N", "Feature O"],
-              price: 1,
-              productType: 3,
-              productLink: "https://google.com",
-            },
-          ],
+          id: "",
+          title: "",
+          description: "",
+          storeOwner: "",
+          // products: [
+          // {
+          //   productName: "cpp-course",
+          //   title: "C++ course",
+          //   description: "The original C++ course",
+          //   features: ["Feature A", "Feature B", "Feature C"],
+          //   price: 5,
+          //   productType: 0,
+          //   productLink: "https://google.com",
+          // },
+          // {
+          //   productName: "cpp-course-deluxe",
+          //   title: "C++ deluxe course",
+          //   description: "The upgraded C++ course",
+          //   features: ["Feature D", "Feature E", "Feature F"],
+          //   price: 1,
+          //   productType: 1,
+          //   productLink: "https://google.com",
+          // },
+          // {
+          //   productName: "cpp-course-lite",
+          //   title: "C++ lite course",
+          //   description: "The essential C++ course",
+          //   features: ["Feature G", "Feature H", "Feature I"],
+          //   price: 25,
+          //   productType: 2,
+          //   productLink: "https://google.com",
+          // },
+          // {
+          //   productName: "pointers-cheatsheet",
+          //   title: "Pointers cheatsheet",
+          //   description: "Your quick guide to demystifying pointers",
+          //   features: ["Feature J", "Feature K", "Feature L"],
+          //   price: 1,
+          //   productType: 3,
+          //   productLink: "https://google.com",
+          // },
+          // {
+          //   productName: "stl-guide",
+          //   title: "STL guide",
+          //   description: "Your guide to the Standard Template Library",
+          //   features: ["Feature M", "Feature N", "Feature O"],
+          //   price: 1,
+          //   productType: 3,
+          //   productLink: "https://google.com",
+          // },
+          // ],
         },
         // {
         //   id: "jasons-poetry",
@@ -68,7 +68,7 @@ export const merchantSlice = createSlice({
         // },
       ],
     },
-    stores: [],
+    products: [],
   },
   reducers: {
     loginUser(state, action) {
@@ -79,16 +79,18 @@ export const merchantSlice = createSlice({
       console.log("Store: ");
       let stores = action.payload;
       console.log(stores);
-      // state.user.stores = [...stores];
+      state.user.stores = [...stores];
+      state.user.stores.products = [];
 
       // const reduxStore = store.getState();
       // const products = reduxStore.shopSlice.products;
       // state.user.stores.prodcuts = products;
     },
     loadStoreProducts(state, action) {
+      console.log("loading store products");
       let products = action.payload;
-      state.user.stores[0].products = [...products];
-      // state.users.stores.products = products;
+      // state.user.stores[0].products = [...products];
+      state.products = products;
     },
     // createStore: (state, action) => {
     //     console.log(action.payload);
@@ -103,11 +105,18 @@ export const merchantSlice = createSlice({
     // },
     updateProduct(state, action) {
       let product = action.payload[0];
-      let productIndex = state.user.stores[0].products.findIndex(
+      const allProducts = state.products;
+
+      const storeProducts = allProducts.filter(
+        (pdt) => pdt.storeAddress === product.storeAddress
+      );
+
+      let productIndex = storeProducts.findIndex(
         (pdt) => pdt.productName === product.productName
       );
+
       console.log("index: ", product);
-      state.user.stores[0].products[productIndex] = product;
+      state.products[productIndex] = product;
     },
     createProduct: (state, action) => {
       let store_id = action.payload.store_id;

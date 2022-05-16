@@ -16,6 +16,7 @@ import {
 } from "react-bootstrap";
 import { addToCart } from "../features/shopSlice";
 import { MdOutlineLocalOffer } from "react-icons/md";
+import { ethers } from "ethers";
 
 export default function Product() {
   const params = useParams();
@@ -74,7 +75,10 @@ export default function Product() {
                 ))}
               </ListGroup>
               <Card.Body>
-                <Card.Text>{currentProduct.price + " MATIC"}</Card.Text>
+                <Card.Text>
+                  {ethers.utils.formatEther(currentProduct.price.toString()) +
+                    " MATIC"}
+                </Card.Text>
                 <div className="d-grid gap-2">
                   {currentProduct.productType === 0 ? (
                     <Button

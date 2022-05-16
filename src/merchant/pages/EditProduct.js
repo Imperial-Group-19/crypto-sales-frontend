@@ -27,14 +27,16 @@ export default function EditProduct(props) {
   const productType = params.productType;
   const dispatch = useDispatch();
 
-  const store_id = useSelector(
-    (state) => state.merchant.user.stores[0].storeOwner
+  const store_id = useSelector((state) => state.merchant.user.stores[0].id);
+
+  const allProducts = useSelector((state) => state.merchant.products);
+
+  const storeProducts = allProducts.filter(
+    (product) => product.storeAddress === store_id.toLowerCase()
   );
 
   const product = useSelector((state) =>
-    state.merchant.user.stores[0].products.find(
-      (product) => product.productName === product_id
-    )
+    storeProducts.find((product) => product.productName === product_id)
   );
 
   const { address, contract } = useWeb3Context();

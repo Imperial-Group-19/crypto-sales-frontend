@@ -27,13 +27,14 @@ export default function Stores() {
             Welcome, {address.slice(0, 6)}
           </h1>
           <h3 className="h2-merchant">
-            <BiStoreAlt className="payment-icons"></BiStoreAlt> My Store
+            <BiStoreAlt className="payment-icons"></BiStoreAlt> My Stores
           </h3>
           {stores.map((store) => (
             <Card key={store.id} className="border-merchant">
               <Card.Body className="font-and-color">
-                <Card.Title>{store.name}</Card.Title>
+                <Card.Title>{store.title}</Card.Title>
                 <Card.Text>{store.description}</Card.Text>
+                <Card.Text>Store address: {store.id}</Card.Text>
                 <Link to={"/merchant/analytics"}>
                   <Button className="merchant-button m-2" variant="secondary">
                     View Analytics

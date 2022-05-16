@@ -14,12 +14,20 @@ import { ethers } from "ethers";
 
 export default function StoreProducts() {
   const params = useParams();
-  // const store = useSelector((state) => state.merchant.user.stores.find(store => store.id === params.storeID));
+
+  const store_id = useSelector((state) => state.merchant.user.stores[0].id);
+
   const store = useSelector((state) => state.merchant.user.stores[0]);
+  const allProducts = useSelector((state) => state.merchant.products);
 
-  const products = store.products;
+  const products = allProducts.filter(
+    (product) => product.storeAddress === store_id.toLowerCase()
+  );
 
-  console.log("store: ", store);
+  console.log(store_id);
+  // const products = store.products;
+
+  console.log("products: ", products);
 
   const { connected } = useWeb3Context();
 
@@ -62,7 +70,7 @@ export default function StoreProducts() {
                 <MdOutlineDriveFileRenameOutline className="payment-icons"></MdOutlineDriveFileRenameOutline>
               </Col>
             </Row>
-            {store.products.map((product) => (
+            {products.map((product) => (
               <Row
                 id={product.productName}
                 key={product.productName}
