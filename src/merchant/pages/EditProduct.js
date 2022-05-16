@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch, useSelector } from "react-redux";
 // import { createProduct } from "../features/merchantSlice";
+import { updateProduct } from "../features/merchantSlice";
 import { useWeb3Context } from "../features/Web3Context";
 import { BiCoin, BiCoinStack, BiWallet, BiWalletAlt } from "react-icons/bi";
 import {
@@ -48,9 +49,9 @@ export default function EditProduct(props) {
     id: product.productName,
     title: product.title,
     description: product.description,
-    price: product.price,
+    price: ethers.utils.formatEther(product.price.toString()),
     features: product.features,
-    productLink: product.productlink,
+    productLink: product.productLink,
     store_id: store_id,
     productType: product.productType,
   });
@@ -80,7 +81,7 @@ export default function EditProduct(props) {
       // alert("Thank you for your purchase!")
 
       const apiCall = {
-        id: 0,
+        id: 10,
         jsonrpc: "2.0",
         method: "updateValue",
         params: [
@@ -89,8 +90,8 @@ export default function EditProduct(props) {
             productName: newProduct.id,
             title: newProduct.title,
             description: newProduct.description,
-            storeAddress: newProduct.store_id,
-            price: newProduct.price,
+            storeAddress: newProduct.store_id.toLowerCase(),
+            price: parseInt(ethers.utils.parseEther(newProduct.price)),
             features: [newProduct.features],
             productType: newProduct.productType,
             productLink: newProduct.productLink,
@@ -134,6 +135,7 @@ export default function EditProduct(props) {
                   </Form.Label>
                   <Form.Control
                     type="string"
+                    disabled
                     name="id"
                     className="font-and-color"
                     placeholder="digital-product"
@@ -205,7 +207,7 @@ export default function EditProduct(props) {
                     name="productLink"
                     className="font-and-color"
                     placeholder="Link to your information product"
-                    value={newProduct.productlink}
+                    value={newProduct.productLink}
                     onChange={handleChange}
                   />
                 </Form.Group>

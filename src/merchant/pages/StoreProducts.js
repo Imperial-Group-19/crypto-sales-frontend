@@ -19,6 +19,8 @@ export default function StoreProducts() {
 
   const products = store.products;
 
+  console.log("store: ", store);
+
   const { connected } = useWeb3Context();
 
   const productEnum = {

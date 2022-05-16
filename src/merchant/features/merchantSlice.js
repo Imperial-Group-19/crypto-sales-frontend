@@ -19,6 +19,7 @@ export const merchantSlice = createSlice({
               features: ["Feature A", "Feature B", "Feature C"],
               price: 5,
               productType: 0,
+              productLink: "https://google.com",
             },
             {
               productName: "cpp-course-deluxe",
@@ -27,6 +28,7 @@ export const merchantSlice = createSlice({
               features: ["Feature D", "Feature E", "Feature F"],
               price: 1,
               productType: 1,
+              productLink: "https://google.com",
             },
             {
               productName: "cpp-course-lite",
@@ -35,6 +37,7 @@ export const merchantSlice = createSlice({
               features: ["Feature G", "Feature H", "Feature I"],
               price: 25,
               productType: 2,
+              productLink: "https://google.com",
             },
             {
               productName: "pointers-cheatsheet",
@@ -43,6 +46,7 @@ export const merchantSlice = createSlice({
               features: ["Feature J", "Feature K", "Feature L"],
               price: 1,
               productType: 3,
+              productLink: "https://google.com",
             },
             {
               productName: "stl-guide",
@@ -51,6 +55,7 @@ export const merchantSlice = createSlice({
               features: ["Feature M", "Feature N", "Feature O"],
               price: 1,
               productType: 3,
+              productLink: "https://google.com",
             },
           ],
         },
@@ -96,6 +101,14 @@ export const merchantSlice = createSlice({
     //     };
     //     state.user.stores.push(newStore);
     // },
+    updateProduct(state, action) {
+      let product = action.payload[0];
+      let productIndex = state.user.stores[0].products.findIndex(
+        (pdt) => pdt.productName === product.productName
+      );
+      console.log("index: ", product);
+      state.user.stores[0].products[productIndex] = product;
+    },
     createProduct: (state, action) => {
       let store_id = action.payload.store_id;
       let product = action.payload;
@@ -107,7 +120,7 @@ export const merchantSlice = createSlice({
   },
 });
 
-export const { loginUser, loadStores, loadStoreProducts } =
+export const { loginUser, loadStores, loadStoreProducts, updateProduct } =
   merchantSlice.actions;
 
 export default merchantSlice.reducer;

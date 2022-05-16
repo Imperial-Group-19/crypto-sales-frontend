@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import {
   loadStores,
   loadStoreProducts,
+  updateProduct,
 } from "./merchant/features/merchantSlice";
 import { loadProducts } from "./features/shopSlice";
 
@@ -61,16 +62,20 @@ export default function App() {
     console.log(data);
 
     if (data.params) {
-      if (data.params[0] === "products") {
+      if (data.params[0] === "products" && data.method === "snapshot") {
         let products = data.params[1];
         console.log(products);
         dispatch(loadProducts(products));
         dispatch(loadStoreProducts(products));
       }
-      if (data.params[0] === "stores") {
+      if (data.params[0] === "stores" && data.method === "snapshot") {
         let stores = data.params[1];
         console.log(stores);
         dispatch(loadStores(stores));
+      }
+      if (data.params[0] === "products" && data.method === "update") {
+        let products = data.params[1];
+        dispatch(updateProduct(products));
       }
     }
   };
