@@ -8,9 +8,9 @@ import { useDispatch } from "react-redux";
 import {
   loadStores,
   loadStoreProducts,
-  updateProduct,
+  updateMerchantProduct,
 } from "./merchant/features/merchantSlice";
-import { loadProducts } from "./features/shopSlice";
+import { loadProducts, updateShopProduct } from "./features/shopSlice";
 
 import Landing from "./pages/Landing";
 import Payment from "./pages/Payment";
@@ -75,7 +75,8 @@ export default function App() {
       }
       if (data.params[0] === "products" && data.method === "update") {
         let product = data.params[1];
-        dispatch(updateProduct(product));
+        dispatch(updateMerchantProduct(product));
+        dispatch(updateShopProduct(product));
       }
     }
   };

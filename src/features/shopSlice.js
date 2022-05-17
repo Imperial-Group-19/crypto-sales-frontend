@@ -69,6 +69,20 @@ export const shopSlice = createSlice({
       let products = action.payload;
       state.products = [...products];
     },
+    updateShopProduct(state, action) {
+      let product = action.payload[0];
+      const allProducts = state.products;
+
+      const storeProducts = allProducts.filter(
+        (pdt) => pdt.storeAddress === product.storeAddress
+      );
+
+      let productIndex = storeProducts.findIndex(
+        (pdt) => pdt.productName === product.productName
+      );
+
+      state.products[productIndex] = product;
+    },
     addToCart(state, action) {
       let addedProduct = state.products.find(
         (product) => action.payload === product.productName
@@ -100,6 +114,7 @@ export const shopSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { addToCart, removeFromCart, loadProducts } = shopSlice.actions;
+export const { addToCart, removeFromCart, loadProducts, updateShopProduct } =
+  shopSlice.actions;
 
 export default shopSlice.reducer;

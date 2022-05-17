@@ -41,7 +41,7 @@ export default function PaymentForm() {
 
     const txInfo = {
       gasLimit: 250000,
-      value: ethers.utils.parseEther(String(price)),
+      value: price.toString(),
     };
 
     try {
@@ -166,8 +166,19 @@ export default function PaymentForm() {
             className="font-and-color"
             type="string"
             name="amount"
-            value={String(price)}
+            value={ethers.utils.formatEther(price.toString())}
             disabled
+          />
+        </Form.Group>
+        <Form.Group className="mb-3" controlId="email">
+          <Form.Label>
+            <BiCoinStack className="payment-icons"></BiCoinStack> E-mail Address
+          </Form.Label>
+          <Form.Control
+            className="font-and-color"
+            type="string"
+            name="email"
+            placeholder="Enter your e-mail to receive your product"
           />
         </Form.Group>
         <div className="d-grid gap-2">

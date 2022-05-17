@@ -70,45 +70,46 @@ export default function EditProduct(props) {
     try {
       setShowModal(true);
 
-      // const tx = await contract.updateProductPrice(
-      //   store_id,
-      //   newProduct.id,
-      //   ethers.utils.parseEther(newProduct.price.toString())
-      // );
-      // const receipt = await tx.wait();
-      // console.log("Transaction receipt");
-      // console.log(receipt);
+      const tx = await contract.updateProductPrice(
+        store_id,
+        newProduct.id,
+        ethers.utils.parseEther(newProduct.price.toString())
+      );
+      const receipt = await tx.wait();
+      // const receipt = true;
+      console.log("Transaction receipt");
+      console.log(receipt);
 
-      // if (receipt) {
-      // alert("Thank you for your purchase!")
+      if (receipt) {
+        // alert("Thank you for your purchase!")
 
-      const apiCall = {
-        id: 10,
-        jsonrpc: "2.0",
-        method: "updateValue",
-        params: [
-          "products",
-          {
-            productName: newProduct.id,
-            title: newProduct.title,
-            description: newProduct.description,
-            storeAddress: newProduct.store_id.toLowerCase(),
-            price: parseInt(ethers.utils.parseEther(newProduct.price)),
-            features: [newProduct.features],
-            productType: newProduct.productType,
-            productLink: newProduct.productLink,
-          },
-        ],
-      };
+        const apiCall = {
+          id: 10,
+          jsonrpc: "2.0",
+          method: "updateValue",
+          params: [
+            "products",
+            {
+              productName: newProduct.id,
+              title: newProduct.title,
+              description: newProduct.description,
+              storeAddress: newProduct.store_id.toLowerCase(),
+              price: parseInt(ethers.utils.parseEther(newProduct.price)),
+              features: [newProduct.features],
+              productType: newProduct.productType,
+              productLink: newProduct.productLink,
+            },
+          ],
+        };
 
-      console.log(apiCall);
+        console.log(apiCall);
 
-      // send product details to backend
-      client.send(JSON.stringify(apiCall));
+        // send product details to backend
+        client.send(JSON.stringify(apiCall));
 
-      setShowModal(false);
-      navigate(`/merchant/products`);
-      // }
+        setShowModal(false);
+        navigate(`/merchant/products`);
+      }
     } catch (error) {
       console.error(error);
       setShowModal(false);
@@ -225,7 +226,7 @@ export default function EditProduct(props) {
             </Col>
           </Row>
           <Modal show={showModal} backdrop="static">
-            <Modal.Body>Adding your product...</Modal.Body>
+            <Modal.Body>Editing your product...</Modal.Body>
           </Modal>
         </Container>
       )}

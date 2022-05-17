@@ -4,15 +4,19 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import MerchantHeader from "../components/MerchantHeader";
 
-import ConnectButton from "../../components/ConnectButton";
+import ConnectButton from "../components/ConnectButton";
 import { useWeb3Context } from "../features/Web3Context";
 import { BiStoreAlt } from "react-icons/bi";
 
 export default function Stores() {
-  const stores = useSelector((state) => state.merchant.user.stores);
+  const allStores = useSelector((state) => state.merchant.user.stores);
   const name = useSelector((state) => state.merchant.user.name);
 
   const { connected, address } = useWeb3Context();
+
+  const stores = allStores.filter(
+    (store) => store.storeOwner == address.toLowerCase()
+  );
 
   const hasStore = stores.length > 0;
 

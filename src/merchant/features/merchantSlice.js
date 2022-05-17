@@ -103,7 +103,7 @@ export const merchantSlice = createSlice({
     //     };
     //     state.user.stores.push(newStore);
     // },
-    updateProduct(state, action) {
+    updateMerchantProduct(state, action) {
       let product = action.payload[0];
       const allProducts = state.products;
 
@@ -129,7 +129,11 @@ export const merchantSlice = createSlice({
   },
 });
 
-export const { loginUser, loadStores, loadStoreProducts, updateProduct } =
-  merchantSlice.actions;
+export const {
+  loginUser,
+  loadStores,
+  loadStoreProducts,
+  updateMerchantProduct,
+} = merchantSlice.actions;
 
 export default merchantSlice.reducer;

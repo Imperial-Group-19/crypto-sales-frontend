@@ -44,6 +44,14 @@ export const Web3ContextProvider = ({ children }) => {
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
 
+    const { chainId } = await provider.getNetwork();
+
+    if (chainId != 80001) {
+      switchNetwork();
+    }
+
+    console.log(chainId);
+
     const funnelContract = new ethers.Contract(
       contractAddress,
       [
@@ -60,6 +68,40 @@ export const Web3ContextProvider = ({ children }) => {
     setProvider(provider);
     setConnected(true);
     setContract(funnelContract);
+  };
+
+  const switchNetwork = async () => {
+    console.log("switching network");
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: "0x13881" }],
+      });
+    } catch (switchError) {
+      // This error code indicates that the chain has not been added to MetaMask.
+      if (switchError.code === 4902) {
+        try {
+          await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [
+              {
+                chainId: "0x13881",
+                chainName: "Mumbai",
+                nativeCurrency: {
+                  name: "MATIC",
+                  symbol: "MATIC",
+                  decimals: 18,
+                },
+                rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
+                blockExplorerUrls: ["https://mumbai.polygonscan.com/"],
+              },
+            ],
+          });
+        } catch (addError) {
+          throw addError;
+        }
+      }
+    }
   };
 
   const handleDisconnectWallet = async () => {
