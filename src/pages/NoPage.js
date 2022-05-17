@@ -24,14 +24,15 @@ export default function NoPage() {
             alt="Person hitting is head"
           />
           <h1 className="h1-error">
-            Page Not Found 404 
+            Page Not Found 404
             {/* <GoBug className="error-icon"></GoBug> */}
           </h1>
         </Container>
         <Link to="/" className="not-underlined">
           <div className="centered">
             <Button variant="outline-secondary" className="button-go-back ">
-              <FaArrowCircleRight className="error-icon"></FaArrowCircleRight> Go to the main page
+              <FaArrowCircleRight className="error-icon"></FaArrowCircleRight>{" "}
+              Go to the main page
             </Button>
           </div>
         </Link>

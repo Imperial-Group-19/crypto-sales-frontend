@@ -30,10 +30,10 @@ export default function PaymentForm() {
 
   const {
     contract,
-    handleConnectWallet,
     handleDisconnectWallet,
     connected,
     address,
+    handleConnectWallet,
   } = useWeb3Context();
 
   const [showModal, setShowModal] = useState(false);

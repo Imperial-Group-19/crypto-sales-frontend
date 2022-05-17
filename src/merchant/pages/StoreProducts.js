@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Button, Container, Row, Col, Card } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -15,7 +15,7 @@ import { ethers } from "ethers";
 export default function StoreProducts() {
   const params = useParams();
 
-  const { address, connected } = useWeb3Context();
+  const { address, connected, handleConnectWallet } = useWeb3Context();
 
   const stores = useSelector((state) => state.merchant.user.stores);
 
@@ -35,7 +35,7 @@ export default function StoreProducts() {
     (product) => product.storeAddress === store_id.toLowerCase()
   );
 
-  console.log(store_id);
+  // console.log(store_id);
   // const products = store.products;
 
   console.log("products: ", products);
@@ -54,6 +54,17 @@ export default function StoreProducts() {
   const hasDownsellProduct = products.find(
     (product) => product.productType === 2
   );
+
+  // Check if user has already connected wallet
+  const checkWeb3Status = async () => {
+    if (!connected) {
+      handleConnectWallet();
+    }
+  };
+
+  useEffect(() => {
+    checkWeb3Status();
+  }, []);
 
   return (
     <>

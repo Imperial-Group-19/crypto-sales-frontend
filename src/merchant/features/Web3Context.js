@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+} from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
@@ -51,9 +57,11 @@ export const Web3ContextProvider = ({ children }) => {
     providerOptions,
   });
 
-  const handleConnectWallet = async () => {
+  const handleConnectWallet = async (checkout = false) => {
     if (!window.ethereum) {
-      alert("Please install Metamask: https://metamask.io/");
+      if (checkout) {
+        alert("Please install Metamask: https://metamask.io/");
+      }
       return;
     }
 

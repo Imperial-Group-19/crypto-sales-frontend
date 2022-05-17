@@ -3,8 +3,10 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider } from "react-redux";
-import { Web3ContextProvider } from "./merchant/features/Web3Context";
+
 import store from "./store";
+
+import { Web3ContextProvider } from "./merchant/features/Web3Context";
 
 ReactDOM.render(
   <Web3ContextProvider>

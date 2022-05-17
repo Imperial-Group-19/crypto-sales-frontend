@@ -29,12 +29,14 @@ import Loading from "./merchant/components/Loading";
 
 import { useWeb3Context } from "./merchant/features/Web3Context";
 
+import MerchantRoutes from "./merchant/MerchantRoutes";
+
 // Web sockets
 const client = new W3CWebSocket("ws://35.195.58.180:5000");
 client.binaryType = "arraybuffer";
 
 export default function App() {
-  const { connected, handleConnectWallet } = useWeb3Context();
+  const { connected } = useWeb3Context();
 
   // Dispatch for redux
   const dispatch = useDispatch();
@@ -84,17 +86,6 @@ export default function App() {
       }
     }
   };
-
-  // Check if user has already connected wallet
-  const checkWeb3Status = async () => {
-    if (!connected) {
-      handleConnectWallet();
-    }
-  };
-
-  useEffect(() => {
-    checkWeb3Status();
-  }, []);
 
   return (
     <Router>

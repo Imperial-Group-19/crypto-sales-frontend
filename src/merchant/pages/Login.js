@@ -20,7 +20,7 @@ export default function Login() {
 
   return (
     <>
-      <MerchantHeader button="Switch to Register" link="/merchant/register" />
+      {/* <MerchantHeader button="Switch to Register" link="/merchant/register" /> */}
       {address ? (
         <Navigate to="/merchant/stores" />
       ) : (

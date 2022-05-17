@@ -16,7 +16,11 @@ export default function MerchantHeader(props) {
         <Navbar.Brand href="/merchant/stores" className="title-header">
           <div className="title-header">Crypto Sales Funnel</div>
         </Navbar.Brand>
-        <Button variant="secondary" className="moving-button" onClick={handleDisconnectWallet}>
+        <Button
+          variant="secondary"
+          className="moving-button"
+          onClick={handleDisconnectWallet}
+        >
           <span>
             <FaUserSecret className="payment-icons"></FaUserSecret>{" "}
             {props.button}
