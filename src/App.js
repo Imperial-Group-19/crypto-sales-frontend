@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { w3cwebsocket as W3CWebSocket } from "websocket";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -24,6 +24,7 @@ import NewProduct from "./merchant/pages/NewProduct";
 import EditProduct from "./merchant/pages/EditProduct";
 import Product from "./pages/Product";
 import NoPage from "./pages/NoPage";
+import Loading from "./merchant/components/Loading";
 
 import { useWeb3Context } from "./merchant/features/Web3Context";
 
@@ -37,6 +38,9 @@ export default function App() {
   // Dispatch for redux
   const dispatch = useDispatch();
 
+  const [loadedProducts, setLoadedProducts] = useState(false);
+  const [loadedStores, setLoadedStores] = useState(false);
+
   // Set subscription type
   const apiCall = {
     id: 0,
@@ -45,9 +49,6 @@ export default function App() {
     params: ["products", "stores"],
   };
 
-  // const connectSocket = async () => {
-
-  // }
   // Send subscription type for initial handshake
   client.onopen = () => {
     console.log("WebSocket Client Connected");
@@ -64,14 +65,16 @@ export default function App() {
     if (data.params) {
       if (data.params[0] === "stores" && data.method === "snapshot") {
         let stores = data.params[1];
-        console.log(stores);
+        console.log("Stores: ", stores);
         dispatch(loadStores(stores));
+        setLoadedStores(true);
       }
       if (data.params[0] === "products" && data.method === "snapshot") {
         let products = data.params[1];
         console.log(products);
         dispatch(loadProducts(products));
         dispatch(loadStoreProducts(products));
+        setLoadedProducts(true);
       }
       if (data.params[0] === "products" && data.method === "update") {
         let product = data.params[1];
@@ -87,10 +90,6 @@ export default function App() {
       handleConnectWallet();
     }
   };
-
-  // const initSocket = async() => {
-  //   const client = await connectSocket();
-  // }
 
   useEffect(() => {
     checkWeb3Status();
@@ -109,7 +108,13 @@ export default function App() {
         />
         <Route
           path="/merchant/products"
-          element={<StoreProducts client={client} />}
+          element={
+            loadedStores && loadedProducts ? (
+              <StoreProducts client={client} />
+            ) : (
+              <Loading />
+            )
+          }
         />
         <Route
           path="/merchant/products/:productID"
@@ -124,7 +129,11 @@ export default function App() {
         <Route path="/landing" element={<Landing />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/confirmation" element={<Confirmation />} />
-        <Route path="/:storeID/products/:productID" element={<Product />} />
+        <Route
+          path="/:storeID/products/:productID"
+          element={loadedProducts ? <Product /> : <Loading />}
+        />
+
         <Route path="/:storeID/products" element={<Products />} />
         <Route path="/" element={<Landing />} />
 

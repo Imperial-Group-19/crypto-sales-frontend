@@ -8,7 +8,13 @@ import {
   AiFillWallet,
   AiOutlineDisconnect,
 } from "react-icons/ai";
-import { BiCoin, BiCoinStack, BiWallet, BiWalletAlt } from "react-icons/bi";
+import {
+  BiCoin,
+  BiCoinStack,
+  BiWallet,
+  BiWalletAlt,
+  BiMailSend,
+} from "react-icons/bi";
 import { RiHandCoinLine } from "react-icons/ri";
 
 import { ethers } from "ethers";
@@ -172,7 +178,7 @@ export default function PaymentForm() {
         </Form.Group>
         <Form.Group className="mb-3" controlId="email">
           <Form.Label>
-            <BiCoinStack className="payment-icons"></BiCoinStack> E-mail Address
+            <BiMailSend className="payment-icons"></BiMailSend> E-mail Address
           </Form.Label>
           <Form.Control
             className="font-and-color"

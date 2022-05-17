@@ -14,6 +14,8 @@ export default function Stores() {
 
   const { connected, address } = useWeb3Context();
 
+  console.log(address);
+
   const stores = allStores.filter(
     (store) => store.storeOwner == address.toLowerCase()
   );

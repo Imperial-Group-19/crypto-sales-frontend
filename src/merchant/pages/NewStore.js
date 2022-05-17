@@ -5,6 +5,7 @@ import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch } from "react-redux";
 // import { createStore } from "../features/merchantSlice";
 import { useNavigate } from "react-router-dom";
+import { loadStores } from "../../merchant/features/merchantSlice";
 
 import { useWeb3Context } from "../features/Web3Context";
 
@@ -17,7 +18,7 @@ export default function NewStore(props) {
 
   const [storeCreated, setStoreCreated] = useState(false);
 
-  const { connected, contract } = useWeb3Context();
+  const { connected, contract, address } = useWeb3Context();
 
   const dispatch = useDispatch();
 
@@ -27,7 +28,7 @@ export default function NewStore(props) {
     id: "",
     name: "",
     description: "",
-    wallet: "",
+    wallet: address,
   });
 
   const handleChange = (event) => {
@@ -40,7 +41,7 @@ export default function NewStore(props) {
     try {
       // setShowModal(true);
 
-      const tx = await contract.registerStore(newStore.wallet, 5);
+      const tx = await contract.registerStore(newStore.id, 5);
       const receipt = await tx.wait();
       console.log("Transaction receipt");
       console.log(receipt);
@@ -62,12 +63,10 @@ export default function NewStore(props) {
   };
 
   const addStoreDetails = (storeAddress) => {
-    console.log(newStore);
-
     const apiCall = {
       id: 0,
       jsonrpc: "2.0",
-      method: "insert",
+      method: "updateValue",
       params: [
         "stores",
         {
@@ -79,8 +78,12 @@ export default function NewStore(props) {
       ],
     };
 
+    console.log(apiCall);
+
     // send store details to backend
     client.send(apiCall);
+
+    dispatch(loadStores(newStore));
 
     navigate(`/merchant/products`);
   };
@@ -102,9 +105,9 @@ export default function NewStore(props) {
                   <Form.Label>Store Wallet</Form.Label>
                   <Form.Control
                     type="string"
-                    name="wallet"
+                    name="id"
                     placeholder="Please input your store's MATIC Wallet address"
-                    value={newStore.wallet}
+                    value={newStore.id}
                     onChange={handleChange}
                     disabled={storeCreated}
                   />
@@ -112,8 +115,8 @@ export default function NewStore(props) {
 
                 {storeCreated ? (
                   <div>
-                    <Form.Group>
-                      <Form.Label>
+                    {/* <Form.Group> */}
+                    {/* <Form.Label>
                         A unique identifier for your store
                       </Form.Label>
                       <Form.Control
@@ -124,7 +127,7 @@ export default function NewStore(props) {
                         onChange={handleChange}
                         disabled={!storeCreated}
                       />
-                    </Form.Group>
+                    </Form.Group> */}
                     <Form.Group>
                       <Form.Label>Name of store</Form.Label>
                       <Form.Control

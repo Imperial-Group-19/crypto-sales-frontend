@@ -19,7 +19,7 @@ export const Web3ContextProvider = ({ children }) => {
   const [signer, setSigner] = useState();
   const [contract, setContract] = useState();
 
-  const contractAddress = "0xBAdA7AAF69f5ba7930FE756c7703bcA4A297Fd0e";
+  const contractAddress = "0xEC21fd26fcB7F61cbeF9038BA7E59AF60C13e77c";
 
   const providerOptions = {
     // Injected providers
@@ -56,7 +56,7 @@ export const Web3ContextProvider = ({ children }) => {
       contractAddress,
       [
         "function makePayment(address payable storeAddress, string[] memory productNames) external payable",
-        "function createProduct( address storeAddress, string memory productName, uint256 price ) external",
+        "function createProduct( address storeAddress, string memory productName, uint8 productType, uint256 price ) external",
         "function registerStore(address payable storeAddress, uint256 commisionRate) external returns (uint256)",
         "function updateProductPrice(address storeAddress, string memory productName, uint256 price ) external",
       ],

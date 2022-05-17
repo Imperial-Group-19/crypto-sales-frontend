@@ -15,9 +15,20 @@ import { ethers } from "ethers";
 export default function StoreProducts() {
   const params = useParams();
 
-  const store_id = useSelector((state) => state.merchant.user.stores[0].id);
+  const { address, connected } = useWeb3Context();
 
-  const store = useSelector((state) => state.merchant.user.stores[0]);
+  const stores = useSelector((state) => state.merchant.user.stores);
+
+  console.log(stores);
+  console.log(address);
+
+  const store = useSelector((state) =>
+    state.merchant.user.stores.find(
+      (store) => store.storeOwner.toLowerCase() === address.toLowerCase()
+    )
+  );
+
+  const store_id = store.id;
   const allProducts = useSelector((state) => state.merchant.products);
 
   const products = allProducts.filter(
@@ -28,8 +39,6 @@ export default function StoreProducts() {
   // const products = store.products;
 
   console.log("products: ", products);
-
-  const { connected } = useWeb3Context();
 
   const productEnum = {
     0: "Main Product",
@@ -53,7 +62,18 @@ export default function StoreProducts() {
         <ConnectButton />
       ) : (
         <Container className="width-80">
-          <h1 className="h1-products centered">{store.name}</h1>
+          <h1 className="h1-products centered">{store.title}</h1>
+          <div style={{ paddingLeft: "30px" }}>
+            <Link
+              to="/merchant/stores"
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
+              <p> &lt; Back to stores</p>
+            </Link>
+          </div>
           <Container>
             <Row className="h3-products m-3 border-bottom">
               <Col>
@@ -136,7 +156,7 @@ export default function StoreProducts() {
               )}
               <>
                 <div className="centered">
-                  <Link to={"/merchant/new-product/cross-sell"}>
+                  <Link to={"/merchant/new-product/crosssell"}>
                     <Button
                       variant="secondary"
                       className="button-add-product m-2"

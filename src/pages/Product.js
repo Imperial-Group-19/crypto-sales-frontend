@@ -21,15 +21,45 @@ import { ethers } from "ethers";
 export default function Product() {
   const params = useParams();
   const dispatch = useDispatch();
+  const storeId = params.storeID;
+
+  console.log(storeId);
+
+  // const store = useSelector((state) =>
+  //   state.merchant.user.stores.find(
+  //     (store) => store.id === storeId.toLowerCase()
+  //   )
+  // );
+
+  // const store_id = store.id;
+
   const products = useSelector((state) =>
-    state.shop.products.filter((product) => product.productType !== 3)
+    state.shop.products.filter(
+      (product) => product.storeAddress === storeId.toLowerCase()
+    )
   );
-  const currentProduct = products.find(
+
+  console.log(products);
+
+  // const notCrossSellProducts = useSelector((state) =>
+  //   state.shop.products.filter((product) => product.productType !== 3)
+  // );
+
+  const notCrossSellProducts = useSelector((state) =>
+    products.filter((product) => product.productType !== 3)
+  );
+  const currentProduct = notCrossSellProducts.find(
     (product) => product.productName === params.productID
   );
-  const upsellProduct = products.find((product) => product.productType === 1);
-  const downsellProduct = products.find((product) => product.productType === 2);
-  const mainProduct = products.find((product) => product.productType === 0);
+  const upsellProduct = notCrossSellProducts.find(
+    (product) => product.productType === 1
+  );
+  const downsellProduct = notCrossSellProducts.find(
+    (product) => product.productType === 2
+  );
+  const mainProduct = notCrossSellProducts.find(
+    (product) => product.productType === 0
+  );
 
   // Hook for displaying modal
   const [show, setShow] = useState(false);
@@ -52,6 +82,11 @@ export default function Product() {
       <Header />
       <Container className="centered">
         <Col className="products-border">
+          {currentProduct.productType === 1 ? (
+            <img src="/assets/cppdeluxe.jpeg" width="300" />
+          ) : (
+            <img src="/assets/cpp.png" width="300" />
+          )}
           <Row>
             <h1 className="h1-products">Having problems with C++?</h1>
           </Row>

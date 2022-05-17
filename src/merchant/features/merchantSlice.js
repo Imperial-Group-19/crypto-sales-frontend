@@ -80,7 +80,7 @@ export const merchantSlice = createSlice({
       let stores = action.payload;
       console.log(stores);
       state.user.stores = [...stores];
-      state.user.stores.products = [];
+      // state.user.stores.products = [];
 
       // const reduxStore = store.getState();
       // const products = reduxStore.shopSlice.products;
@@ -92,17 +92,16 @@ export const merchantSlice = createSlice({
       // state.user.stores[0].products = [...products];
       state.products = products;
     },
-    // createStore: (state, action) => {
-    //     console.log(action.payload);
-    //     let newStore = {
-    //         id: action.payload.id,
-    //         name: action.payload.name,
-    //         description: action.payload.description,
-    //         wallet: action.payload.wallet,
-    //         products: []
-    //     };
-    //     state.user.stores.push(newStore);
-    // },
+    createStore: (state, action) => {
+      console.log(action.payload);
+      let newStore = {
+        id: action.payload.id,
+        name: action.payload.name,
+        description: action.payload.description,
+        storeOwner: action.payload.storeOwner,
+      };
+      state.user.stores.push(newStore);
+    },
     updateMerchantProduct(state, action) {
       let product = action.payload[0];
       const allProducts = state.products;

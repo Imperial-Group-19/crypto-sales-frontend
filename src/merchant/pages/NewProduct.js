@@ -21,9 +21,7 @@ import { ethers } from "ethers";
 export default function NewProduct(props) {
   const client = props.client;
 
-  const store_id = useSelector(
-    (state) => state.merchant.user.stores[0].storeOwner
-  );
+  const store_id = useSelector((state) => state.merchant.user.stores[0].id);
 
   const { address, contract } = useWeb3Context();
 
@@ -33,10 +31,19 @@ export default function NewProduct(props) {
 
   const navigate = useNavigate();
 
-  // console.log(contract)
+  console.log(store_id);
+  const productEnum = {
+    main: 0,
+    upsell: 1,
+    downsell: 2,
+    crosssell: 3,
+  };
 
   const params = useParams();
-  const productType = params.productType;
+  const productTypeName = params.productType;
+  const productType = productEnum[productTypeName];
+
+  console.log("product type: ", productType);
 
   const dispatch = useDispatch();
 
@@ -46,7 +53,8 @@ export default function NewProduct(props) {
     description: "",
     price: "",
     features: [],
-    productlink: "",
+    productType: productType,
+    productLink: "",
     store_id: store_id,
   });
 
@@ -63,20 +71,26 @@ export default function NewProduct(props) {
       console.log(
         store_id,
         newProduct.id,
+        newProduct.productType,
         ethers.utils.parseEther(newProduct.price)
       );
 
-      // const tx = await contract.createProduct(store_id, newProduct.id, ethers.utils.parseEther(newProduct.price));
-      // const receipt = await tx.wait();
-      // console.log('Transaction receipt');
-      // console.log(receipt);
+      const tx = await contract.createProduct(
+        store_id,
+        newProduct.id,
+        newProduct.productType,
+        ethers.utils.parseEther(newProduct.price)
+      );
+      const receipt = await tx.wait();
+      console.log("Transaction receipt");
+      console.log(receipt);
 
-      // if(receipt) {
-      // alert("Thank you for your purchase!")
-      setShowModal(false);
-      setProductCreated(true);
-      // navigate(`/merchant/${store_id}/products`)
-      // }
+      if (receipt) {
+        // alert("Thank you for your purchase!")
+        setShowModal(false);
+        setProductCreated(true);
+        // navigate(`/merchant/${store_id}/products`)
+      }
     } catch (error) {
       console.error(error);
       setShowModal(false);
@@ -86,27 +100,27 @@ export default function NewProduct(props) {
 
   const addProductDeatils = (newProduct) => {
     const apiCall = {
-      id: 0,
+      id: 10,
       jsonrpc: "2.0",
-      method: "insert",
+      method: "updateValue",
       params: [
         "products",
         {
           productName: newProduct.id,
           title: newProduct.title,
           description: newProduct.description,
-          storeAddress: newProduct.store_id,
-          price: newProduct.price,
-          features: newProduct.features,
+          storeAddress: newProduct.store_id.toLowerCase(),
+          price: parseInt(ethers.utils.parseEther(newProduct.price.toString())),
+          features: [newProduct.features],
           productType: productType,
-          productLink: newProduct.productlink,
+          productLink: newProduct.productLink,
         },
       ],
     };
 
     // send product details to backend
-    client.send(apiCall);
-    console.log(newProduct);
+    client.send(JSON.stringify(apiCall));
+    console.log(apiCall);
     navigate(`/merchant/products`);
   };
 
@@ -203,10 +217,10 @@ export default function NewProduct(props) {
                       </Form.Label>
                       <Form.Control
                         type="string"
-                        name="productlink"
+                        name="productLink"
                         className="font-and-color"
                         placeholder="Link to your information product"
-                        value={newProduct.productlink}
+                        value={newProduct.productLink}
                         onChange={handleChange}
                       />
                     </Form.Group>

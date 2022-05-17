@@ -39,13 +39,14 @@ export default function Products() {
   const productList = (products, addedProducts) => {
     return (
       <>
-        {products.map((product) => (
+        {products.map((product, idx) => (
           <Card
             id={product.productName}
             key={product.productName}
             className="m-4 font-and-color products-border-one"
             bg="light"
           >
+            <img src={`/assets/${idx + 1}.jpeg`} width="300" />
             <Card.Body>
               <Card.Title>{product.title}</Card.Title>
               <Card.Text>

@@ -42,6 +42,7 @@ export default function EditProduct(props) {
   const { address, contract } = useWeb3Context();
 
   const [showModal, setShowModal] = useState(false);
+  const [priceChanged, setPriceChanged] = useState(false);
 
   const navigate = useNavigate();
 
@@ -62,23 +63,38 @@ export default function EditProduct(props) {
 
   const handleChange = (event) => {
     const name = event.target.name;
+    if (name === "price") {
+      setPriceChanged(true);
+    }
     const value = event.target.value;
     setNewProduct((values) => ({ ...values, [name]: value }));
   };
 
   const editProduct = async (product) => {
     try {
-      setShowModal(true);
+      let receipt = false;
 
-      const tx = await contract.updateProductPrice(
-        store_id,
-        newProduct.id,
-        ethers.utils.parseEther(newProduct.price.toString())
-      );
-      const receipt = await tx.wait();
-      // const receipt = true;
-      console.log("Transaction receipt");
-      console.log(receipt);
+      if (priceChanged) {
+        setShowModal(true);
+
+        try {
+          const tx = await contract.updateProductPrice(
+            store_id,
+            newProduct.id,
+            ethers.utils.parseEther(newProduct.price.toString())
+          );
+          receipt = await tx.wait();
+          // const receipt = true;
+          console.log("Transaction receipt");
+          console.log(receipt);
+        } catch (error) {
+          console.error(error);
+          setShowModal(false);
+          alert("Transaction failed :(");
+        }
+      } else {
+        receipt = true;
+      }
 
       if (receipt) {
         // alert("Thank you for your purchase!")
@@ -112,8 +128,7 @@ export default function EditProduct(props) {
       }
     } catch (error) {
       console.error(error);
-      setShowModal(false);
-      alert("Transaction failed :(");
+      alert("Server failed :(");
     }
   };
 
