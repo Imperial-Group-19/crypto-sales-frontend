@@ -33,7 +33,7 @@ export default function Products() {
   const storeId = params.storeID;
 
   const storeProducts = allProducts.filter(
-    (pdt) => pdt.storeAddress === storeId
+    (pdt) => pdt.storeAddress === storeId.toLowerCase()
   );
 
   const products = storeProducts.filter((product) => product.productType === 3);
