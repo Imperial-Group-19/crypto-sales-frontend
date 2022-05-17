@@ -15,7 +15,12 @@ export default function ThankYou() {
         {" "}
         Click here to download your product(s):
         {products.map((product) => {
-          return <p>{product.productLink}</p>;
+          return (
+            <>
+              <br />
+              <a href={product.productLink}>{product.productLink}</a>
+            </>
+          );
         })}
       </p>
       <p className="font-and-color">

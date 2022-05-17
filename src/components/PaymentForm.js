@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Form, Button, Modal } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { VscDebugDisconnect } from "react-icons/vsc";
@@ -22,10 +22,10 @@ import { ethers } from "ethers";
 import { useWeb3Context } from "../merchant/features/Web3Context";
 
 export default function PaymentForm() {
+  const params = useParams();
   const price = useSelector((state) => state.shop.total);
   const products = useSelector((state) => state.shop.addedProducts);
-  const storeAddress = useSelector((state) => state.shop.storeAddress);
-
+  const storeAddress = products[0].storeAddress;
   const ids = products.map((product) => product.productName);
 
   const {
@@ -52,11 +52,7 @@ export default function PaymentForm() {
 
     try {
       setShowModal(true);
-      const tx = await contract.makePayment(
-        "0x02b7433EA4f93554856aa657Da1494B2Bf645EF0",
-        ids,
-        txInfo
-      );
+      const tx = await contract.makePayment(storeAddress, ids, txInfo);
 
       const receipt = await tx.wait();
       console.log("Transaction receipt");
@@ -76,7 +72,7 @@ export default function PaymentForm() {
 
   const [inputs, setInputs] = useState({
     customerWalletAddress: "",
-    merchantWalletAddress: "0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6",
+    merchantWalletAddress: storeAddress,
     coinType: "Polygon (MATIC)",
     amount: Number(15.34),
     gasSpend: Number(0),
@@ -146,8 +142,8 @@ export default function PaymentForm() {
             className="font-and-color"
             type="text"
             name="merchantWalletAddress"
-            placeholder="0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6"
-            value="0x329CdCBBD82c934fe32322b423bD8fBd30b4EEB6"
+            placeholder="Merchant Wallet"
+            value={storeAddress}
             disabled
           />
         </Form.Group>

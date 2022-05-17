@@ -96,7 +96,7 @@ export const merchantSlice = createSlice({
       console.log(action.payload);
       let newStore = {
         id: action.payload.id,
-        name: action.payload.name,
+        title: action.payload.title,
         description: action.payload.description,
         storeOwner: action.payload.storeOwner,
       };
@@ -106,11 +106,11 @@ export const merchantSlice = createSlice({
       let product = action.payload[0];
       const allProducts = state.products;
 
-      const storeProducts = allProducts.filter(
-        (pdt) => pdt.storeAddress === product.storeAddress
-      );
+      // const storeProducts = allProducts.filter(
+      //   (pdt) => pdt.storeAddress === product.storeAddress
+      // );
 
-      let productIndex = storeProducts.findIndex(
+      let productIndex = allProducts.findIndex(
         (pdt) => pdt.productName === product.productName
       );
 
@@ -131,6 +131,7 @@ export const merchantSlice = createSlice({
 export const {
   loginUser,
   loadStores,
+  createStore,
   loadStoreProducts,
   updateMerchantProduct,
 } = merchantSlice.actions;

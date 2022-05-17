@@ -21,9 +21,13 @@ import { ethers } from "ethers";
 export default function NewProduct(props) {
   const client = props.client;
 
-  const store_id = useSelector((state) => state.merchant.user.stores[0].id);
-
   const { address, contract } = useWeb3Context();
+
+  const store = useSelector((state) =>
+    state.merchant.user.stores.find((store) => store.storeOwner === address)
+  );
+
+  const store_id = store.id;
 
   const [showModal, setShowModal] = useState(false);
 

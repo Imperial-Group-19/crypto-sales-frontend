@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, useContext, useState, useCallback } from "react";
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
@@ -33,6 +33,18 @@ export const Web3ContextProvider = ({ children }) => {
     },
   };
 
+  const initListener = useCallback(
+    (rawProvider) => {
+      if (!rawProvider.on) {
+        return;
+      }
+      rawProvider.on("accountsChanged", async (accounts) => {
+        setTimeout(() => window.location.reload(), 1);
+      });
+    },
+    [provider]
+  );
+
   const web3modal = new Web3Modal({
     network: "mumbai",
     cacheProvider: "true",
@@ -40,9 +52,16 @@ export const Web3ContextProvider = ({ children }) => {
   });
 
   const handleConnectWallet = async () => {
+    if (!window.ethereum) {
+      alert("Please install Metamask: https://metamask.io/");
+      return;
+    }
+
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
+
+    initListener(connection);
 
     const { chainId } = await provider.getNetwork();
 

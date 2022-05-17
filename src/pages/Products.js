@@ -30,7 +30,13 @@ export default function Products() {
 
   const params = useParams();
 
-  const products = allProducts.filter((product) => product.productType === 3);
+  const storeId = params.storeID;
+
+  const storeProducts = allProducts.filter(
+    (pdt) => pdt.storeAddress === storeId
+  );
+
+  const products = storeProducts.filter((product) => product.productType === 3);
 
   const selectedProduct = addedProducts.find(
     (product) => product.productType !== 3

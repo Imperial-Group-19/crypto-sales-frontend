@@ -51,6 +51,11 @@ export default function Stores() {
                     View Products
                   </Button>
                 </Link>
+                <Link to={`/merchant/stores/${store.id}`}>
+                  <Button className="merchant-button m-2" variant="primary">
+                    Edit Store
+                  </Button>
+                </Link>
               </Card.Body>
             </Card>
           ))}

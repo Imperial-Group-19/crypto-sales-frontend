@@ -5,7 +5,7 @@ import MerchantHeader from "../components/MerchantHeader";
 import { useDispatch } from "react-redux";
 // import { createStore } from "../features/merchantSlice";
 import { useNavigate } from "react-router-dom";
-import { loadStores } from "../../merchant/features/merchantSlice";
+import { createStore } from "../../merchant/features/merchantSlice";
 
 import { useWeb3Context } from "../features/Web3Context";
 
@@ -26,10 +26,12 @@ export default function NewStore(props) {
 
   const [newStore, setNewStore] = useState({
     id: "",
-    name: "",
+    title: "",
     description: "",
-    wallet: address,
+    storeOwner: "",
   });
+
+  console.log(newStore);
 
   const handleChange = (event) => {
     const name = event.target.name;
@@ -39,10 +41,11 @@ export default function NewStore(props) {
 
   const createStoreContract = async (storeAddress) => {
     try {
-      // setShowModal(true);
+      setShowModal(true);
 
       const tx = await contract.registerStore(newStore.id, 5);
       const receipt = await tx.wait();
+      // const receipt = true;
       console.log("Transaction receipt");
       console.log(receipt);
 
@@ -70,10 +73,10 @@ export default function NewStore(props) {
       params: [
         "stores",
         {
-          id: newStore.id,
-          title: newStore.name,
+          id: newStore.id.toLowerCase(),
+          title: newStore.title,
           description: newStore.description,
-          storeOwner: newStore.wallet,
+          storeOwner: address.toLowerCase(),
         },
       ],
     };
@@ -81,9 +84,9 @@ export default function NewStore(props) {
     console.log(apiCall);
 
     // send store details to backend
-    client.send(apiCall);
+    client.send(JSON.stringify(apiCall));
 
-    dispatch(loadStores(newStore));
+    dispatch(createStore(newStore));
 
     navigate(`/merchant/products`);
   };
@@ -132,9 +135,9 @@ export default function NewStore(props) {
                       <Form.Label>Name of store</Form.Label>
                       <Form.Control
                         type="string"
-                        name="name"
+                        name="title"
                         placeholder="Imperial Digital Products Store"
-                        value={newStore.name}
+                        value={newStore.title}
                         onChange={handleChange}
                         disabled={!storeCreated}
                       />
@@ -156,6 +159,7 @@ export default function NewStore(props) {
                   <Button
                     variant="primary"
                     onClick={() => createStoreContract(newStore)}
+                    style={{ marginTop: "15px" }}
                   >
                     Next
                   </Button>
@@ -163,6 +167,7 @@ export default function NewStore(props) {
                   <Button
                     variant="primary"
                     onClick={() => addStoreDetails(newStore)}
+                    style={{ marginTop: "15px" }}
                   >
                     Create Store
                   </Button>

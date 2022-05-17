@@ -27,7 +27,13 @@ export default function EditProduct(props) {
   const productType = params.productType;
   const dispatch = useDispatch();
 
-  const store_id = useSelector((state) => state.merchant.user.stores[0].id);
+  const { address, contract } = useWeb3Context();
+
+  const store = useSelector((state) =>
+    state.merchant.user.stores.find((store) => store.storeOwner === address)
+  );
+
+  const store_id = store.id;
 
   const allProducts = useSelector((state) => state.merchant.products);
 
@@ -39,7 +45,7 @@ export default function EditProduct(props) {
     storeProducts.find((product) => product.productName === product_id)
   );
 
-  const { address, contract } = useWeb3Context();
+  console.log(product);
 
   const [showModal, setShowModal] = useState(false);
   const [priceChanged, setPriceChanged] = useState(false);

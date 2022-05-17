@@ -21,6 +21,7 @@ import Stores from "./merchant/pages/Stores";
 import NewStore from "./merchant/pages/NewStore";
 import StoreProducts from "./merchant/pages/StoreProducts";
 import NewProduct from "./merchant/pages/NewProduct";
+import EditStore from "./merchant/pages/EditStore";
 import EditProduct from "./merchant/pages/EditProduct";
 import Product from "./pages/Product";
 import NoPage from "./pages/NoPage";
@@ -109,7 +110,7 @@ export default function App() {
         <Route
           path="/merchant/products"
           element={
-            loadedStores && loadedProducts ? (
+            loadedStores && loadedProducts && connected ? (
               <StoreProducts client={client} />
             ) : (
               <Loading />
@@ -118,11 +119,21 @@ export default function App() {
         />
         <Route
           path="/merchant/products/:productID"
-          element={<EditProduct client={client} />}
+          element={
+            loadedStores && loadedProducts && connected ? (
+              <EditProduct client={client} />
+            ) : (
+              <Loading />
+            )
+          }
         />
         <Route
           path="/merchant/new-product/:productType"
           element={<NewProduct client={client} />}
+        />
+        <Route
+          path="/merchant/stores/:storeID"
+          element={<EditStore client={client} />}
         />
 
         {/* Sales Funnel pages*/}

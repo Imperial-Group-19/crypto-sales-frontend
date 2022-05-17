@@ -20,7 +20,7 @@ export default function StoreProducts() {
   const stores = useSelector((state) => state.merchant.user.stores);
 
   console.log(stores);
-  console.log(address);
+  console.log("ADDRESS: ", address);
 
   const store = useSelector((state) =>
     state.merchant.user.stores.find(
