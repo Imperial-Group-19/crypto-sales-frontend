@@ -58,13 +58,6 @@ export const Web3ContextProvider = ({ children }) => {
   });
 
   const handleConnectWallet = async (checkout = false) => {
-    if (!window.ethereum) {
-      if (checkout) {
-        alert("Please install Metamask: https://metamask.io/");
-      }
-      return;
-    }
-
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();

@@ -37,10 +37,21 @@ export default function PaymentForm() {
   } = useWeb3Context();
 
   const [showModal, setShowModal] = useState(false);
+  const [showMetamaskModal, setShowMetamaskModal] = useState(false);
 
   let navigate = useNavigate();
 
   console.log(ids);
+
+  const handleWallet = () => {
+    if (!window.ethereum) {
+      // alert("Please install Metamask: https://metamask.io/");
+      setShowMetamaskModal(true);
+      return;
+    }
+
+    handleConnectWallet();
+  };
 
   const makePayment = async () => {
     // TODO: write function to fetch price of products from smart contract
@@ -108,7 +119,7 @@ export default function PaymentForm() {
             className="connect font-and-color button-payment-connect"
             variant="outline-success"
             type="submit"
-            onClick={handleConnectWallet}
+            onClick={handleWallet}
           >
             <AiOutlineDisconnect className="payment-icons"></AiOutlineDisconnect>{" "}
             Connect Wallet
@@ -190,12 +201,34 @@ export default function PaymentForm() {
             onClick={makePayment}
             disabled={!connected}
           >
-            <RiHandCoinLine className="payment-icons"></RiHandCoinLine> Pay
+            {connected ? (
+              <div>
+                <RiHandCoinLine className="payment-icons"></RiHandCoinLine>Pay
+              </div>
+            ) : (
+              <div>
+                <RiHandCoinLine className="payment-icons"></RiHandCoinLine>
+                Connect Wallet To Pay
+              </div>
+            )}
           </Button>
         </div>
       </Form>
       <Modal show={showModal} backdrop="static">
         <Modal.Body>Mining your transaction...</Modal.Body>
+      </Modal>
+      <Modal show={showMetamaskModal} backdrop="static">
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <img src="/assets/metamask.png" width="200" />
+        </div>
+        <Modal.Body>
+          Please install the Metamask wallet to pay for your items!
+        </Modal.Body>
+        <Modal.Footer>
+          <a href="https://metamask.io" target="_blank">
+            <Button variant="primary">Download Here</Button>
+          </a>
+        </Modal.Footer>
       </Modal>
     </div>
   );
