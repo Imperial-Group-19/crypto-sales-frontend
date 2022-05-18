@@ -12,6 +12,10 @@ export default function Stores() {
   const allStores = useSelector((state) => state.merchant.user.stores);
   const name = useSelector((state) => state.merchant.user.name);
 
+  const mainProduct = useSelector((state) =>
+    state.shop.products.find((product) => product.productType === 0)
+  );
+
   const { connected, address } = useWeb3Context();
 
   console.log(address);
@@ -41,11 +45,6 @@ export default function Stores() {
                 <Card.Title>{store.title}</Card.Title>
                 <Card.Text>{store.description}</Card.Text>
                 <Card.Text>Store address: {store.id}</Card.Text>
-                <Link to={"/merchant/analytics"}>
-                  <Button className="merchant-button m-2" variant="secondary">
-                    View Analytics
-                  </Button>
-                </Link>
                 <Link to={"/merchant/products"}>
                   <Button className="merchant-button m-2" variant="secondary">
                     View Products
@@ -54,6 +53,15 @@ export default function Stores() {
                 <Link to={`/merchant/stores/${store.id}`}>
                   <Button className="merchant-button m-2" variant="primary">
                     Edit Store
+                  </Button>
+                </Link>
+                <Link to={`/${store.id}/products/${mainProduct.productName}`}>
+                  <Button
+                    className="merchant-button m-2"
+                    variant="secondary"
+                    style={{ backgroundColor: "#cc9752" }}
+                  >
+                    Go To Store
                   </Button>
                 </Link>
               </Card.Body>

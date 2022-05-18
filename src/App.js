@@ -137,7 +137,7 @@ export default function App() {
         />
 
         <Route path="/:storeID/products" element={<Products />} />
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={<Login />} />
 
         {/* 404 page */}
         <Route path="*" element={<NoPage />} />
