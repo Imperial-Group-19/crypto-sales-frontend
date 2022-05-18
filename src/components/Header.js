@@ -8,13 +8,13 @@ export default function Header() {
   const mainProduct = useSelector((state) =>
     state.shop.products.find((product) => product.productType === 0)
   );
-  const params = useParams();
+  const storeId = mainProduct.storeAddress;
 
   return (
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
         <Navbar.Brand
-          href={`/${params.storeID}/products/${mainProduct.productName}`}
+          href={`/${storeId}/products/${mainProduct.productName}`}
           className="title-header"
         >
           <div className="title-header">

@@ -13,9 +13,9 @@ export default function MerchantHeader(props) {
     // <Container fluid>
     <Navbar bg="light" expand="lg" sticky="top">
       <Container>
-        <Navbar.Brand href="/merchant/stores" className="title-header">
+        <Link to="/merchant/stores" className="title-header">
           <div className="title-header">Crypto Sales Funnel</div>
-        </Navbar.Brand>
+        </Link>
         <Button
           variant="secondary"
           className="moving-button"

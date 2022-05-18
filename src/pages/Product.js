@@ -76,7 +76,7 @@ export default function Product() {
   return (
     <>
       <Helmet>
-        <title>Landing Page - all products</title>
+        <title>Landing Page</title>
         <meta name="description" content="Product" />
       </Helmet>
       <Header />

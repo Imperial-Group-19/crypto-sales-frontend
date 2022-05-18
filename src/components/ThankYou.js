@@ -7,6 +7,11 @@ import { useSelector } from "react-redux";
 export default function ThankYou() {
   const products = useSelector((state) => state.shop.addedProducts);
 
+  const mainProduct = useSelector((state) =>
+    state.shop.products.find((product) => product.productType === 0)
+  );
+  const storeId = mainProduct.storeAddress;
+
   return (
     <Container className="centered">
       <h1 className="h1-thankyou centered">Thank you for your purchase!</h1>
@@ -30,7 +35,10 @@ export default function ThankYou() {
         </Link>
       </p>
       <hr></hr>
-      <Link to="/" className="custom-link">
+      <Link
+        to={`/${storeId}/products/${mainProduct.productName}`}
+        className="custom-link"
+      >
         <div className="centered">
           <Button variant="secondary" className="button-go-back-thankyou">
             Back to Main Page
