@@ -98,7 +98,16 @@ export default function App() {
         {/* Affiliate pages*/}
         {/* Merchant pages*/}
         <Route path="/merchant/login" element={<Login />} />
-        <Route path="/merchant/stores" element={<Stores />} />
+        <Route
+          path="/merchant/stores"
+          element={
+            loadedStores && loadedProducts && connected ? (
+              <Stores client={client} />
+            ) : (
+              <Loading />
+            )
+          }
+        />
         <Route
           path="/merchant/new-store"
           element={<NewStore client={client} />}
