@@ -39,6 +39,19 @@ export const merchantSlice = createSlice({
       // const products = reduxStore.shopSlice.products;
       // state.user.stores.prodcuts = products;
     },
+    updateStore(state, action) {
+      let store = action.payload[0];
+      const allStores = state.user.stores;
+
+      // const storeProducts = allProducts.filter(
+      //   (pdt) => pdt.storeAddress === product.storeAddress
+      // );
+
+      let storeIndex = allStores.findIndex((str) => str.id === store.id);
+
+      // console.log("index: ", store);
+      state.user.stores[storeIndex] = store;
+    },
     loadStoreProducts(state, action) {
       console.log("loading store products");
       let products = action.payload;
@@ -87,6 +100,7 @@ export const {
   createStore,
   loadStoreProducts,
   updateMerchantProduct,
+  updateStore,
 } = merchantSlice.actions;
 
 export default merchantSlice.reducer;

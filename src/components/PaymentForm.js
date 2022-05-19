@@ -183,7 +183,7 @@ export default function PaymentForm() {
             disabled
           />
         </Form.Group>
-        <Form.Group className="mb-3" controlId="email">
+        {/* <Form.Group className="mb-3" controlId="email">
           <Form.Label>
             <BiMailSend className="payment-icons"></BiMailSend> E-mail Address
           </Form.Label>
@@ -193,7 +193,7 @@ export default function PaymentForm() {
             name="email"
             placeholder="Enter your e-mail to receive your product"
           />
-        </Form.Group>
+        </Form.Group> */}
         <div className="d-grid gap-2">
           <Button
             variant="outline-danger"

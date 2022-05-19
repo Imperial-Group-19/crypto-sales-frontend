@@ -86,9 +86,7 @@ export default function NewStore(props) {
     // send store details to backend
     client.send(JSON.stringify(apiCall));
 
-    dispatch(createStore(newStore));
-
-    navigate(`/merchant/products`);
+    navigate(`/merchant/stores`);
   };
 
   return (

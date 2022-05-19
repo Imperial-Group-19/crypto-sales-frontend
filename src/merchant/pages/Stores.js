@@ -12,9 +12,7 @@ export default function Stores() {
   const allStores = useSelector((state) => state.merchant.user.stores);
   const name = useSelector((state) => state.merchant.user.name);
 
-  const mainProduct = useSelector((state) =>
-    state.shop.products.find((product) => product.productType === 0)
-  );
+  const allProducts = useSelector((state) => state.merchant.products);
 
   const { connected, address } = useWeb3Context();
 
@@ -22,6 +20,14 @@ export default function Stores() {
 
   const stores = allStores.filter(
     (store) => store.storeOwner == address.toLowerCase()
+  );
+
+  const storeProducts = allProducts.filter(
+    (product) => product.storeAddress === stores[0].id
+  );
+
+  const mainProduct = storeProducts.find(
+    (product) => product.productType === 0
   );
 
   const hasStore = stores.length > 0;

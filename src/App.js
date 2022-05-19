@@ -9,6 +9,7 @@ import {
   loadStores,
   loadStoreProducts,
   updateMerchantProduct,
+  updateStore,
 } from "./merchant/features/merchantSlice";
 import { loadProducts, updateShopProduct } from "./features/shopSlice";
 
@@ -83,6 +84,10 @@ export default function App() {
         let product = data.params[1];
         dispatch(updateMerchantProduct(product));
         dispatch(updateShopProduct(product));
+      }
+      if (data.params[0] === "stores" && data.method === "update") {
+        let store = data.params[1];
+        dispatch(updateStore(store));
       }
     }
   };

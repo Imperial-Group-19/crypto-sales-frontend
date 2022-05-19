@@ -71,8 +71,6 @@ export default function EditProduct(props) {
 
       console.log(apiCall);
 
-      dispatch(loadStores(newStore));
-
       // send store details to backend
       client.send(JSON.stringify(apiCall));
 
