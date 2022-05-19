@@ -14,6 +14,9 @@ export default function Stores() {
 
   const allProducts = useSelector((state) => state.merchant.products);
 
+  let storeProducts;
+  let mainProduct;
+
   const { connected, address } = useWeb3Context();
 
   console.log(address);
@@ -22,15 +25,15 @@ export default function Stores() {
     (store) => store.storeOwner == address.toLowerCase()
   );
 
-  const storeProducts = allProducts.filter(
-    (product) => product.storeAddress === stores[0].id
-  );
-
-  const mainProduct = storeProducts.find(
-    (product) => product.productType === 0
-  );
-
   const hasStore = stores.length > 0;
+
+  if (hasStore) {
+    storeProducts = allProducts.filter(
+      (product) => product.storeAddress === stores[0].id
+    );
+
+    mainProduct = storeProducts.find((product) => product.productType === 0);
+  }
 
   return (
     <>
