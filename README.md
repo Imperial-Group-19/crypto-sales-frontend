@@ -3,12 +3,13 @@
 ## Introduction
 
 This repository hosts the frontend React App for Group 19's Software Engineering Project (Cryptocurrency based Sales Funnel).
-[Product Demo](https://www.youtube.com/watch?v=s8mL0AI5Nqo&feature=share)
+
 
 ## Links to Sales Funnel
 
 - [Merchant Login](http://35.195.58.180:3000/merchant/login)
 - [Sample Sales Funnel](http://35.195.58.180:3000/0x02b7433EA4f93554856aa657Da1494B2Bf645EF0/products/cpp-course)
+- [Product Demo Video](https://www.youtube.com/watch?v=s8mL0AI5Nqo&feature=share)
 
 ## Requirements
 
